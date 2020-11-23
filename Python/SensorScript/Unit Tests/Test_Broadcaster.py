@@ -17,9 +17,9 @@ class TestBroadcast(unittest.TestCase):
             
             data, addr = client.recvfrom(1024)
             returnedData = data.decode('utf-8')
-            if(returnedData == "27.00000"):
+            if (float(returnedData) > 22.0):
                 break
-        self.assertEqual(returnedData, "27.00000", "recieved data should be above 0")
+        self.assertGreater(float(returnedData), 22.0, "recieved data should be above 22.0")
 
 
 
