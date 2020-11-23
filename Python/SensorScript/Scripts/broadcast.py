@@ -10,7 +10,7 @@ class BroadCaster():
         server.settimeout(0.2)
         sens = sensor.Sensor()
         while True:
-            message = bytes(str(sens.get_temp()))
+            message = bytes(str(sens.get_temp()).encode())
             server.sendto(message, ("<broadcast>", 42069))
             time.sleep(1)
 
