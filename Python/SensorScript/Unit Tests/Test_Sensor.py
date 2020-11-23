@@ -7,7 +7,7 @@ class TestSensor(unittest.TestCase):
 
     def test_sensor_data(self):
         sensor = sens.Sensor()
-        self.assertGreater(0, sensor.get_temp(), "getTemp should give temperature below 0, unless sensor is plugged in")
+        self.assertGreater(sensor.get_temp(), 0, "getTemp should give temperature above 0, unless sensor is plugged in")
 
     
 
