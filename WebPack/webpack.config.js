@@ -9,7 +9,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
  
 module.exports = {
   // which files should webpack watch and transpile
-  entry: ['./src/index.htm', './src/scss/styles.scss', './src/js/index.ts'],
+  entry: ['./src/index.htm', './src/scss/styles.scss', './src/js/index.ts', './src/home.htm','./src/scss/home.scss'],
   module: {
     // rules webpack should follow when watching...
     rules: [
@@ -46,6 +46,7 @@ module.exports = {
           name: '[name].[ext]',
           outputPath: 'fonts/',    // where the fonts will go
           publicPath: './fonts/'       // override the default path
+          //I hate webpack
         }
       }]
     }

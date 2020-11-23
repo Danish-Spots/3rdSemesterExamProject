@@ -1,0 +1,107 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap');
+
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+
+html
+{
+    font-family: 'Roboto', sans-serif;
+    color:white;
+}
+
+body
+{
+    height: 150%;
+    margin: 0;
+    background-color: red;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+
+/*-------- HEADER ----- */
+header
+{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+    background-color: #7AA4E3;
+}
+header img
+{
+    position: absolute;
+    z-index: -1;
+    left: 7vw;
+    top: 10px;
+    width: 65px;
+    height: 65px;
+   
+}
+.header-container
+{
+    width: 100%;
+    display: flex;
+}
+
+
+
+.logo-container, nav-flex
+{   display: block;
+    flex-direction: column;
+    width: 50vw;
+    margin-left: 2vw;
+}
+
+#logoName
+{
+font-size: 45px;
+}
+
+#logoName span
+{
+    font-weight: 900;
+}
+
+.logo-container label
+{
+    display: block;
+}
+
+.menu-options
+{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+
+.nav-flex li
+{
+    min-width: 150px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.menu-options a
+{
+    word-break: keep-all;
+}
+
+
+.menu-options:hover{
+    background-color: #546f98;
+}
+
+

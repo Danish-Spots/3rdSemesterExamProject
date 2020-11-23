@@ -1,15 +1,132 @@
-$fontColor: #0091aa;
-$colorHeading: #be4a14;
-#content  // div with id: content
-{
-    color: $fontColor;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap");
+
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+html {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  text-shadow: 1px 1px 2px #000000;
 }
 
-h2
-{
-    color: $colorHeading;
+body {
+  margin: 0;
+  overflow: hidden;
 }
 
-h1{
-    @extend h2;
+/*-------- HEADER ----- */
+header {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  max-height: 80px;
+
+  overflow: hidden;
+  background-color: #7aa4e3;
+}
+header img {
+  position: absolute;
+  z-index: -1;
+  left: 7vw;
+  top: 10px;
+  width: 65px;
+  height: 65px;
+}
+.header-container {
+  width: 100%;
+  display: flex;
+}
+
+.logo-container,
+nav-flex {
+  display: block;
+  flex-direction: column;
+  min-width: 40%;
+  margin-left: 2vw;
+  min-width: 350px;
+}
+
+#logoName {
+  font-size: 45px;
+}
+
+#logoName span {
+  font-weight: 900;
+}
+
+.logo-container label {
+  display: block;
+}
+
+.menu-options {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  list-style-type: none;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+}
+
+.menu-options li {
+  padding: 30px;
+  min-width: 150px;
+}
+
+.menu-options li:hover {
+  background-color: #546f98;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 990px) {
+  .menu-options li {
+    padding: 30px 10px;
+    min-width: 150px;
+  }
+}
+
+/* ******************* MAIN CONTENT ************* */
+
+.main-container {
+  display: block;
+  top: 80px;
+  position: relative;
+  width: 70%;
+  left: 15%;
+}
+
+.main-container h1 {
+  margin: 25px 30px;
+  color: #546f98;
+  text-shadow: none;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-container > div {
+  width: 90%;
+  height: 130px;
+  background-color: #7aa4e3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.info-title {
+  font-size: 20px;
+}
+
+.info-value {
+  margin: 30px -150px 0 0;
+  font-size: 45px;
 }
