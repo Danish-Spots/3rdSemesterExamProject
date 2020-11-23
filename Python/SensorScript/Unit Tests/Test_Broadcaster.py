@@ -3,7 +3,7 @@ import sys
 import time
 from socket import *
 sys.path.append("../") 
-from Scripts import Broadcaster
+import Scripts
 
 class TestBroadcast(unittest.TestCase):
     def test_broadcaster(self):
