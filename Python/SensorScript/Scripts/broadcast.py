@@ -12,3 +12,6 @@ class BroadCaster():
         while True:
             server.sendto(message, ("<broadcast>", 42069))
             time.sleep(1)
+
+
+BroadCaster().start_broadcast()
