@@ -8,7 +8,7 @@ class BroadCaster():
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         server.settimeout(0.2)
-        message = 27.00000
+        message = b"27.00000"
         while True:
             server.sendto(message, ("<broadcast>", 42069))
             time.sleep(1)

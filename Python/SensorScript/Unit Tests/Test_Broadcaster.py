@@ -18,8 +18,8 @@ class TestBroadcast(unittest.TestCase):
         client.bind(("", 42069))
         while True:
             data, addr = client.recvfrom(1024)
-            returnedData = 0
-            self.assertGreater(returnedData, 0, "recieved data should be above 0")
+            returnedData = data.decode('utf-8')
+            self.assertEqual(returnedData, "27.00000", "recieved data should be above 0")
 
 
 
