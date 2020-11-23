@@ -1,7 +1,7 @@
 import socket
 import time
 import sensor
-
+import asyncio
 
 class BroadCaster():
     async def start_broadcast(self):
@@ -15,7 +15,4 @@ class BroadCaster():
             time.sleep(1)
 
 
-def start():
-    await BroadCaster().start_broadcast()
-
-start()
+asyncio.run(BroadCaster().start_broadcast())
