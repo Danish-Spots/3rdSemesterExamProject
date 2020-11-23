@@ -10,3 +10,5 @@ class Sensor():
     def get_temp(self):
         return self.mlx.object_temperature
 
+    def get_ambient_temp(self):
+        return self.mlx.ambient_temperature
