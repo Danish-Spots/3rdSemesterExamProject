@@ -15,4 +15,4 @@ class BroadCaster():
             time.sleep(1)
 
 
-BroadCaster().start_broadcast()
+await BroadCaster().start_broadcast()
