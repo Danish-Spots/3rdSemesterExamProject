@@ -7,8 +7,8 @@ import Scripts
 
 class TestBroadcast(unittest.TestCase):
     def test_broadcaster(self):
-        bc = Scripts.Broadcaster()
-        bc.startBroadcaster()
+        bc = Scripts.BroadCaster()
+        bc.start_broadcast()
         time.sleep(5)
         
         client = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
