@@ -14,5 +14,5 @@ class BroadCaster():
             server.sendto(message, ("<broadcast>", 42069))
             time.sleep(1)
 
-
-await BroadCaster().start_broadcast()
+if __name__ == '__main__':
+    await BroadCaster().start_broadcast()
