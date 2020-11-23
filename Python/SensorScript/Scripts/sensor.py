@@ -8,5 +8,5 @@ class Sensor():
         self.mlx = adafruit_mlx90614.MLX90614(self.i2c)
 
     def get_temp(self):
-        return self.mlx.object_temperature()
+        return self.mlx.object_temperature
 
