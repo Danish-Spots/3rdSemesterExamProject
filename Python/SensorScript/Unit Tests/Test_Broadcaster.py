@@ -7,7 +7,7 @@ import Scripts
 
 class TestBroadcast(unittest.TestCase):
     def test_broadcaster(self):
-        bc = sens.Broadcaster()
+        bc = Scripts.Broadcaster()
         bc.startBroadcaster()
         time.sleep(5)
         
