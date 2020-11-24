@@ -35,10 +35,27 @@ namespace ApiUnitTest
             RaspberryPisController controller = new RaspberryPisController();
 
             //Act
-            RaspberryPi p = controller.Get(1);
+            IActionResult p = controller.Get(1);
+            OkObjectResult result = p as OkObjectResult;
 
             //Assert
-            Assert.IsNotNull(p);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetOneIDNotFound()
+        {
+            //Arrange
+            RaspberryPisController controller = new RaspberryPisController();
+
+            //Act
+            IActionResult p = controller.Get(50);
+            NotFoundResult result = p as NotFoundResult;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
 
         //Passed
@@ -48,17 +65,18 @@ namespace ApiUnitTest
         //    //Arrange
         //    RaspberryPi p = new RaspberryPi()
         //    {
-        //        Location = "Test Location 2",
+        //        Location = "Test Location 3",
         //        IsActive = false,
-        //        ID = 1,
+        //        ID = 0,
         //        ProfileID = 2
         //    };
-        //    RaspberyPisController controller = new RaspberyPisController();
+        //    RaspberryPisController controller = new RaspberryPisController();
 
         //    //Act
         //    CreatedAtActionResult response = (CreatedAtActionResult)controller.Post(p);
 
         //    //Assert
+        //    Assert.IsNotNull(response);
         //    Assert.AreEqual(response.StatusCode, 201);
         //}
 
@@ -71,13 +89,13 @@ namespace ApiUnitTest
             {
                 Location = "Test Location Updated",
                 IsActive = false,
-                ID = 1,
+                ID = 3,
                 ProfileID = 2
             };
             RaspberryPisController controller = new RaspberryPisController();
 
             //Act
-            StatusCodeResult response = (StatusCodeResult)controller.Put(1, p);
+            StatusCodeResult response = (StatusCodeResult)controller.Put(3, p);
 
             //Assert
             Assert.AreEqual(response.StatusCode, 200);
@@ -131,7 +149,7 @@ namespace ApiUnitTest
         //    RaspberryPisController controller = new RaspberryPisController();
 
         //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(2);
+        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(3);
 
         //    //Assert
         //    Assert.AreEqual(response.StatusCode, 200);

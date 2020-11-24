@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Static
 {
@@ -35,6 +36,7 @@ namespace WebApi.Static
                     {
                         insertCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
+
                     insertCommand.ExecuteNonQuery();
                 }
             }

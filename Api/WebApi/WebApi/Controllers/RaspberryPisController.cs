@@ -24,29 +24,26 @@ namespace WebApi.Controllers
 
         // GET api/<RaspberyPisController>/5
         [HttpGet("{id}")]
-        public RaspberryPi Get(int id)
+        public IActionResult Get(int id)
         {
-            return getPisFromDB("Select * from RaspberryPis where id=@id", ("@id", id))[0];
+            try
+            {
+                return Ok(getPisFromDB("Select * from RaspberryPis where id=@id", ("@id", id))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/<RaspberyPisController>
         [HttpPost]
         public IActionResult Post([FromBody] RaspberryPi value)
         {
-            string insertUserSql =
+            string insertRPISql =
                 "insert into RaspberryPis (location, isActive, profileID) values (@location, @isActive, @profileID)";
-            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-            {
-                databaseConnection.Open();
-                using (SqlCommand insertCommand = new SqlCommand(insertUserSql, databaseConnection))
-                {
-                    insertCommand.Parameters.AddWithValue("@location", value.Location);
-                    insertCommand.Parameters.AddWithValue("@isActive", value.IsActive);
-                    insertCommand.Parameters.AddWithValue("@profileID", value.ProfileID);
-                    insertCommand.ExecuteNonQuery();
-                    return CreatedAtAction("Get", new { id = value.ID }, value);
-                }
-            }
+            StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID));
+            return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
         // PUT api/<RaspberyPisController>/5
@@ -55,14 +52,9 @@ namespace WebApi.Controllers
         {
             if (id != value.ID)
                 return BadRequest();
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getRPI = Get(id);
+            if (getRPI.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string updatePiSql =
                 "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID where id=@id";
             StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@id", value.ID));
@@ -73,14 +65,9 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getRPI = Get(id);
+            if (getRPI.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string deletePiSql = "Delete from RaspberryPis where id=@id";
             StaticMethods.updateOrDeleteFromDB(deletePiSql, ("@id", id));
             return Ok();
@@ -99,7 +86,6 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
-
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -115,7 +101,6 @@ namespace WebApi.Controllers
                     }
                 }
             }
-
             return pis;
         }
     }
