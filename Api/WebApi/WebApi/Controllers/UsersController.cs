@@ -25,42 +25,45 @@ namespace WebApi.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public User Get(int id)
+        public IActionResult Get(int id)
         {
-            return getUsersFromDB("select id, userName, password, email, profileID from Users where id=@id", ("@id", id))[0];
+            try
+            {
+                return Ok(getUsersFromDB("select id, userName, password, email, profileID from Users where id=@id", ("@id", id))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound(new {message = "ID not found"});
+            }
+        }
+
+        // GET api/<UsersController>/testuser
+        [HttpGet("{userName}")]
+        public IActionResult Get(string userName)
+        {
+            try
+            {
+                User u = getUsersFromDB("Select * from Users where userName LIKE @userName",
+                    ("@userName", userName))[0];
+                return Ok(u);
+            }
+            catch (Exception e)
+            {
+                return NotFound(new { message = "UserName not found" });
+            }
         }
 
         // POST api/<UsersController>
         [HttpPost]
         public IActionResult Post([FromBody] User value)
         {
-            try
-            {
-                User check = getUsersFromDB("Select * from Users where userName LIKE @userName",
-                    ("@userName", value.UserName))[0];
-                
+            var getUser = Get(value.UserName);
+            if (getUser.GetType() == typeof(OkObjectResult))
                 return Conflict();
-            }
-            catch (Exception e)
-            {
-                string insertUserSql =
-                    "insert into Users (userName, password, email, profileID) values (@userName, @password, @email, @profileID)";
-                using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-                {
-                    databaseConnection.Open();
-                    using (SqlCommand insertCommand = new SqlCommand(insertUserSql, databaseConnection))
-                    {
-                        insertCommand.Parameters.AddWithValue("@userName", value.UserName);
-                        insertCommand.Parameters.AddWithValue("@password", value.Password);
-                        insertCommand.Parameters.AddWithValue("@email", value.Email);
-                        insertCommand.Parameters.AddWithValue("@profileID", value.ProfileID);
-                        insertCommand.ExecuteNonQuery();
-                    }
-                }
-               
-            }
-
-            return Ok();
+            string insertUserSql =
+                "insert into Users (userName, password, email, profileID) values (@userName, @password, @email, @profileID)";
+            StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
+            return CreatedAtAction("Get", new {id = value.ID}, value);
         }
 
         // PUT api/<UsersController>/5
@@ -69,17 +72,12 @@ namespace WebApi.Controllers
         {
             if (id != value.ID)
                 return BadRequest();
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getUser = Get(id);
+            if (getUser.GetType() == typeof(NotFoundObjectResult))
                 return NotFound();
-            }
             string updateUserSql =
                 "update Users set userName=@userName, password=@password, email=@email, profileID=@profileID where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID), ("@id", value.ID));
+            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID), ("@id", value.ID));
             return Ok();
         }
 
@@ -87,16 +85,11 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getUser = Get(id);
+            if (getUser.GetType() == typeof(NotFoundObjectResult))
                 return NotFound();
-            }
             string deleteUserSql = "Delete from Users where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(deleteUserSql, ("@id", id));
+            StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
             return Ok();
         }
 

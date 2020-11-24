@@ -65,7 +65,7 @@ namespace WebApi.Controllers
             }
             string updatePiSql =
                 "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@id", value.ID));
+            StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@id", value.ID));
             return Ok();
         }
 
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string deletePiSql = "Delete from RaspberryPis where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(deletePiSql, ("@id", id));
+            StaticMethods.updateOrDeleteFromDB(deletePiSql, ("@id", id));
             return Ok();
         }
 

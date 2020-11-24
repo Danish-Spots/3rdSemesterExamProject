@@ -66,7 +66,7 @@ namespace WebApi.Controllers
             }
             string updateUserSql =
                 "update Tests set temperature=@temperature, timeOfDataRecording=@timeOfDataRecording, RPI_ID=@RPI_ID, hasFever=@hasFever where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@id", value.ID));
+            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@id", value.ID));
             return Ok();
         }
 
@@ -83,7 +83,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string deleteUserSql = "Delete from Tests where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(deleteUserSql, ("@id", id));
+            StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
             return Ok();
         }
 

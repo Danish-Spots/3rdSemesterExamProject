@@ -28,6 +28,8 @@ namespace ApiUnitTest
             Assert.AreEqual(check, true);
         }
 
+
+
         [TestMethod]
         public void TestGetOne()
         {
@@ -35,33 +37,49 @@ namespace ApiUnitTest
             UsersController controller = new UsersController();
 
             //Act
-            User p = controller.Get(9);
-
+            IActionResult p = controller.Get(9);
+            
             //Assert
             Assert.IsNotNull(p);
         }
 
-        //passed
         [TestMethod]
-        public void TestPostOne()
+        public void TestGetOneIDOutOfRange()
         {
             //Arrange
-            User p = new User()
-            {
-                UserName = "testUser2",
-                Password = "testPassword",
-                Email = "test@test.com",
-                ID = 1,
-                ProfileID = 2
-            };
             UsersController controller = new UsersController();
 
             //Act
-            StatusCodeResult response = (StatusCodeResult)controller.Post(p);
-
+            IActionResult p = controller.Get(93);
+            NotFoundObjectResult result = p as NotFoundObjectResult;
+            
             //Assert
-            Assert.AreEqual(response.StatusCode, 200);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
+
+        //passed
+        //[TestMethod]
+        //public void TestPostOne()
+        //{
+        //    //Arrange
+        //    User p = new User()
+        //    {
+        //        UserName = "testUser5",
+        //        Password = "testPassword",
+        //        Email = "test@test.com",
+        //        ID = 1,
+        //        ProfileID = 2
+        //    };
+        //    UsersController controller = new UsersController();
+
+        //    //Act
+        //    IActionResult response = controller.Post(p);
+        //    CreatedAtActionResult result = response as CreatedAtActionResult;
+        //    //Assert
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual(result.StatusCode, 201);
+        //}
 
         [TestMethod]
         public void TestPostOneIDConflict()
@@ -86,27 +104,27 @@ namespace ApiUnitTest
 
 
         //Passed
-        //[TestMethod]
-        //public void TestUpdateOne()
-        //{
-        //    //Arrange
-        //    DateTime date = DateTime.Now;
-        //    User u = new User()
-        //    {
-        //        UserName = "testUse1r",
-        //        Password = "testPasswor1d",
-        //        Email = "test@test.com1",
-        //        ID = 10,
-        //        ProfileID = 2
-        //    };
-        //    UsersController controller = new UsersController();
+        [TestMethod]
+        public void TestUpdateOne()
+        {
+            //Arrange
+            DateTime date = DateTime.Now;
+            User u = new User()
+            {
+                UserName = "testUse1r",
+                Password = "testPasswor1d",
+                Email = "test@test.com1",
+                ID = 11,
+                ProfileID = 2
+            };
+            UsersController controller = new UsersController();
 
-        //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Put(10, u);
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Put(11, u);
 
-        //    //Assert
-        //    Assert.AreEqual(response.StatusCode, 200);
-        //}
+            //Assert
+            Assert.AreEqual(response.StatusCode, 200);
+        }
 
         [TestMethod]
         public void TestUpdateOneIDMismatch()

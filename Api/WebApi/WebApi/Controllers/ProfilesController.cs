@@ -67,8 +67,8 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string updateUserSql =
-                "update Profiles set companyName=@companyName, city=@city, joinDate=@joineDate, phone=@phone, address=@address, country=@country where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@companyName", value.CompanyName),
+                "update Profiles set companyName=@companyName, city=@city, joinDate=@joinDate, phone=@phone, address=@address, country=@country where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@companyName", value.CompanyName),
                 ("@city", value.City), ("@joinDate", value.JoinDate), ("@phone", value.Phone),
                 ("@address", value.Address), ("@country", value.Country), ("@id", id));
             return Ok();
@@ -87,7 +87,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string deleteUserSql = "Delete from Profiles where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(deleteUserSql, ("@id", id));
+            StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
             return Ok();
         }
 

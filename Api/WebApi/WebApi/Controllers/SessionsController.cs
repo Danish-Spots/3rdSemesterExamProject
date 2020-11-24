@@ -76,7 +76,7 @@ namespace WebApi.Controllers
             }
             string updateSessionSql =
                 "update Sessions set [key]=@key, userID=@userID where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateSessionSql, ("@key", value.Key), ("@userID", value.UserID), ("@id", value.ID));
+            StaticMethods.updateOrDeleteFromDB(updateSessionSql, ("@key", value.Key), ("@userID", value.UserID), ("@id", value.ID));
             return Ok();
         }
 
@@ -93,7 +93,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string deleteSessionSql = "Delete from Sessions where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(deleteSessionSql, ("@id", id));
+            StaticMethods.updateOrDeleteFromDB(deleteSessionSql, ("@id", id));
             return Ok();
         }
 
