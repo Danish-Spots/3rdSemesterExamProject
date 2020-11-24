@@ -7,5 +7,9 @@ namespace WebApi.Models
 {
     public class RaspberryPi
     {
+        public int ID { get; set; }
+        public string Location { get; set; }
+        public bool IsActive { get; set; }
+        public int ProfileID { get; set; }
     }
 }
