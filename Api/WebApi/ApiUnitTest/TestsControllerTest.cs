@@ -35,10 +35,27 @@ namespace ApiUnitTest
             TestsController controller = new TestsController();
 
             //Act
-            Test p = controller.Get(3);
+            IActionResult p = controller.Get(3);
+            OkObjectResult result = p as OkObjectResult;
 
             //Assert
-            Assert.IsNotNull(p);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetOneIDNotFound()
+        {
+            //Arrange
+            TestsController controller = new TestsController();
+
+            //Act
+            IActionResult p = controller.Get(50);
+            StatusCodeResult result = p as StatusCodeResult;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
 
 
@@ -118,14 +135,14 @@ namespace ApiUnitTest
             {
                 Temperature = 37.029838,
                 TimeOfDataRecording = date,
-                ID = 8,
+                ID = 50,
                 HasFever = true,
                 RaspberryPiID = 1,
             };
             TestsController controller = new TestsController();
 
             //Act
-            StatusCodeResult response = (StatusCodeResult)controller.Put(8, u);
+            StatusCodeResult response = (StatusCodeResult)controller.Put(50, u);
 
             //Assert
             Assert.AreEqual(response.StatusCode, StatusCodes.Status404NotFound);
@@ -139,7 +156,7 @@ namespace ApiUnitTest
         //    TestsController controller = new TestsController();
 
         //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(4);
+        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(5);
 
         //    //Assert
         //    Assert.AreEqual(response.StatusCode, 200);

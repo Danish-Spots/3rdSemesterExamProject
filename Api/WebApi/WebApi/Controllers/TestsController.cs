@@ -24,9 +24,17 @@ namespace WebApi.Controllers
 
         // GET api/<TestsController>/5
         [HttpGet("{id}")]
-        public Test Get(int id)
+        public IActionResult Get(int id)
         {
-            return getTestsFromDB("Select * from Tests where id=@id", ("@id", id))[0];
+            try
+            {
+                return Ok(getTestsFromDB("Select * from Tests where id=@id", ("@id", id))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+            
         }
 
         // POST api/<TestsController>
@@ -35,19 +43,9 @@ namespace WebApi.Controllers
         {
             string insertTestSql =
                 "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever)";
-            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-            {
-                databaseConnection.Open();
-                using (SqlCommand insertCommand = new SqlCommand(insertTestSql, databaseConnection))
-                {
-                    insertCommand.Parameters.AddWithValue("@temperature", value.Temperature);
-                    insertCommand.Parameters.AddWithValue("@timeOfDataRecording", value.TimeOfDataRecording);
-                    insertCommand.Parameters.AddWithValue("@RPI_ID", value.RaspberryPiID);
-                    insertCommand.Parameters.AddWithValue("@hasFever", value.HasFever);
-                    insertCommand.ExecuteNonQuery();
-                    return CreatedAtAction("Get", new { id = value.ID }, value);
-                }
-            }
+            StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
+                ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
+            return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
         // PUT api/<TestsController>/5
@@ -56,14 +54,9 @@ namespace WebApi.Controllers
         {
             if (id != value.ID)
                 return BadRequest();
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getTest = Get(id);
+            if (getTest.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string updateUserSql =
                 "update Tests set temperature=@temperature, timeOfDataRecording=@timeOfDataRecording, RPI_ID=@RPI_ID, hasFever=@hasFever where id=@id";
             StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@id", value.ID));
@@ -74,14 +67,9 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getTest = Get(id);
+            if (getTest.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string deleteUserSql = "Delete from Tests where id=@id";
             StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
             return Ok();
@@ -90,7 +78,6 @@ namespace WebApi.Controllers
         private List<Test> getTestsFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Test> tests = new List<Test>();
-
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
                 using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
@@ -100,7 +87,6 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
-
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -117,7 +103,6 @@ namespace WebApi.Controllers
                     }
                 }
             }
-
             return tests;
         }
     }
