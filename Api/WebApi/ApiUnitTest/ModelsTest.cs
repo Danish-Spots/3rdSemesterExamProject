@@ -94,5 +94,23 @@ namespace ApiUnitTest
             Assert.AreEqual(t.RaspberryPiID, 1);
             Assert.AreEqual(t.HasFever, false);
         }
+
+        [TestMethod]
+        public void TestSession()
+        {
+            //Arrange
+            Session s = new Session();
+
+            //Act
+            s.ID = 1;
+            s.Key = "sdajsdas";
+            s.UserID = 2;
+
+            //Assert
+            Assert.AreEqual(s.ID, 1);
+            Assert.AreEqual(s.Key, "sdajsdas");
+            Assert.AreEqual(s.UserID, 2);
+
+        }
     }
 }

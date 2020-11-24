@@ -7,5 +7,8 @@ namespace WebApi.Models
 {
     public class Session
     {
+        public int ID { get; set; }
+        public string Key { get; set; }
+        public int UserID { get; set; }
     }
 }

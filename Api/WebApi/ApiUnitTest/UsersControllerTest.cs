@@ -42,26 +42,26 @@ namespace ApiUnitTest
         }
 
         //passed
-        //[TestMethod]
-        //public void TestPostOne()
-        //{
-        //    //Arrange
-        //    User p = new User()
-        //    {
-        //        userName = "testUser2",
-        //        password = "testPassword",
-        //        email = "test@test.com",
-        //        ID = 1,
-        //        profileID = 2
-        //    };
-        //    UsersController controller = new UsersController();
+        [TestMethod]
+        public void TestPostOne()
+        {
+            //Arrange
+            User p = new User()
+            {
+                UserName = "testUser2",
+                Password = "testPassword",
+                Email = "test@test.com",
+                ID = 1,
+                ProfileID = 2
+            };
+            UsersController controller = new UsersController();
 
-        //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Post(p);
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Post(p);
 
-        //    //Assert
-        //    Assert.AreEqual(response.StatusCode, 201);
-        //}
+            //Assert
+            Assert.AreEqual(response.StatusCode, 200);
+        }
 
         [TestMethod]
         public void TestPostOneIDConflict()
