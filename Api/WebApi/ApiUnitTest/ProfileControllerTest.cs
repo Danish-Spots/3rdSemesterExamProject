@@ -48,13 +48,13 @@ namespace ApiUnitTest
         //    //Arrange
         //    Profile p = new Profile()
         //    {
-        //        address = "testAd",
-        //        city = "testCi",
-        //        companyName = "testCN",
-        //        country = "testCo",
+        //        Address = "testAd",
+        //        City = "testCi",
+        //        CompanyName = "testCN",
+        //        Country = "testCo",
         //        ID = 0,
-        //        joinDate = DateTime.Now,
-        //        phone = "1234"
+        //        JoineDate = DateTime.Now,
+        //        Phone = "1234"
         //    };
         //    ProfilesController controller = new ProfilesController();
 
@@ -73,8 +73,8 @@ namespace ApiUnitTest
             DateTime date = DateTime.Now;
             Profile p = new Profile()
                 {
-                    address = "Ad", city = "Ci", companyName = "CN", country = "Co", ID = 2,
-                    joinDate = date, phone = "14"
+                    Address = "Ad", City = "Ci", CompanyName = "CN", Country = "Co", ID = 2,
+                    JoinDate = date, Phone = "14"
                 };
             ProfilesController controller = new ProfilesController();
 
@@ -92,13 +92,13 @@ namespace ApiUnitTest
             DateTime date = DateTime.Now;
             Profile p = new Profile()
             {
-                address = "Ad",
-                city = "Ci",
-                companyName = "CN",
-                country = "Co",
+                Address = "Ad",
+                City = "Ci",
+                CompanyName = "CN",
+                Country = "Co",
                 ID = 2,
-                joinDate = date,
-                phone = "14"
+                JoinDate = date,
+                Phone = "14"
             };
             ProfilesController controller = new ProfilesController();
 
@@ -116,13 +116,13 @@ namespace ApiUnitTest
             DateTime date = DateTime.Now;
             Profile p = new Profile()
             {
-                address = "Ad",
-                city = "Ci",
-                companyName = "CN",
-                country = "Co",
+                Address = "Ad",
+                City = "Ci",
+                CompanyName = "CN",
+                Country = "Co",
                 ID = 8,
-                joinDate = date,
-                phone = "14"
+                JoinDate = date,
+                Phone = "14"
             };
             ProfilesController controller = new ProfilesController();
 

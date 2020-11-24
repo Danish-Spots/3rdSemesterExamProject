@@ -37,7 +37,7 @@ namespace WebApi.Controllers
             try
             {
                 User check = getUsersFromDB("Select * from Users where userName LIKE @userName",
-                    ("@userName", value.userName))[0];
+                    ("@userName", value.UserName))[0];
                 
                 return Conflict();
             }
@@ -50,10 +50,10 @@ namespace WebApi.Controllers
                     databaseConnection.Open();
                     using (SqlCommand insertCommand = new SqlCommand(insertUserSql, databaseConnection))
                     {
-                        insertCommand.Parameters.AddWithValue("@userName", value.userName);
-                        insertCommand.Parameters.AddWithValue("@password", value.password);
-                        insertCommand.Parameters.AddWithValue("@email", value.email);
-                        insertCommand.Parameters.AddWithValue("@profileID", value.profileID);
+                        insertCommand.Parameters.AddWithValue("@userName", value.UserName);
+                        insertCommand.Parameters.AddWithValue("@password", value.Password);
+                        insertCommand.Parameters.AddWithValue("@email", value.Email);
+                        insertCommand.Parameters.AddWithValue("@profileID", value.ProfileID);
                         insertCommand.ExecuteNonQuery();
                     }
                 }
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
             }
             string updateUserSql =
                 "update Users set userName=@userName, password=@password, email=@email, profileID=@profileID where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@userName", value.userName), ("@password", value.password), ("@email", value.email), ("@profileID", value.profileID), ("@id", value.ID));
+            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID), ("@id", value.ID));
             return Ok();
         }
 
@@ -120,10 +120,10 @@ namespace WebApi.Controllers
                         {
                             User temp = new User();
                             temp.ID = reader.GetInt32(0);
-                            temp.userName = reader.GetString(1);
-                            temp.password = reader.GetString(2);
-                            temp.email = reader.GetString(3);
-                            temp.profileID = reader.GetInt32(4);
+                            temp.UserName = reader.GetString(1);
+                            temp.Password = reader.GetString(2);
+                            temp.Email = reader.GetString(3);
+                            temp.ProfileID = reader.GetInt32(4);
 
                             users.Add(temp);
                         }

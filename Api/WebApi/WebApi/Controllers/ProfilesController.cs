@@ -33,19 +33,19 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Profile value)
         {
-            string insertUserSql =
+            string insertProfileSql =
                 "insert into Profiles (companyName, city, joinDate, phone, address, country) values (@companyName, @city, @joinDate, @phone, @address, @country)";
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
                 databaseConnection.Open();
-                using (SqlCommand insertCommand = new SqlCommand(insertUserSql, databaseConnection))
+                using (SqlCommand insertCommand = new SqlCommand(insertProfileSql, databaseConnection))
                 {
-                    insertCommand.Parameters.AddWithValue("@companyName", value.companyName);
-                    insertCommand.Parameters.AddWithValue("@city", value.city);
-                    insertCommand.Parameters.AddWithValue("@joinDate", value.joinDate);
-                    insertCommand.Parameters.AddWithValue("@phone", value.phone);
-                    insertCommand.Parameters.AddWithValue("@address", value.address);
-                    insertCommand.Parameters.AddWithValue("@country", value.country);
+                    insertCommand.Parameters.AddWithValue("@companyName", value.CompanyName);
+                    insertCommand.Parameters.AddWithValue("@city", value.City);
+                    insertCommand.Parameters.AddWithValue("@joineDate", value.JoinDate);
+                    insertCommand.Parameters.AddWithValue("@phone", value.Phone);
+                    insertCommand.Parameters.AddWithValue("@address", value.Address);
+                    insertCommand.Parameters.AddWithValue("@country", value.Country);
                     insertCommand.ExecuteNonQuery();
                     return CreatedAtAction("Get", new {id = value.ID}, value);
                 }
@@ -67,10 +67,10 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             string updateUserSql =
-                "update Profiles set companyName=@companyName, city=@city, joinDate=@joinDate, phone=@phone, address=@address, country=@country where id=@id";
-            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@companyName", value.companyName),
-                ("@city", value.city), ("@joinDate", value.joinDate), ("@phone", value.phone),
-                ("@address", value.address), ("@country", value.country), ("@id", id));
+                "update Profiles set companyName=@companyName, city=@city, joinDate=@joineDate, phone=@phone, address=@address, country=@country where id=@id";
+            StaticMethods.updateOrDeleteUserFromDB(updateUserSql, ("@companyName", value.CompanyName),
+                ("@city", value.City), ("@joinDate", value.JoinDate), ("@phone", value.Phone),
+                ("@address", value.Address), ("@country", value.Country), ("@id", id));
             return Ok();
         }
 
@@ -111,12 +111,12 @@ namespace WebApi.Controllers
                         {
                             Profile temp = new Profile();
                             temp.ID = reader.GetInt32(0);
-                            temp.companyName = reader.GetString(1);
-                            temp.city = reader.GetString(2);
-                            temp.joinDate = reader.GetDateTime(3);
-                            temp.phone = reader.GetString(4);
-                            temp.address = reader.GetString(5);
-                            temp.country = reader.GetString(6);
+                            temp.CompanyName = reader.GetString(1);
+                            temp.City = reader.GetString(2);
+                            temp.JoinDate = reader.GetDateTime(3);
+                            temp.Phone = reader.GetString(4);
+                            temp.Address = reader.GetString(5);
+                            temp.Country = reader.GetString(6);
 
                             profiles.Add(temp);
                         }

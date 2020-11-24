@@ -69,11 +69,11 @@ namespace ApiUnitTest
             //Arrange
             User p = new User()
             {
-                userName = "testUser",
-                password = "testPassword",
-                email = "test@test.com",
+                UserName = "testUser",
+                Password = "testPassword",
+                Email = "test@test.com",
                 ID = 1,
-                profileID = 2
+                ProfileID = 2
             };
             UsersController controller = new UsersController();
 
@@ -93,11 +93,11 @@ namespace ApiUnitTest
         //    DateTime date = DateTime.Now;
         //    User u = new User()
         //    {
-        //        userName = "testUse1r",
-        //        password = "testPasswor1d",
-        //        email = "test@test.com1",
+        //        UserName = "testUse1r",
+        //        Password = "testPasswor1d",
+        //        Email = "test@test.com1",
         //        ID = 10,
-        //        profileID = 2
+        //        ProfileID = 2
         //    };
         //    UsersController controller = new UsersController();
 
@@ -115,11 +115,11 @@ namespace ApiUnitTest
             DateTime date = DateTime.Now;
             User u = new User()
             {
-                userName = "testUse1r",
-                password = "testPasswor1d",
-                email = "test@test.com1",
+                UserName = "testUse1r",
+                Password = "testPasswor1d",
+                Email = "test@test.com1",
                 ID = 1,
-                profileID = 2
+                ProfileID = 2
             };
             UsersController controller = new UsersController();
 
@@ -137,11 +137,11 @@ namespace ApiUnitTest
             DateTime date = DateTime.Now;
             User u = new User()
             {
-                userName = "testUse1r",
-                password = "testPasswor1d",
-                email = "test@test.com1",
+                UserName = "testUse1r",
+                Password = "testPasswor1d",
+                Email = "test@test.com1",
                 ID = 8,
-                profileID = 2
+                ProfileID = 2
             };
             UsersController controller = new UsersController();
 
