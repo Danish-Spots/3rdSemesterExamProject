@@ -73,7 +73,7 @@ namespace WebApi.Controllers
             if (id != value.ID)
                 return BadRequest();
             var getUser = Get(id);
-            if (getUser.GetType() == typeof(NotFoundObjectResult))
+            if (getUser.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string updateUserSql =
                 "update Users set userName=@userName, password=@password, email=@email, profileID=@profileID where id=@id";
@@ -86,7 +86,7 @@ namespace WebApi.Controllers
         public IActionResult Delete(int id)
         {
             var getUser = Get(id);
-            if (getUser.GetType() == typeof(NotFoundObjectResult))
+            if (getUser.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string deleteUserSql = "Delete from Users where id=@id";
             StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
@@ -96,7 +96,6 @@ namespace WebApi.Controllers
         private List<User> getUsersFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<User> users = new List<User>();
-
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
                 using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
@@ -106,7 +105,6 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
-
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -123,10 +121,7 @@ namespace WebApi.Controllers
                     }
                 }
             }
-
             return users;
         }
-
-        
     }
 }

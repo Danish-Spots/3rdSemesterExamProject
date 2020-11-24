@@ -35,35 +35,50 @@ namespace ApiUnitTest
             ProfilesController controller = new ProfilesController();
 
             //Act
-            Profile p = controller.Get(2);
-
+            IActionResult p = controller.Get(2);
+            OkObjectResult result = p as OkObjectResult;
             //Assert
-            Assert.IsNotNull(p);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetOneIDOutOfRange()
+        {
+            //Arrange
+            ProfilesController controller = new ProfilesController();
+
+            //Act
+            IActionResult p = controller.Get(650);
+            StatusCodeResult result = p as StatusCodeResult;
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
 
         //Passed
-        //[TestMethod]
-        //public void TestPostOne()
-        //{
-        //    //Arrange
-        //    Profile p = new Profile()
-        //    {
-        //        Address = "testAd",
-        //        City = "testCi",
-        //        CompanyName = "testCN",
-        //        Country = "testCo",
-        //        ID = 0,
-        //        JoineDate = DateTime.Now,
-        //        Phone = "1234"
-        //    };
-        //    ProfilesController controller = new ProfilesController();
+        [TestMethod]
+        public void TestPostOne()
+        {
+            //Arrange
+            Profile p = new Profile()
+            {
+                Address = "testAd",
+                City = "testCi",
+                CompanyName = "testCN",
+                Country = "testCo",
+                ID = 0,
+                JoinDate = DateTime.Now,
+                Phone = "1234"
+            };
+            ProfilesController controller = new ProfilesController();
 
-        //    //Act
-        //     CreatedAtActionResult response = (CreatedAtActionResult) controller.Post(p);
-            
-        //     //Assert
-        //     Assert.AreEqual(response.StatusCode, 201);
-        //}
+            //Act
+            CreatedAtActionResult response = (CreatedAtActionResult)controller.Post(p);
+
+            //Assert
+            Assert.AreEqual(response.StatusCode, 201);
+        }
 
         //Passed
         [TestMethod]
@@ -141,7 +156,7 @@ namespace ApiUnitTest
         //    ProfilesController controller = new ProfilesController();
 
         //    //Act
-        //    StatusCodeResult response = (StatusCodeResult) controller.Delete(7);
+        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(9);
 
         //    //Assert
         //    Assert.AreEqual(response.StatusCode, 200);

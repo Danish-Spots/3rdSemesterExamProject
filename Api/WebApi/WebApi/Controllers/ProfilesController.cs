@@ -24,9 +24,16 @@ namespace WebApi.Controllers
 
         // GET api/<ProfilesController>/5
         [HttpGet("{id}")]
-        public Profile Get(int id)
+        public IActionResult Get(int id)
         {
-            return getProfilesFromDB("Select * from Profiles where id=@id", ("@id", id))[0];
+            try
+            {
+                return Ok(getProfilesFromDB("Select * from Profiles where id=@id", ("@id", id))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/<ProfilesController>
@@ -35,21 +42,9 @@ namespace WebApi.Controllers
         {
             string insertProfileSql =
                 "insert into Profiles (companyName, city, joinDate, phone, address, country) values (@companyName, @city, @joinDate, @phone, @address, @country)";
-            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-            {
-                databaseConnection.Open();
-                using (SqlCommand insertCommand = new SqlCommand(insertProfileSql, databaseConnection))
-                {
-                    insertCommand.Parameters.AddWithValue("@companyName", value.CompanyName);
-                    insertCommand.Parameters.AddWithValue("@city", value.City);
-                    insertCommand.Parameters.AddWithValue("@joineDate", value.JoinDate);
-                    insertCommand.Parameters.AddWithValue("@phone", value.Phone);
-                    insertCommand.Parameters.AddWithValue("@address", value.Address);
-                    insertCommand.Parameters.AddWithValue("@country", value.Country);
-                    insertCommand.ExecuteNonQuery();
-                    return CreatedAtAction("Get", new {id = value.ID}, value);
-                }
-            }
+            StaticMethods.PostToDB(insertProfileSql, ("@companyName", value.CompanyName), ("@city", value.City), ("@joinDate", value.JoinDate), 
+                ("@phone", value.Phone), ("@address", value.Address), ("@country", value.Country));
+            return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
         // PUT api/<ProfilesController>/5
@@ -58,14 +53,9 @@ namespace WebApi.Controllers
         {
             if (id != value.ID)
                 return BadRequest();
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getProfile = Get(id);
+            if (getProfile.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string updateUserSql =
                 "update Profiles set companyName=@companyName, city=@city, joinDate=@joinDate, phone=@phone, address=@address, country=@country where id=@id";
             StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@companyName", value.CompanyName),
@@ -78,14 +68,9 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getProfile = Get(id);
+            if (getProfile.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string deleteUserSql = "Delete from Profiles where id=@id";
             StaticMethods.updateOrDeleteFromDB(deleteUserSql, ("@id", id));
             return Ok();
@@ -94,7 +79,6 @@ namespace WebApi.Controllers
         private List<Profile> getProfilesFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Profile> profiles = new List<Profile>();
-
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
                 using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
@@ -104,7 +88,6 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
-
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -123,7 +106,6 @@ namespace WebApi.Controllers
                     }
                 }
             }
-
             return profiles;
         }
     }
