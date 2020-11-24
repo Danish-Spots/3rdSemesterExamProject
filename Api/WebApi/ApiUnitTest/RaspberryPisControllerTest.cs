@@ -80,6 +80,27 @@ namespace ApiUnitTest
         //    Assert.AreEqual(response.StatusCode, 201);
         //}
 
+        [TestMethod]
+        public void TestPostOneProfileIDOutOfRange()
+        {
+            //Arrange
+            RaspberryPi p = new RaspberryPi()
+            {
+                Location = "Test Location 3",
+                IsActive = false,
+                ID = 0,
+                ProfileID = 237
+            };
+            RaspberryPisController controller = new RaspberryPisController();
+
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Post(p);
+
+            //Assert
+            Assert.IsNotNull(response);
+            Assert.AreEqual(response.StatusCode, 400);
+        }
+
 
         [TestMethod]
         public void TestUpdateOne()
@@ -154,6 +175,8 @@ namespace ApiUnitTest
         //    //Assert
         //    Assert.AreEqual(response.StatusCode, 200);
         //}
+
+
 
         [TestMethod]
         public void TestDeleteOneIDOutOfRange()

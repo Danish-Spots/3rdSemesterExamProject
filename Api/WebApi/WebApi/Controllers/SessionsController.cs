@@ -24,40 +24,47 @@ namespace WebApi.Controllers
 
         // GET api/<SessionsController>/5
         [HttpGet("{id}")]
-        public Session Get(int id)
+        public IActionResult Get(int id)
         {
-            return getSessionsFromDB("Select * from Sessions where id=@id", ("@id", id))[0];
+            try
+            {
+                return Ok(getSessionsFromDB("Select * from Sessions where id=@id", ("@id", id))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+            
+        }
+
+        // GET api/<SessionsController>/sessions/userID
+        [HttpGet("sessions/{userID}")]
+        public IActionResult GetByUID(int userID)
+        {
+            try
+            {
+                return Ok(getSessionsFromDB("Select * from Sessions where userID=@userID",
+                    ("@userID", userID))[0]);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/<SessionsController>
         [HttpPost]
         public IActionResult Post([FromBody] Session value)
         {
-            try
-            {
-                Session check = getSessionsFromDB("Select * from Sessions where userID=@userID",
-                    ("@userID", value.UserID))[0];
-
+            var getSession = GetByUID(value.UserID);
+            if (getSession.GetType() == typeof(OkObjectResult))
                 return Conflict();
-            }
-            catch (Exception e)
-            {
-                string insertSessionsSql =
-                    "insert into Sessions ([key], userID) values (@key, @userID)";
-                using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-                {
-                    databaseConnection.Open();
-                    using (SqlCommand insertCommand = new SqlCommand(insertSessionsSql, databaseConnection))
-                    {
-                        insertCommand.Parameters.AddWithValue("@key", value.Key);
-                        insertCommand.Parameters.AddWithValue("@userID", value.UserID);
-                        insertCommand.ExecuteNonQuery();
-                    }
-                }
-
-            }
-
-            return Ok(new {message = $"Created new session", userID = value.UserID });
+            string insertSessionsSql =
+                "insert into Sessions ([key], userID) values (@key, @userID)";
+            var postResults= StaticMethods.PostToDB(insertSessionsSql, ("@key", value.Key), ("@userID", value.UserID));
+            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+                return BadRequest();
+            return CreatedAtAction("GET", new {id=value.ID}, value);
         }
 
         // PUT api/<SessionsController>/5
@@ -66,17 +73,12 @@ namespace WebApi.Controllers
         {
             if (id != value.ID)
                 return BadRequest();
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getSession = Get(value.ID);
+            if (getSession.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string updateSessionSql =
-                "update Sessions set [key]=@key, userID=@userID where id=@id";
-            StaticMethods.updateOrDeleteFromDB(updateSessionSql, ("@key", value.Key), ("@userID", value.UserID), ("@id", value.ID));
+                "update Sessions set [key]=@key where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updateSessionSql, ("@key", value.Key), ("@id", value.ID));
             return Ok();
         }
 
@@ -84,14 +86,9 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                Get(id);
-            }
-            catch (Exception e)
-            {
+            var getSession = Get(id);
+            if (getSession.GetType() == typeof(NotFoundResult))
                 return NotFound();
-            }
             string deleteSessionSql = "Delete from Sessions where id=@id";
             StaticMethods.updateOrDeleteFromDB(deleteSessionSql, ("@id", id));
             return Ok();
@@ -100,7 +97,6 @@ namespace WebApi.Controllers
         private List<Session> getSessionsFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Session> sessions = new List<Session>();
-
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
                 using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
@@ -110,7 +106,6 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
-
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -125,7 +120,6 @@ namespace WebApi.Controllers
                     }
                 }
             }
-
             return sessions;
         }
     }

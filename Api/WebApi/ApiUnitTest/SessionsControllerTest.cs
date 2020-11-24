@@ -35,10 +35,27 @@ namespace ApiUnitTest
             SessionsController controller = new SessionsController();
 
             //Act
-            Session p = controller.Get(1);
+            IActionResult p = controller.Get(1);
+            OkObjectResult result = p as OkObjectResult;
 
             //Assert
-            Assert.IsNotNull(p);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetOneIDNotFound()
+        {
+            //Arrange
+            SessionsController controller = new SessionsController();
+
+            //Act
+            IActionResult p = controller.Get(123);
+            NotFoundResult result = p as NotFoundResult;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
 
         //Passed
@@ -50,57 +67,76 @@ namespace ApiUnitTest
         //    {
         //        ID = 1,
         //        Key = "asljdhliajhbdkjh209837",
-        //        UserID = 11
+        //        UserID = 12
         //    };
         //    SessionsController controller = new SessionsController();
 
         //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Post(s);
-
+        //    IActionResult response = controller.Post(s);
+        //    CreatedAtActionResult result = response as CreatedAtActionResult;
         //    //Assert
-        //    Assert.AreEqual(response.StatusCode, 201);
+        //    Assert.AreEqual(result.StatusCode, 201);
         //}
 
         [TestMethod]
-        public void TestPostOneConflict()
+        public void TestPostOneIDInUse()
         {
             //Arrange
             Session s = new Session()
             {
                 ID = 1,
-                Key = "asljdhliajhbdkjeblifauh209837",
-                UserID = 9
+                Key = "asljdhliajhbdkjh209837",
+                UserID = 11
             };
             SessionsController controller = new SessionsController();
 
             //Act
-            StatusCodeResult response = (StatusCodeResult)controller.Post(s);
-
+            IActionResult response = controller.Post(s);
+            StatusCodeResult result = response as StatusCodeResult;
             //Assert
-            Assert.AreEqual(response.StatusCode, 409);
+            Assert.AreEqual(result.StatusCode, 409);
+        }
+
+        [TestMethod]
+        public void TestPostOneUserIDOutOfRange()
+        {
+            //Arrange
+            Session s = new Session()
+            {
+                ID = 1,
+                Key = "asljdhliajhbdkjh209837",
+                UserID = 12313
+            };
+            SessionsController controller = new SessionsController();
+
+            //Act
+            IActionResult response = controller.Post(s);
+            StatusCodeResult result = response as StatusCodeResult;
+            //Assert
+            Assert.AreEqual(result.StatusCode, 400);
         }
 
 
         //Passed
-        //[TestMethod]
-        //public void TestUpdateOne()
-        //{
-        //    //Arrange
-            
-        //    Session s = new Session()
-        //    {
-        //        Key = "changedtext",
-        //        ID = 2,
-        //        UserID = 11
-        //    };
-        //    SessionsController controller = new SessionsController();
+        [TestMethod]
+        public void TestUpdateOne()
+        {
+            //Arrange
 
-        //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Put(2, s);
+            Session s = new Session()
+            {
+                Key = "changedtext",
+                ID = 5,
+                UserID = 11
+            };
+            SessionsController controller = new SessionsController();
 
-        //    //Assert
-        //    Assert.AreEqual(response.StatusCode, 200);
-        //}
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Put(5, s);
+
+            //Assert
+            Assert.AreEqual(response.StatusCode, 200);
+        }
 
         [TestMethod]
         public void TestUpdateOneIDMismatch()
@@ -148,7 +184,7 @@ namespace ApiUnitTest
         //    SessionsController controller = new SessionsController();
 
         //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(2);
+        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(3);
 
         //    //Assert
         //    Assert.AreEqual(response.StatusCode, 200);

@@ -111,7 +111,7 @@ namespace ApiUnitTest
         //}
 
         [TestMethod]
-        public void TestPostOneIDConflict()
+        public void TestPostOneUserNameConflict()
         {
             //Arrange
             User p = new User()
@@ -131,6 +131,26 @@ namespace ApiUnitTest
             Assert.AreEqual(response.StatusCode, 409);
         }
 
+        [TestMethod]
+        public void TestPostOneProfileIDOutOfRange()
+        {
+            //Arrange
+            User p = new User()
+            {
+                UserName = "testUserdfw",
+                Password = "testPassword",
+                Email = "test@test.com",
+                ID = 1,
+                ProfileID = 2123
+            };
+            UsersController controller = new UsersController();
+
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Post(p);
+
+            //Assert
+            Assert.AreEqual(response.StatusCode, 400);
+        }
 
         //Passed
         [TestMethod]

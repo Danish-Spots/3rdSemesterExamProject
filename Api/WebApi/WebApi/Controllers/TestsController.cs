@@ -43,8 +43,10 @@ namespace WebApi.Controllers
         {
             string insertTestSql =
                 "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever)";
-            StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
+            var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
                 ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
+            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+                return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 

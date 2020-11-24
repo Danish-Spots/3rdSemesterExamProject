@@ -62,7 +62,9 @@ namespace WebApi.Controllers
                 return Conflict();
             string insertUserSql =
                 "insert into Users (userName, password, email, profileID) values (@userName, @password, @email, @profileID)";
-            StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
+            var postResults = StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
+            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+                return BadRequest();
             return CreatedAtAction("Get", new {id = value.ID}, value);
         }
 
@@ -76,8 +78,8 @@ namespace WebApi.Controllers
             if (getUser.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string updateUserSql =
-                "update Users set userName=@userName, password=@password, email=@email, profileID=@profileID where id=@id";
-            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID), ("@id", value.ID));
+                "update Users set password=@password, email=@email, profileID=@profileID where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updateUserSql,  ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID), ("@id", value.ID));
             return Ok();
         }
 

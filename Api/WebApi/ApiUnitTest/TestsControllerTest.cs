@@ -81,6 +81,28 @@ namespace ApiUnitTest
             Assert.AreEqual(response.StatusCode, 201);
         }
 
+        [TestMethod]
+        public void TestPostOneRPI_IDOutOfRang()
+        {
+            //Arrange
+            DateTime date = DateTime.Now;
+            Test t = new Test()
+            {
+                Temperature = 35.029838,
+                TimeOfDataRecording = date,
+                ID = 1,
+                HasFever = false,
+                RaspberryPiID = 118723,
+            };
+            TestsController controller = new TestsController();
+
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Post(t);
+
+            //Assert
+            Assert.AreEqual(response.StatusCode, 400);
+        }
+
 
         [TestMethod]
         public void TestUpdateOne()

@@ -42,8 +42,10 @@ namespace WebApi.Controllers
         {
             string insertProfileSql =
                 "insert into Profiles (companyName, city, joinDate, phone, address, country) values (@companyName, @city, @joinDate, @phone, @address, @country)";
-            StaticMethods.PostToDB(insertProfileSql, ("@companyName", value.CompanyName), ("@city", value.City), ("@joinDate", value.JoinDate), 
+            var postResult = StaticMethods.PostToDB(insertProfileSql, ("@companyName", value.CompanyName), ("@city", value.City), ("@joinDate", value.JoinDate), 
                 ("@phone", value.Phone), ("@address", value.Address), ("@country", value.Country));
+            if (postResult == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+                return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
