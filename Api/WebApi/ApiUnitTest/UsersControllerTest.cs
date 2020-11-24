@@ -38,9 +38,38 @@ namespace ApiUnitTest
 
             //Act
             IActionResult p = controller.Get(9);
-            
+            OkObjectResult result = p as OkObjectResult;
             //Assert
-            Assert.IsNotNull(p);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetOneUserName()
+        {
+            //Arrange
+            UsersController controller = new UsersController();
+
+            //Act
+            IActionResult p = controller.Get("testUser5");
+            OkObjectResult result = p as OkObjectResult;
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 200);
+        }
+
+        [TestMethod]
+        public void TestGetUserNameNotFound()
+        {
+            //Arrange
+            UsersController controller = new UsersController();
+
+            //Act
+            IActionResult p = controller.Get("testUser10");
+            StatusCodeResult result = p as StatusCodeResult;
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 404);
         }
 
         [TestMethod]
@@ -51,7 +80,7 @@ namespace ApiUnitTest
 
             //Act
             IActionResult p = controller.Get(93);
-            NotFoundObjectResult result = p as NotFoundObjectResult;
+            StatusCodeResult result = p as StatusCodeResult;
             
             //Assert
             Assert.IsNotNull(result);

@@ -33,12 +33,12 @@ namespace WebApi.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(new {message = "ID not found"});
+                return NotFound();
             }
         }
 
-        // GET api/<UsersController>/testuser
-        [HttpGet("{userName}")]
+        // GET api/<UsersController>/username/testuser
+        [HttpGet("username/{userName}")]
         public IActionResult Get(string userName)
         {
             try
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(new { message = "UserName not found" });
+                return NotFound();
             }
         }
 
