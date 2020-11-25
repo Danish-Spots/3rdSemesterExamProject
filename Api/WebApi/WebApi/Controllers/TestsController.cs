@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -88,10 +89,11 @@ namespace WebApi.Controllers
         public int TestCountToday()
         {
             DateTime dateToday = DateTime.Today;
-            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE timeOfDataRec=@dateToday";
+            DateTime dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [timeOfDataRecording]>='@dateToday' and [timeOfDataRecording]<'@dateTomorrow'";
             try
             {
-                return getCount(sqlQuery, ("@dateToday",dateToday));
+                return getCount(sqlQuery, ("@dateToday",dateToday), ("@dateTomorrow", dateTomorrow));
             }
             catch (Exception e)
             {

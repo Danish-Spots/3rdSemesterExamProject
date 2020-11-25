@@ -13,11 +13,13 @@ let FeverTodayLabel :  HTMLLabelElement = <HTMLLabelElement> document.getElement
  window.onload = function() {
      
     Axios.get<number>(url+"TestCount")
-    .then(function(response:AxiosResponse<number>):void
+    .then(
+        function(response:AxiosResponse<number>):void
     {
       let noTests : number = response.data;
-      TestsLabel.innerHTML = String(noTests);
       console.log(noTests)
+      TestsLabel.innerHTML = String(noTests);
+
     })
     .catch(function (error:AxiosError) : void
     {
@@ -53,17 +55,9 @@ let FeverTodayLabel :  HTMLLabelElement = <HTMLLabelElement> document.getElement
       console.log("Error: "+ error);
     })
 
-    Axios.get<number>(url+ "FeverCount")
-    .then(
-        function(response:AxiosResponse<number>):void
-        {
-            let noFever : number = response.data;
-            noFeverLabel.innerHTML = String(noFever);
-            console.log(noFever)
-        }
-    ) 
-    .catch(function (error:AxiosError) : void
-    {
-      console.log("Error: "+ error);
-    })
+
 }
+
+
+
+
