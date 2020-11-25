@@ -37,6 +37,77 @@ namespace WebApi.Controllers
             
         }
 
+        [HttpGet("/NoTests")]
+        public int NoTests()
+        {
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS";
+            int noTests = 0;
+
+            try
+            {
+                using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
+                {
+                    using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
+                    {
+                        databaseConnection.Open();
+
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                noTests = reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+                return noTests;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/NoFever/")]
+        public int NoFever()
+        {
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='True'";
+            int noFever = 0;
+
+            try
+            {
+                using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
+                {
+                    using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
+                    {
+                        databaseConnection.Open();
+
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                noFever = reader.GetInt32(0);
+                            }
+
+                        }
+
+                    }
+                }
+                return noFever;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
+
+
         // POST api/<TestsController>
         [HttpPost]
         public IActionResult Post([FromBody] Test value)
@@ -77,6 +148,7 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+
         private List<Test> getTestsFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Test> tests = new List<Test>();
@@ -89,6 +161,7 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
+
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
