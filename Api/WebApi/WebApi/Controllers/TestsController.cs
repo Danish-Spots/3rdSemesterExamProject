@@ -37,8 +37,9 @@ namespace WebApi.Controllers
             
         }
 
-        [HttpGet("/NoTests")]
-        public int NoTests()
+        // GET NoTests: /api/TestCount
+        [HttpGet("/TestCount")]
+        public int TestCount()
         {
             string sqlQuery = "SELECT COUNT(*) FROM TESTS";
             int noTests = 0;
@@ -70,8 +71,8 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("/NoFever/")]
-        public int NoFever()
+        [HttpGet("/FeverCount")]
+        public int FeverCount()
         {
             string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='True'";
             int noFever = 0;

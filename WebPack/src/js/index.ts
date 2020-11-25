@@ -14,7 +14,7 @@ window.onload =   function(){ noNegativeLabel.innerText = "Teve";
 
  window.onload = function() {
      
-    Axios.get<number>(localurl+"NoTests")
+    Axios.get<number>(url+"NoTests")
     .then(function(response:AxiosResponse<number>):void
     {
       let noTests : number = response.data;
@@ -27,7 +27,7 @@ window.onload =   function(){ noNegativeLabel.innerText = "Teve";
     })
 
 
-    Axios.get<number>(localurl+ "NoFever")
+    Axios.get<number>(url+ "NoFever")
     .then(
         function(response:AxiosResponse<number>):void
         {
