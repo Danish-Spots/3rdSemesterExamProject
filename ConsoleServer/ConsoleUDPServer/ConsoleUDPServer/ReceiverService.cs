@@ -11,11 +11,8 @@ namespace ConsoleUDPServer
     public static class ReceiverService
     {
 
-         static ReceiverService()
-        {
-        }
-
-        public static void StartService()
+    
+        public async static void StartService()
         {
             UdpClient client = new UdpClient();
 
@@ -29,8 +26,8 @@ namespace ConsoleUDPServer
             {
                 message = Encoding.ASCII.GetString(client.Receive(ref ip));
                 Test test = DataSorterService.SortData(message);
-                //Has to be finished
-                DataSenderService.Post("", test);
+                //Has to be changed
+                await DataSenderService.Post("https://localhost:44329/api/Tests", test);
             }
         }
 
