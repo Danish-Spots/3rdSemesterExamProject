@@ -17,7 +17,7 @@ class BroadCaster():
         
         while True:
             temp = sens.get_temp()
-            if (temp > 33):
+            if (temp > 34 and temp < 43):
                 has_fever = False
                 if temp > 37.5:
                     has_fever = True
