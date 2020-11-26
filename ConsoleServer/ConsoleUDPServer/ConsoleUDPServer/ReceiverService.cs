@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using ConsoleUDPServer.Model;
+using Newtonsoft.Json;
 
 namespace ConsoleUDPServer
 {
@@ -23,14 +24,17 @@ namespace ConsoleUDPServer
             client.Client.Bind(ip);
 
 
-            string message = Encoding.ASCII.GetString(client.Receive(ref ip));
+            //string message = Encoding.UTF8.GetString(client.Receive(ref ip));
 
             while (true)
             {
-                message = Encoding.ASCII.GetString(client.Receive(ref ip));
-                Test test = DataSorterService.SortData(message);
+                string message = Encoding.UTF8.GetString(client.Receive(ref ip));
+                Test t = JsonConvert.DeserializeObject<Test>(message);
+               
+                Console.WriteLine("\nRPI ID: " + t.Rpi_ID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
+                //Test test = DataSorterService.SortData(message);
                 //Has to be finished
-                DataSenderService.Post("", test);
+                //DataSenderService.Post("", test);
             }
         }
 
