@@ -94,6 +94,13 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        public string GenerateSessionKey()
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, 32).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         private List<Session> getSessionsFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Session> sessions = new List<Session>();

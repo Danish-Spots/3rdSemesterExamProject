@@ -5,11 +5,12 @@
 */
 
 const path = require('path');
+const glob = require('glob')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
  
 module.exports = {
   // which files should webpack watch and transpile
-  entry: ['./src/index.htm', './src/scss/styles.scss', './src/js/index.ts', './src/home.htm','./src/scss/home.scss'],
+  entry: glob.sync('./src/**/**.{htm,ts,scss,png}'),//['./src/index.htm', './src/js/index.ts', './src/home.htm', './src/login.htm', './src/scss/*', './src/imgs/*'],
   module: {
     // rules webpack should follow when watching...
     rules: [
@@ -22,7 +23,7 @@ module.exports = {
     {
         //(s)css files wil be handled by the scss-loader and then send to the css-loader and fuinally saved as a bundle
         test:/\.(s*)css$/,
-        use:[{loader :'file-loader', options: {name: 'bundle.css'}}, 'extract-loader', 'css-loader', 'sass-loader']
+        use:[{loader :'file-loader', options: {name: '[name].css', outputPath: 'css', }}, 'extract-loader', 'css-loader', 'sass-loader']
     },
     {
       // html files will be copied to the dist folder
@@ -34,7 +35,19 @@ module.exports = {
           name: '[name].[ext]'
         }
       }
-      
+    },
+
+    {
+      test: /\.(png|jpe?g|gif)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+            name: '[name].[ext]', outputPath: 'assets'
+          },
+        },
+      ]
     },
 
     {
@@ -46,7 +59,6 @@ module.exports = {
           name: '[name].[ext]',
           outputPath: 'fonts/',    // where the fonts will go
           publicPath: './fonts/'       // override the default path
-          //I hate webpack
         }
       }]
     }
