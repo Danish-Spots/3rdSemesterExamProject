@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using ConsoleUDPServer.Model;
@@ -28,10 +29,19 @@ namespace ConsoleUDPServer
                 string message = Encoding.UTF8.GetString(client.Receive(ref ip));
                 Test t = JsonConvert.DeserializeObject<Test>(message);
                 Console.WriteLine("\nRPI ID: " + t.Rpi_ID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
-                //Test test = DataSorterService.SortData(message);
-                //Has to be finished
-                //DataSenderService.Post("", test);
 
+                HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
+                try
+                {
+                    m.EnsureSuccessStatusCode();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("The application will now exit\n....");
+                    break;
+                }
+                
             }
         }
 
