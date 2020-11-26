@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -36,6 +37,147 @@ namespace WebApi.Controllers
             }
             
         }
+
+        // GET NoTests: /api/TestCount
+        [HttpGet("/TestCount")]
+        public int TestCount()
+        {
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS";
+
+            try
+            {
+               return getCount(sqlQuery);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/FeverCount")]
+        public int FeverCount()
+        {
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='True'";
+            try
+            {
+                return getCount(sqlQuery);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/NoFeverCount")]
+        public int NoFeverCount()
+        {
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='False'";
+            try
+            {
+                return getCount(sqlQuery);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/TestCountToday")]
+        public int TestCountToday()
+        {
+            DateTime dateToday = DateTime.Today;
+            DateTime dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [timeOfDataRecording]>='@dateToday' and [timeOfDataRecording]<'@dateTomorrow'";
+            try
+            {
+                return getCount(sqlQuery, ("@dateToday",dateToday), ("@dateTomorrow", dateTomorrow));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/FeverCountToday")]
+        public int FeverCountToday()
+        {
+            DateTime dateToday = DateTime.Today;
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE timeOfDataRec=@dateToday AND [hasFever]='TRUE'";
+            try
+            {
+                return getCount(sqlQuery, ("@dateToday", dateToday));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/HighestTemperature")]
+        public double HighestTemperature()
+        {
+            DateTime dateToday = DateTime.Today;
+            string sqlQuery = "SELECT MAX(temperature) FROM TESTS ";
+            try
+            {
+                return getCount(sqlQuery, ("@dateToday", dateToday));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/HighestTemperatureToday")]
+        public double HighestTemperatureToday()
+        {
+            DateTime dateToday = DateTime.Today;
+            string sqlQuery = "SELECT MAX(temperature) FROM TESTS WHERE timeOfDataRec=@dateToday";
+            try
+            {
+                return getCount(sqlQuery, ("@dateToday", dateToday));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpGet("/MostDangerousLocation")]
+        public string MostDangerousLocation()
+        {
+            string sqlQuery = "Select Top 1 [location] from RaspberryPis inner join (select RPI_Id, count(RPI_Id) as 'Total' from tests where hasFever = 'true' group by RPI_Id) as query1 on query1.RPI_Id = RaspberryPis.ID order by Total desc";
+            string location ="no location";
+            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
+            {
+                using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
+                {
+                    databaseConnection.Open();
+                
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            location = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+            return location;
+        }
+
+
+
+
+
+
 
         // POST api/<TestsController>
         [HttpPost]
@@ -77,6 +219,7 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+
         private List<Test> getTestsFromDB(string sqlQuery, params (string, object)[] paramList)
         {
             List<Test> tests = new List<Test>();
@@ -89,6 +232,7 @@ namespace WebApi.Controllers
                     {
                         selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
                     }
+
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -106,6 +250,34 @@ namespace WebApi.Controllers
                 }
             }
             return tests;
+        }
+
+
+
+
+        private int getCount(string sqlCommand, params (string, object)[] parameterTuples)
+        {
+            int count =0;
+            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
+            {
+                using (SqlCommand selectCommand = new SqlCommand(sqlCommand, databaseConnection))
+                {
+                    databaseConnection.Open();
+                    foreach (var pTuple in parameterTuples)
+                    {
+                        selectCommand.Parameters.AddWithValue(pTuple.Item1, pTuple.Item2);
+                    }
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return count;
+
         }
     }
 }

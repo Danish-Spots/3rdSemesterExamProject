@@ -12,11 +12,8 @@ namespace ConsoleUDPServer
     public static class ReceiverService
     {
 
-         static ReceiverService()
-        {
-        }
-
-        public static void StartService()
+    
+        public async static void StartService()
         {
             UdpClient client = new UdpClient();
 
@@ -30,11 +27,11 @@ namespace ConsoleUDPServer
             {
                 string message = Encoding.UTF8.GetString(client.Receive(ref ip));
                 Test t = JsonConvert.DeserializeObject<Test>(message);
-               
                 Console.WriteLine("\nRPI ID: " + t.Rpi_ID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
                 //Test test = DataSorterService.SortData(message);
                 //Has to be finished
                 //DataSenderService.Post("", test);
+
             }
         }
 
