@@ -35,7 +35,6 @@ module.exports = {
           name: '[name].[ext]'
         }
       }
-      
     },
 
     {
@@ -60,7 +59,6 @@ module.exports = {
           name: '[name].[ext]',
           outputPath: 'fonts/',    // where the fonts will go
           publicPath: './fonts/'       // override the default path
-          //I hate webpack
         }
       }]
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApi.Models;
@@ -21,6 +22,31 @@ namespace WebApi.Controllers
         public List<User> Get()
         {
             return getUsersFromDB("select id, userName, password, email, profileID from Users");
+        }
+
+        [HttpGet("login/{username}/{password}")]
+        public IActionResult Login(string username, string password)
+        {
+            try
+            {
+                User user = getUsersFromDB(
+                    "select id, userName, password, email, profileID from Users where username=@username",
+                    ("@username", username))[0];
+
+                if (Argon2.Verify(user.Password, password))
+                {
+                    SessionsController s = new SessionsController();
+                    string sessionKey = s.GenerateSessionKey();
+                    s.Post(new Session() {Key = sessionKey, UserID = user.ID});
+                    return Ok(sessionKey);
+                }
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+
         }
 
         // GET api/<UsersController>/5
@@ -58,6 +84,7 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] User value)
         {
             var getUser = Get(value.UserName);
+            value.Password = Argon2.Hash(value.Password);
             if (getUser.GetType() == typeof(OkObjectResult))
                 return Conflict();
             string insertUserSql =
@@ -65,7 +92,7 @@ namespace WebApi.Controllers
             var postResults = StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
             if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
-            return CreatedAtAction("Get", new {id = value.ID}, value);
+            return Ok();
         }
 
         // PUT api/<UsersController>/5
