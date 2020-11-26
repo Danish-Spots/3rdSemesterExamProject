@@ -180,13 +180,25 @@ namespace WebApi.Controllers
 
 
         // POST api/<TestsController>
-        [HttpPost]
-        public IActionResult Post([FromBody] Test value)
+        [HttpPost("withDateTime/")]
+        public IActionResult PostWDateTime([FromBody] Test value)
         {
             string insertTestSql =
                 "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever)";
             var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
                 ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
+            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+                return BadRequest();
+            return CreatedAtAction("Get", new { id = value.ID }, value);
+        }
+
+        // POST api/<TestsController>
+        [HttpPost]
+        public IActionResult Post([FromBody] Test value)
+        {
+            string insertTestSql =
+                "insert into Tests (temperature, RPI_ID, hasFever) values (@temperature, @RPI_ID, @hasFever)";
+            var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
             if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);

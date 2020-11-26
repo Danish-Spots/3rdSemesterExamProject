@@ -10,14 +10,9 @@ namespace ConsoleUDPServer
 
         static void Main(string[] args)
         {
+
             Console.WriteLine("Console server is up and running.");
-         
-            ReceiverService.StartService();
-
-
+			ReceiverService.StartService();
         }
-
-
-
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using ConsoleUDPServer.Model;
+using Newtonsoft.Json;
 
 namespace ConsoleUDPServer
 {
@@ -20,14 +22,26 @@ namespace ConsoleUDPServer
             client.Client.Bind(ip);
 
 
-            string message = Encoding.ASCII.GetString(client.Receive(ref ip));
+            //string message = Encoding.UTF8.GetString(client.Receive(ref ip));
 
             while (true)
             {
-                message = Encoding.ASCII.GetString(client.Receive(ref ip));
-                Test test = DataSorterService.SortData(message);
-                //Has to be changed
-                await DataSenderService.Post("https://localhost:44329/api/Tests", test);
+                string message = Encoding.UTF8.GetString(client.Receive(ref ip));
+                Test t = JsonConvert.DeserializeObject<Test>(message);
+                Console.WriteLine("\nRPI ID: " + t.Rpi_ID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
+
+                HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
+                try
+                {
+                    m.EnsureSuccessStatusCode();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("The application will now exit\n....");
+                    break;
+                }
+                
             }
         }
 
