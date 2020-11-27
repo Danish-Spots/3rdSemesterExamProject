@@ -9,7 +9,7 @@ import json
 
 class BroadCaster():
     def __init__(self, rpi_id):
-        self.rpi_id = rpi_id
+        self.raspberryPiID = rpi_id
         self.animator = Animator((0, 0, 0))
 
     async def start_broadcast(self):
@@ -29,7 +29,7 @@ class BroadCaster():
                     self.animator.displayImage(self.animator.crossImage)
                 else:
                     self.animator.displayImage(self.animator.checkmarkImage)
-                test_object = Test(self.rpi_id, temp, has_fever)
+                test_object = Test(self.raspberryPiID, temp, has_fever)
                 json_str = json.dumps(test_object.__dict__)
                 message = bytes(str(json_str).encode())
                 server.sendto(message, ("<broadcast>", 42069))

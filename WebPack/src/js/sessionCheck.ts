@@ -13,21 +13,17 @@ class SessionChecker{
     
         Axios.get(`https://fevr.azurewebsites.net/api/Sessions/getSessionKey=${key}`)
         .then( (response: AxiosResponse<UserSession>)=> {
-            switch(response.status){
-                case 200:
-                    if (response.data.key != key){
-                        alert("Invalid Session")
-                        sessionStorage.removeItem("SessionKey")
-                    }
-                    break;
+            if (response.status== 200){
+                if (response.data.key != key){
+                    alert("Invalid Session")
+                    sessionStorage.removeItem("SessionKey")
+                }
             }
         })
         .catch((error: AxiosError)=>{
-            switch(error.response.status){
-                case 404:
-                    alert("Session not found")
-                    sessionStorage.removeItem("SessionKey")
-                    break;
+            if (error.response.status == 404){
+                alert("Session not found")
+                sessionStorage.removeItem("SessionKey")
             }
         })
     }
