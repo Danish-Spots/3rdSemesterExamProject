@@ -6,17 +6,22 @@ interface UserSession {
     userID: number
 }
 
+
 export class SessionChecker{
  
-    checkSession(){
+    static checkSession(){
         let key = sessionStorage.getItem("SessionKey");
     
-        Axios.get(`https://fevr.azurewebsites.net/api/Sessions/getSessionKey=${key}`)
+        Axios.get(`https://localhost:44329/api/Sessions/getSessionKey=${key}`)
         .then( (response: AxiosResponse<UserSession>)=> {
             if (response.status== 200){
                 if (response.data.key != key){
                     alert("Invalid Session")
                     sessionStorage.removeItem("SessionKey")
+                    console.log("Incorrect Session")
+                }
+                else{
+                    console.log("Valid Session")
                 }
             }
         })
@@ -24,7 +29,10 @@ export class SessionChecker{
             if (error.response.status == 404){
                 alert("Session not found")
                 sessionStorage.removeItem("SessionKey")
+                console.log("Invalid Session: " + error.response.status)
             }
         })
     }
 }
+
+
