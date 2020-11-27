@@ -41,6 +41,7 @@ namespace WebApi
 
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI"));
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
