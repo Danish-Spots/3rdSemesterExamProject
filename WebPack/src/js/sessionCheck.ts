@@ -1,12 +1,12 @@
 import Axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse, AxiosError } from 'axios';
 
-export interface UserSession {
+interface UserSession {
     id: number
     key: string
     userID: number
 }
 
-class SessionChecker{
+export class SessionChecker{
  
     checkSession(){
         let key = sessionStorage.getItem("SessionKey");
