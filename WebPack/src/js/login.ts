@@ -9,7 +9,7 @@ function AttemptLogin() {
     let username = usernameEl.value;
     let password = passwordEl.value;
 
-    Axios.get(`https://localhost:44329/Api/Users/Login/${username}/${password}`)
+    Axios.get(`https://fevr.azurewebsites.net/Api/Users/Login/${username}/${password}`)
     .then( (response : AxiosResponse) => {
         sessionStorage.setItem("SessionKey", response.data)
     }).catch((error : AxiosError) => {
@@ -24,4 +24,5 @@ function AttemptLogin() {
     })
 }
 
+//Needs to be moved 
 SessionChecker.checkSession()
