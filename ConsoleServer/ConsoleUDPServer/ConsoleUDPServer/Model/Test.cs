@@ -10,17 +10,17 @@ namespace ConsoleUDPServer.Model
         {
             Temperature = temperature;
             ID = id;
-            Rpi_ID = rpiId;
+            RaspberryPiID = rpiId;
             HasFever = hasFever;
-            TimeOfDataRec = timeOfDataRec;
+            TimeOfDataRecording = timeOfDataRec;
         }
 
         public Test() { }
 
         public double Temperature { get; set; }
         public int ID { get; set; }
-        public int Rpi_ID { get; set; }
+        public int RaspberryPiID { get; set; }
         public bool HasFever { get; set; }
-        public DateTime TimeOfDataRec { get; set; }
+        public DateTime TimeOfDataRecording { get; set; }
     }
 }

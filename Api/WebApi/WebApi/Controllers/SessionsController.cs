@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,21 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             
+        }
+
+        // GET api/<SessionsController>/getSessionKey={sessionKey}
+        [HttpGet("getSessionKey={sessionKey}")]
+        public IActionResult GetSK(string sessionKey)
+        {
+            try
+            {
+                return Ok(getSessionsFromDB("select * from Sessions where [key]=@key", ("@key", sessionKey))[0]);
+            }
+            catch (Exception e)
+            {
+                //Debug.WriteLine(e);
+                return NotFound();
+            }
         }
 
         // GET api/<SessionsController>/sessions/userID

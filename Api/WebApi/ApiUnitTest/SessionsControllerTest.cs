@@ -202,5 +202,20 @@ namespace ApiUnitTest
             //Assert
             Assert.AreEqual(response.StatusCode, StatusCodes.Status404NotFound);
         }
+
+        [TestMethod]
+        public void TestGetSessionKey()
+        {
+            //Arrange
+            SessionsController s = new SessionsController();
+
+            //Act
+            OkObjectResult response = (OkObjectResult) s.GetSK("Mesdad");
+
+
+            //Assert
+            Assert.IsNotNull(response);
+            Assert.AreEqual(response.StatusCode, 200);
+        }
     }
 }

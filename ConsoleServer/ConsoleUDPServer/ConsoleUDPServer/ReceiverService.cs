@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using ConsoleUDPServer.Model;
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ namespace ConsoleUDPServer
     {
 
     
-        public async static void StartService()
+        public async static Task StartService()
         {
             UdpClient client = new UdpClient();
 
@@ -28,12 +29,13 @@ namespace ConsoleUDPServer
             {
                 string message = Encoding.UTF8.GetString(client.Receive(ref ip));
                 Test t = JsonConvert.DeserializeObject<Test>(message);
-                Console.WriteLine("\nRPI ID: " + t.Rpi_ID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
+                Console.WriteLine("\nRPI ID: " + t.RaspberryPiID + "\nObj Temperature: " + t.Temperature + "\nHas Fever: " + t.HasFever);
 
-                HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
+
                 try
                 {
-                    m.EnsureSuccessStatusCode();
+                    HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
+                    Console.WriteLine("Sent Data");
                 }
                 catch (Exception e)
                 {
@@ -41,7 +43,7 @@ namespace ConsoleUDPServer
                     Console.WriteLine("The application will now exit\n....");
                     break;
                 }
-                
+
             }
         }
 
