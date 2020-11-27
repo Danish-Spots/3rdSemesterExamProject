@@ -12,7 +12,7 @@ export class SessionChecker{
     static checkSession(){
         let key = sessionStorage.getItem("SessionKey");
     
-        Axios.get(`https://localhost:44329/api/Sessions/getSessionKey=${key}`)
+        Axios.get(`https://fevr.azurewebsites.net/api/Sessions/getSessionKey=${key}`)
         .then( (response: AxiosResponse<UserSession>)=> {
             if (response.status== 200){
                 if (response.data.key != key){

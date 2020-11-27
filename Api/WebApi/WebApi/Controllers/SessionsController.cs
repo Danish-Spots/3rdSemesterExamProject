@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         {
             var getSession = GetByUID(value.UserID);
             if (getSession.GetType() == typeof(OkObjectResult))
-                return Conflict();
+                Delete(((getSession as OkObjectResult).Value as Session).ID);
             string insertSessionsSql =
                 "insert into Sessions ([key], userID) values (@key, @userID)";
             var postResults= StaticMethods.PostToDB(insertSessionsSql, ("@key", value.Key), ("@userID", value.UserID));

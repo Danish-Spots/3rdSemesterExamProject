@@ -9,20 +9,19 @@ function AttemptLogin() {
     let username = usernameEl.value;
     let password = passwordEl.value;
 
-    Axios.get(`https://fevr.azurewebsites.net/Api/Users/Login/${username}/${password}`)
+    Axios.get(`https://localhost:44329/Api/Users/Login/${username}/${password}`)
     .then( (response : AxiosResponse) => {
         sessionStorage.setItem("SessionKey", response.data)
-        SessionChecker.checkSession()
     }).catch((error : AxiosError) => {
         switch (error.response.status) {
             case 400:
                 alert("The password did not match the user.")
-                SessionChecker.checkSession()
                 break;
             case 404:
                 alert("The user does not exist.")
-                SessionChecker.checkSession()
                 break;
         }
     })
 }
+
+SessionChecker.checkSession()
