@@ -36,7 +36,7 @@ namespace WebApi.Controllers
                 if (Argon2.Verify(user.Password, password))
                 {
                     SessionsController s = new SessionsController();
-                    string sessionKey = s.GenerateSessionKey();
+                    string sessionKey = StaticMethods.GenerateSessionKey();
                     s.Post(new Session() {Key = sessionKey, UserID = user.ID});
                     return Ok(sessionKey);
                 }

@@ -50,5 +50,12 @@ namespace WebApi.Static
                 }
             }
         }
+
+        public static string GenerateSessionKey()
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, 32).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

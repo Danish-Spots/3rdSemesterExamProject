@@ -1,4 +1,5 @@
 import Axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse, AxiosError } from 'axios';
+import { SessionChecker } from './sessionCheck';
 
 const usernameEl : HTMLInputElement = <HTMLInputElement> document.getElementById("Username");
 const passwordEl : HTMLInputElement = <HTMLInputElement> document.getElementById("Password");
@@ -22,3 +23,6 @@ function AttemptLogin() {
         }
     })
 }
+
+//Needs to be moved 
+SessionChecker.checkSession()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,21 @@ namespace WebApi.Controllers
             
         }
 
+        // GET api/<SessionsController>/getSessionKey={sessionKey}
+        [HttpGet("getSessionKey={sessionKey}")]
+        public IActionResult GetSK(string sessionKey)
+        {
+            try
+            {
+                return Ok(getSessionsFromDB("select * from Sessions where [key]=@key", ("@key", sessionKey))[0]);
+            }
+            catch (Exception e)
+            {
+                //Debug.WriteLine(e);
+                return NotFound();
+            }
+        }
+
         // GET api/<SessionsController>/sessions/userID
         [HttpGet("sessions/{userID}")]
         public IActionResult GetByUID(int userID)
@@ -58,7 +74,7 @@ namespace WebApi.Controllers
         {
             var getSession = GetByUID(value.UserID);
             if (getSession.GetType() == typeof(OkObjectResult))
-                return Conflict();
+                Delete(((getSession as OkObjectResult).Value as Session).ID);
             string insertSessionsSql =
                 "insert into Sessions ([key], userID) values (@key, @userID)";
             var postResults= StaticMethods.PostToDB(insertSessionsSql, ("@key", value.Key), ("@userID", value.UserID));
@@ -92,13 +108,6 @@ namespace WebApi.Controllers
             string deleteSessionSql = "Delete from Sessions where id=@id";
             StaticMethods.updateOrDeleteFromDB(deleteSessionSql, ("@id", id));
             return Ok();
-        }
-
-        public string GenerateSessionKey()
-        {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            Random random = new Random();
-            return new string(Enumerable.Repeat(chars, 32).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private List<Session> getSessionsFromDB(string sqlQuery, params (string, object)[] paramList)
