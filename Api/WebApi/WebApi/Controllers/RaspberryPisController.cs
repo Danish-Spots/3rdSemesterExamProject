@@ -97,6 +97,8 @@ namespace WebApi.Controllers
                             temp.Location = reader.GetString(1);
                             temp.IsActive = reader.GetBoolean(2);
                             temp.ProfileID = reader.GetInt32(3);
+                            temp.Longitude = reader.GetString(4);
+                            temp.Latitude = reader.GetString(5);
 
                             pis.Add(temp);
                         }
