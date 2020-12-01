@@ -36,7 +36,13 @@ const App: React.FC = () => {
 
   const [markerData, setMarkerData] = useState<
     { Text: string; Lat: number; Lon: number }[]
-  >([]);
+  >([
+    {
+      Text: "Loading Data",
+      Lat: 0,
+      Lon: 0,
+    },
+  ]);
 
   // MarkerData: {
   //   Text: string;
@@ -122,16 +128,15 @@ const App: React.FC = () => {
                 longitude: number;
                 latitude: number;
               }) => {
-                pis.push(
-                  new RaspberryPi(
-                    o.id,
-                    o.location,
-                    o.isActive,
-                    o.profileID,
-                    o.longitude,
-                    o.latitude
-                  )
+                let newPi: RaspberryPi = new RaspberryPi(
+                  o.id,
+                  o.location,
+                  o.isActive,
+                  o.profileID,
+                  +o.longitude,
+                  +o.latitude
                 );
+                pis.push(newPi);
               }
             );
           })
@@ -139,11 +144,11 @@ const App: React.FC = () => {
             console.log(error);
           }),
       ]).finally(() => {
-        setMarkerData(
-          pis.map((o) => {
-            return { Text: o.Location, Lat: o.Latitude, Lon: o.Longitude };
-          })
-        );
+        let newMarkerData = pis.map((o) => {
+          console.log(o);
+          return { Text: o.Location, Lat: +o.Latitude, Lon: +o.Longitude };
+        });
+        setMarkerData([...newMarkerData]);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
