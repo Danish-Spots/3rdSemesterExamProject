@@ -12,5 +12,7 @@ namespace WebApi.Models
         public DateTime TimeOfDataRecording { get; set; }
         public int RaspberryPiID { get; set; }
         public bool HasFever { get; set; }
+
+        public double TemperatureF { get; set; }
     }
 }

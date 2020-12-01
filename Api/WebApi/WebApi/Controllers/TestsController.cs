@@ -184,9 +184,9 @@ namespace WebApi.Controllers
         public IActionResult PostWDateTime([FromBody] Test value)
         {
             string insertTestSql =
-                "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever)";
+                "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever, temperaturef) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever, @temperaturef)";
             var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
-                ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
+                ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@temperaturef", value.TemperatureF));
             if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);
@@ -197,8 +197,9 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] Test value)
         {
             string insertTestSql =
-                "insert into Tests (temperature, RPI_ID, hasFever) values (@temperature, @RPI_ID, @hasFever)";
-            var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever));
+                "insert into Tests (temperature, RPI_ID, hasFever, temperaturef) values (@temperature, @RPI_ID, @hasFever, @temperaturef)";
+            var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever),
+                ("@temperaturef", value.TemperatureF));
             if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);
@@ -214,8 +215,9 @@ namespace WebApi.Controllers
             if (getTest.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string updateUserSql =
-                "update Tests set temperature=@temperature, timeOfDataRecording=@timeOfDataRecording, RPI_ID=@RPI_ID, hasFever=@hasFever where id=@id";
-            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@id", value.ID));
+                "update Tests set temperature=@temperature, timeOfDataRecording=@timeOfDataRecording, RPI_ID=@RPI_ID, hasFever=@hasFever, temperaturef=@temperaturef where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updateUserSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
+                ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@id", value.ID), ("@temperaturef", value.TemperatureF));
             return Ok();
         }
 
@@ -255,6 +257,7 @@ namespace WebApi.Controllers
                             temp.TimeOfDataRecording = reader.GetDateTime(2);
                             temp.RaspberryPiID = reader.GetInt32(3);
                             temp.HasFever = reader.GetBoolean(4);
+                            temp.TemperatureF = reader.GetDouble(5);
 
                             tests.Add(temp);
                         }
