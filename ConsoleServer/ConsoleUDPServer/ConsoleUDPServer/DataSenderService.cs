@@ -17,8 +17,19 @@ namespace ConsoleUDPServer
             {
                 string ObjectJson = JsonConvert.SerializeObject(newT);
                 var data = new StringContent(ObjectJson, Encoding.UTF8, "application/json");
-                HttpResponseMessage message = await client.PostAsync(url, data);
-                return message;
+                try
+                {
+                    HttpResponseMessage message = await client.PostAsync(url, data);
+                    message.EnsureSuccessStatusCode();
+                    return message;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw e;
+                }
+                
+                
             }
         }
 
