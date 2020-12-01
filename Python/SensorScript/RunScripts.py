@@ -3,11 +3,12 @@ from Scripts import BroadCaster
 import asyncio
 
 def StartScript():
-    rpi_id = ReadSettingsFile()
-    if rpi_id == -1:
+    settings_list = ReadSettingsFile()
+    print(settings_list[5])
+    if settings_list[0] == -1:
         exit()
 
-    b = BroadCaster(rpi_id)
+    b = BroadCaster(settings_list)
     asyncio.run(b.start_broadcast())
 
 StartScript()
