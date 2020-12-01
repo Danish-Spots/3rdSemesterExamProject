@@ -6,6 +6,7 @@ import { HomeMain } from "./Components/Home/HomeMain";
 import { Header } from "./Components/Home/Header";
 
 import Logo from "./imgs/logo.png";
+import RaspberryPi from "./classes/RaspberryPi";
 
 const App: React.FC = () => {
   const [infoData, setInfoData] = useState<
@@ -32,6 +33,16 @@ const App: React.FC = () => {
       Value: "No location",
     },
   ]);
+
+  const [markerData, setMarkerData] = useState<
+    { Text: string; Lat: number; Lon: number }[]
+  >([]);
+
+  // MarkerData: {
+  //   Text: string;
+  //   Lat: number;
+  //   Lon: number;
+  // }[];
 
   const [headerLinks] = useState<{ Text: string; Name: string }[]>([
     {
@@ -97,6 +108,43 @@ const App: React.FC = () => {
           })
         );
       });
+
+      let pis: RaspberryPi[] = [];
+      Promise.all([
+        Axios.get("https://fevr.azurewebsites.net/api/RaspberryPis")
+          .then((response: AxiosResponse) => {
+            response.data.forEach(
+              (o: {
+                id: number;
+                location: string;
+                isActive: boolean;
+                profileID: number;
+                longitude: number;
+                latitude: number;
+              }) => {
+                pis.push(
+                  new RaspberryPi(
+                    o.id,
+                    o.location,
+                    o.isActive,
+                    o.profileID,
+                    o.longitude,
+                    o.latitude
+                  )
+                );
+              }
+            );
+          })
+          .catch((error: AxiosError) => {
+            console.log(error);
+          }),
+      ]).finally(() => {
+        setMarkerData(
+          pis.map((o) => {
+            return { Text: o.Location, Lat: o.Latitude, Lon: o.Longitude };
+          })
+        );
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
@@ -104,7 +152,7 @@ const App: React.FC = () => {
   function getCurrentPage() {
     switch (currentPage) {
       case "home":
-        return <HomeMain InfoData={infoData} />;
+        return <HomeMain InfoData={infoData} MarkerData={markerData} />;
 
       case "login":
         return <h1 style={{ marginTop: "100px" }}>Log in</h1>;
