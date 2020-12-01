@@ -11,5 +11,7 @@ namespace WebApi.Models
         public string Location { get; set; }
         public bool IsActive { get; set; }
         public int ProfileID { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     }
 }
