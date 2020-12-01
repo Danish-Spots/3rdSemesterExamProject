@@ -1,4 +1,5 @@
 import React from "react";
+import { Map } from "../Map";
 import { InfoBox } from "./InfoBox";
 
 interface Props {
@@ -7,14 +8,19 @@ interface Props {
     Title: string;
     Value: string;
   }[];
+  MarkerData: {
+    Text: string;
+    Lat: number;
+    Lon: number;
+  }[];
 }
 
-export const HomeMain: React.FC<Props> = ({ InfoData }) => {
+export const HomeMain: React.FC<Props> = ({ InfoData, MarkerData }) => {
   return (
     <div className="main-container">
       <h1>Home</h1>
       <InfoBox InfoData={InfoData} />
-      <div className="map-container">Map</div>
+      <Map MarkerData={MarkerData} />
     </div>
   );
 };
