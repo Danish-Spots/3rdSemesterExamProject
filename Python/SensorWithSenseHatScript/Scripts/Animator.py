@@ -8,7 +8,8 @@ class Animator:
         B = background
         G = (0, 255, 0)
         R = (255, 0, 0)
-        Y = (0, 255, 255)
+        Y = (255, 255, 0)
+        BL = (0, 0, 255)
         self.checkmarkImage = [
             B, B, B, B, B, B, B, B,
             B, B, B, B, B, B, B, G,
@@ -38,6 +39,16 @@ class Animator:
             B, B, B, B, Y, B, B, B,
             B, B, B, B, B, B, B, B,
             B, B, B, B, Y, B, B, B
+        ]
+        self.measuringImage = [
+            B, BL, BL, BL, BL, BL, BL, B,
+            B, B, BL, B, B, BL, B, B,
+            B, B, BL, B, B, BL, B, B,
+            B, B, B, BL, BL, B, B, B,
+            B, B, B, BL, BL, B, B, B,
+            B, B, BL, B, B, BL, B, B,
+            B, B, BL, B, B, BL, B, B,
+            B, BL, BL, BL, BL, BL, BL, B
         ]
 
     def displayImage(self, image):

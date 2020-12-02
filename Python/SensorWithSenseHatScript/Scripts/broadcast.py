@@ -27,18 +27,21 @@ class BroadCaster():
         #---------REENABLE FOR WHEN SENSOR IS AVAILABLE
         while True:
             temps = []
-            temp = 40
+            temp = 36
             #temp = sens.get_temp()
             #-----------REENABLE FOR WHEN SENSOR IS AVAILABLE
             if (temp > self.lower_bound_temp and temp < self.upper_bound_temp):
                 measurement_time_end = time.time() + self.measurement_timer
+                self.animator.displayImage(self.animator.measuringImage)
                 while True:
                     if time.time() > measurement_time_end:
                         break
+                    temps.append(temp)
                     #temps.append(sens.get_temp())
                     #-----------REENABLE FOR WHEN SENSOR IS AVAILABLE
                     time.sleep(self.sensor_polling_rate)
                 measured_temp = sum(temps)/len(temps)
+                print(temps)
                 has_fever = False
                 if measured_temp > self.fever_temp:
                     has_fever = True
@@ -54,4 +57,6 @@ class BroadCaster():
                 message = bytes(str(json_str).encode())
                 server.sendto(message, ("<broadcast>", self.port_number))
                 time.sleep(self.cooldown_timer)
+            else:
+                self.animator.displayImage(self.animator.errorImage)
 
