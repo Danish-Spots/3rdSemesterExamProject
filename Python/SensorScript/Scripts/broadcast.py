@@ -39,8 +39,8 @@ class BroadCaster():
                     has_fever = True
                 
                 measured_temp_f = (measured_temp * 9/5) + 32
-                print(round(measured_temp,self.measurement_round))
-                print(round(measured_temp_f,self.measurement_round))
+                #print(round(measured_temp,self.measurement_round))
+                #print(round(measured_temp_f,self.measurement_round))
                 test_object = Test(self.raspberryPiID, round(measured_temp,self.measurement_round), round(measured_temp_f,self.measurement_round),  has_fever)
                 json_str = json.dumps(test_object.__dict__)
                 message = bytes(str(json_str).encode())

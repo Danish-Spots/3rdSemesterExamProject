@@ -1,1 +1,26 @@
+# Raspberry Pi Device ID
 rpi_id = 11
+
+# Cooldown between measurements
+cooldown_timer = 3f
+
+# Time taken to measure temperature
+measuring_timer = 2f
+
+# Polling Rate of the sensor
+sensor_polling_rate = 0.1f
+
+# Lower temperature bound for the range where the measurement activates
+lower_bound_temp = 34f
+
+# Upper temperature bound for the range where the measurement activates
+upper_bound_temp = 43f
+
+# Temperature at which the measured temperature is recording as being a fever
+fever_temp = 37.5f
+
+# The port number the script broadcasts on
+port_number = 42069
+
+# The number of decimal places a measurement is rounded to
+measurement_round = 3

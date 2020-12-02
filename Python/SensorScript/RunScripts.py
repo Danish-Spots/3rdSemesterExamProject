@@ -4,7 +4,7 @@ import asyncio
 
 def StartScript():
     settings_list = ReadSettingsFile()
-    print(settings_list[5])
+    #print(settings_list[5])
     if settings_list[0] == -1:
         exit()
 
