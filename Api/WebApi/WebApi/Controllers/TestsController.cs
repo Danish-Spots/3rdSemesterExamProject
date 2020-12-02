@@ -103,10 +103,11 @@ namespace WebApi.Controllers
         public IActionResult FeverCountToday()
         {
             string dateToday = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToString("yyyy-MM-dd HH:mm:ss.fff");
             string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE ([timeOfDataRecording]>=@dateToday and [timeOfDataRecording]<=@dateTomorrow) AND [hasFever]='TRUE'";
             try
             {
-                return Ok(getCount(sqlQuery, ("@dateToday", dateToday)));
+                return Ok(getCount(sqlQuery, ("@dateToday", dateToday), ("@dateTomorrow", dateTomorrow)));
             }
             catch (Exception e)
             {
@@ -257,7 +258,6 @@ namespace WebApi.Controllers
                 }
             }
             return count;
-
         }
     }
 }
