@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -40,144 +41,108 @@ namespace WebApi.Controllers
 
         // GET NoTests: /api/TestCount
         [HttpGet("/TestCount")]
-        public int TestCount()
+        public IActionResult TestCount()
         {
             string sqlQuery = "SELECT COUNT(*) FROM TESTS";
 
             try
             {
-               return getCount(sqlQuery);
+               return Ok(getCount(sqlQuery));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/FeverCount")]
-        public int FeverCount()
+        public IActionResult FeverCount()
         {
             string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='True'";
             try
             {
-                return getCount(sqlQuery);
+                return Ok(getCount(sqlQuery));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/NoFeverCount")]
-        public int NoFeverCount()
+        public IActionResult NoFeverCount()
         {
             string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [hasFever]='False'";
             try
             {
-                return getCount(sqlQuery);
+                return Ok(getCount(sqlQuery));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/TestCountToday")]
-        public int TestCountToday()
+        public IActionResult TestCountToday()
         {
-            DateTime dateToday = DateTime.Today;
-            DateTime dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
-            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [timeOfDataRecording]>='@dateToday' and [timeOfDataRecording]<'@dateTomorrow'";
+            string dateToday = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE [timeOfDataRecording]>=@dateToday and [timeOfDataRecording]<=@dateTomorrow";
             try
             {
-                return getCount(sqlQuery, ("@dateToday",dateToday), ("@dateTomorrow", dateTomorrow));
+                return Ok(getCount(sqlQuery, ("@dateToday",dateToday), ("@dateTomorrow", dateTomorrow)));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/FeverCountToday")]
-        public int FeverCountToday()
+        public IActionResult FeverCountToday()
         {
-            DateTime dateToday = DateTime.Today;
-            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE timeOfDataRec=@dateToday AND [hasFever]='TRUE'";
+            string dateToday = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sqlQuery = "SELECT COUNT(*) FROM TESTS WHERE ([timeOfDataRecording]>=@dateToday and [timeOfDataRecording]<=@dateTomorrow) AND [hasFever]='TRUE'";
             try
             {
-                return getCount(sqlQuery, ("@dateToday", dateToday));
+                return Ok(getCount(sqlQuery, ("@dateToday", dateToday)));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/HighestTemperature")]
-        public double HighestTemperature()
+        public IActionResult HighestTemperature()
         {
-            DateTime dateToday = DateTime.Today;
-            string sqlQuery = "SELECT MAX(temperature) FROM TESTS ";
+            string sqlQuery = "select * from Tests where temperature = (select max(temperature) from Tests)";
             try
             {
-                return getCount(sqlQuery, ("@dateToday", dateToday));
+                return Ok(getTestsFromDB(sqlQuery)[0]);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
 
         [HttpGet("/HighestTemperatureToday")]
-        public double HighestTemperatureToday()
+        public IActionResult HighestTemperatureToday()
         {
-            DateTime dateToday = DateTime.Today;
-            string sqlQuery = "SELECT MAX(temperature) FROM TESTS WHERE timeOfDataRec=@dateToday";
+            string dateToday = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string dateTomorrow = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sqlQuery = "select * from Tests where temperature = (select max(temperature) from Tests where [timeOfDataRecording]>=@dateToday and [timeOfDataRecording]<=@dateTomorrow)";
             try
             {
-                return getCount(sqlQuery, ("@dateToday", dateToday));
+                return Ok(getTestsFromDB(sqlQuery, ("@dateToday", dateToday), ("@dateTomorrow", dateTomorrow))[0]);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return StatusCode(500);
             }
         }
-
-        [HttpGet("/MostDangerousLocation")]
-        public string MostDangerousLocation()
-        {
-            string sqlQuery = "Select Top 1 [location] from RaspberryPis inner join (select RPI_Id, count(RPI_Id) as 'Total' from tests where hasFever = 'true' group by RPI_Id) as query1 on query1.RPI_Id = RaspberryPis.ID order by Total desc";
-            string location ="no location";
-            using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
-            {
-                using (SqlCommand selectCommand = new SqlCommand(sqlQuery, databaseConnection))
-                {
-                    databaseConnection.Open();
-                
-                    using (SqlDataReader reader = selectCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            location = reader.GetString(0);
-                        }
-                    }
-                }
-            }
-            return location;
-        }
-
-
-
-
-
-
 
         // POST api/<TestsController>
         [HttpPost("withDateTime/")]

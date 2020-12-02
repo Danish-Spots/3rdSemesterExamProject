@@ -36,6 +36,20 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet("/MostDangerousLocation")]
+        public IActionResult MostDangerousLocation()
+        {
+            string sqlQuery = "Select * from RaspberryPis where [location] = (Select Top 1[location] from RaspberryPis inner join (select RPI_Id, count(RPI_Id) as 'Total' from tests where hasFever = 'true' group by RPI_Id) as query1 on query1.RPI_Id = RaspberryPis.ID order by Total desc)";
+            try
+            {
+                return Ok(getPisFromDB(sqlQuery));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500);
+            }
+        }
+
         // POST api/<RaspberyPisController>
         [HttpPost]
         public IActionResult Post([FromBody] RaspberryPi value)
