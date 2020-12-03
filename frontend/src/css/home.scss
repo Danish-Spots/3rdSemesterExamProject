@@ -15,17 +15,31 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  color: gainsboro;
+}
+
 /*-------- HEADER ----- */
 header {
   position: fixed;
   top: 0%;
   left: 0%;
   width: 100%;
-  max-height: 80px;
-
+  max-height: 85px;
   overflow: hidden;
+  z-index: 5;
   background-color: #7aa4e3;
+  box-shadow: 0px 3px #546f98;
 }
+
 header img {
   position: absolute;
   z-index: -1;
@@ -70,22 +84,23 @@ nav-flex {
   margin: 0;
 }
 
-.menu-options li {
-  padding: 30px;
-  min-width: 150px;
+.menu-options li a {
   text-align: center;
+  padding: 31px 25px;
 }
 
-.menu-options li:hover {
+.menu-options li a:hover {
   background-color: #546f98;
   cursor: pointer;
 }
 
 @media screen and (max-width: 990px) {
-  .menu-options li {
-    padding: 30px 10px;
-    min-width: 60px;
+  .menu-options li a {
     font-size: 75%;
+    padding: 25px 10px;
+  }
+  .logo-container {
+    max-width: 150px;
   }
 }
 
@@ -93,8 +108,10 @@ nav-flex {
 
 .main-container {
   display: block;
-  top: 80px;
   position: relative;
+  z-index: 1;
+  top: 80px;
+  margin-top: 80px;
   width: 70%;
   left: 15%;
 }
