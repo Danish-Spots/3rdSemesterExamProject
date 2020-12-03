@@ -33,17 +33,17 @@ namespace ConsoleUDPServer
                                   "\nTemperature In F: " + t.TemperatureF);
 
 
-                //try
-                //{
-                //    HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
-                //    Console.WriteLine("Sent Data");
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine(e.Message);
-                //    Console.WriteLine("The application will now exit\n....");
-                //    break;
-                //}
+                try
+                {
+                    HttpResponseMessage m = await DataSenderService.Post("https://fevr.azurewebsites.net/api/Tests", t);
+                    Console.WriteLine("Sent Data");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("The application will now exit\n....");
+                    break;
+                }
 
             }
         }

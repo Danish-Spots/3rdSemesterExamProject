@@ -28,8 +28,6 @@ namespace ConsoleUDPServer
                     Console.WriteLine(e);
                     throw e;
                 }
-                
-                
             }
         }
 
