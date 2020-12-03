@@ -39,17 +39,19 @@ const LoginMain: React.FC<Props> = (props) => {
           type="text"
           name="username"
           id="Username"
+          placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="password"
           name="password"
+          placeholder="password"
           id="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" id="SignIn" value="Sign In" />
+        <button type="submit" id="SignIn">Sign in</button>
       </form>
     </div>
   );
