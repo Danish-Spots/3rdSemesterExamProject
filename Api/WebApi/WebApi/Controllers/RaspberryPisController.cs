@@ -55,8 +55,8 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] RaspberryPi value)
         {
             string insertRPISql =
-                "insert into RaspberryPis (location, isActive, profileID) values (@location, @isActive, @profileID)";
-            var postResults = StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID));
+                "insert into RaspberryPis (location, isActive, profileID, latitude, longitude) values (@location, @isActive, @profileID, @latitude, @longitude)";
+            var postResults = StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude));
             if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
             return CreatedAtAction("Get", new { id = value.ID }, value);
@@ -72,8 +72,8 @@ namespace WebApi.Controllers
             if (getRPI.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string updatePiSql =
-                "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID where id=@id";
-            StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@id", value.ID));
+                "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID, latitude=@latitude, longitude=@longitude where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude), ("@id", value.ID));
             return Ok();
         }
 
