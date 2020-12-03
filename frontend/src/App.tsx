@@ -7,6 +7,8 @@ import { Header } from "./Components/Home/Header";
 import Logo from "./imgs/logo.png";
 import LoginMain from "./Components/Login/LoginMain";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
+import { HomeSecureMain } from "./Components/HomeSecure/HomeSecureMain";
+import { SecureHeader } from "./Components/HomeSecure/SecureHeader";
 
 const App: React.FC = () => {
   const headerLinks = [
@@ -23,21 +25,49 @@ const App: React.FC = () => {
       Text: "Become a customer",
     },
   ];
+  const secureHeaderLinks = [
+    {
+      Name: "home_secure",
+      Text: "Home",
+    },
+    {
+      Name: "devices",
+      Text: "Devices",
+    },
+    {
+      Name: "datarecords",
+      Text: "Data Records",
+    },
+    {
+      Name: "mapview",
+      Text: "Map View",
+    },
+  ];
   const hasSessionKey = useRef(false);
 
   useEffect(() => {
     hasSessionKey.current = sessionStorage.getItem("SessionKey") !== null;
+    console.log(hasSessionKey.current);
   });
 
   return (
     <Router>
       <div>
-        <Header
-          Logo={Logo}
-          LogoName="fevR"
-          LogoDesc="The professional fever detecting system"
-          MenuOptions={headerLinks}
-        />
+        {hasSessionKey.current ? (
+          <SecureHeader
+            Logo={Logo}
+            LogoName="fevR"
+            LogoDesc="The professional fever detecting system"
+            MenuOptions={secureHeaderLinks}
+          />
+        ) : (
+          <Header
+            Logo={Logo}
+            LogoName="fevR"
+            LogoDesc="The professional fever detecting system"
+            MenuOptions={headerLinks}
+          />
+        )}
         <Switch>
           <Route exact path="/">
             <HomeMain />
@@ -54,8 +84,23 @@ const App: React.FC = () => {
           <ProtectedRoute
             path="/home_secure"
             isAuthenticated={hasSessionKey.current}
-            component={HomeMain}
-          ></ProtectedRoute>
+            component={HomeSecureMain}
+          />
+          <ProtectedRoute
+            path="/devices"
+            isAuthenticated={hasSessionKey.current}
+            component={HomeSecureMain}
+          />
+          <ProtectedRoute
+            path="/datarecords"
+            isAuthenticated={hasSessionKey.current}
+            component={HomeSecureMain}
+          />
+          <ProtectedRoute
+            path="/mapview"
+            isAuthenticated={hasSessionKey.current}
+            component={HomeSecureMain}
+          />
         </Switch>
       </div>
     </Router>
