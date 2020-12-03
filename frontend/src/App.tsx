@@ -9,6 +9,7 @@ import LoginMain from "./Components/Login/LoginMain";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
 import { HomeSecureMain } from "./Components/HomeSecure/HomeSecureMain";
 import { SecureHeader } from "./Components/HomeSecure/SecureHeader";
+import { DevicesMain } from "./Components/Devices/DevicesMain"
 
 const App: React.FC = () => {
   const headerLinks = [
@@ -87,10 +88,10 @@ const App: React.FC = () => {
             isAuthenticated={hasSessionKey.current}
             component={HomeSecureMain}
           />
-          <ProtectedRoute
+          <Route
             path="/devices"
             isAuthenticated={hasSessionKey.current}
-            component={HomeSecureMain}
+            component={DevicesMain}
           />
           <ProtectedRoute
             path="/datarecords"

@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap); /*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+.device-container {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.deviceListItem {
+  background-color: #7aa4e3;
+  height: 43px;
+  border-radius: 20px;
+  margin: 13px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
