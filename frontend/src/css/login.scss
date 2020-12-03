@@ -49,6 +49,8 @@ body {
   border-color: white;
   background-color: white;
   color: #546f98;
+  border: 0;
+  height: 28px;
   border-style: solid;
 }
 
@@ -76,4 +78,5 @@ body {
 #LoginBox input:focus,
 #LoginBox button:focus {
   outline: none;
+  background-color: #dceaff;
 }

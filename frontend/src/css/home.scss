@@ -86,7 +86,7 @@ nav-flex {
 
 .menu-options li a {
   text-align: center;
-  padding: 31px 25px;
+  padding: 31px 45px;
 }
 
 .menu-options li a:hover {
@@ -97,13 +97,23 @@ nav-flex {
 @media screen and (max-width: 990px) {
   .menu-options li a {
     font-size: 75%;
-    padding: 25px 10px;
+    padding: 31px 33px;
   }
   .logo-container {
-    max-width: 150px;
+    min-width: 170px;
   }
 }
 
+@media screen and (max-width: 650px) {
+  .menu-options li a {
+    font-size: 75%;
+    padding: 31px 10px;
+  }
+  .logo-container {
+    min-width: 100px;
+    width: 150px;
+  }
+}
 /* ******************* MAIN CONTENT ************* */
 
 .main-container {
