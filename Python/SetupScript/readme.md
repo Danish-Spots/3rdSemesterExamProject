@@ -1,0 +1,1 @@
+Simply run the Setup.py script, and the console will prompt you for all the information needed.
