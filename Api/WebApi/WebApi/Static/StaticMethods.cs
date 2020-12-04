@@ -43,9 +43,18 @@ namespace WebApi.Static
                         int id = (int) insertCommand.ExecuteScalar();
                         return (staticData.ERRORS.FINISHED_POST, id);
                     }
-                    catch (Exception e)
+                    catch (SqlException e)
                     {
-                        return (staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE, -1);
+                        if (e.Errors.Count > 0)
+                        {
+                            switch (e.Errors[0].Number)
+                            {
+                                case 547:
+                                    return (staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE, -1);
+                            }
+                        }
+
+                        throw e;
                     }
                     
                 }
