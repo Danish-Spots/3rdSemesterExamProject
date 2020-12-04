@@ -1,5 +1,6 @@
 import re
 import requests
+import json
 
 measuringSettings = [
     ["cooldown_timer", "3f", r"^[0-9]*(\.?[0-9]*)$",
@@ -73,21 +74,30 @@ def Setup():
 
     response = requests.get("https://nominatim.openstreetmap.org/search?q=" +
                             location.replace(" ", "%20")+"&format=jsonv2")
+    if (not response.ok):
+        print("Something went wrong while gathering Latitude and Longitude from api. Please try again later.")
+        return
     jsonResponse = response.json()
     lat = jsonResponse[0]["lat"]
     lon = jsonResponse[0]["lon"]
 
-    post = requests.post("https://fevr.azurewebsites.net/api/RaspberryPis", json={
+    dataObject = {
         "id": 0,
         "location": name,
         "isActive": True,
         "profileID": profileID,
         "longitude": lon,
         "latitude": lat
-    })
+    }
 
-    #rpiID = post.text["id"]
-    rpiID = 0
+    print(dataObject)
+
+    post = requests.post(
+        "https://fevr.azurewebsites.net/api/RaspberryPis", json=dataObject)
+
+    print(post.json())
+
+    rpiID = post.json()["id"]
     settings = [
         ["rpi_id", rpiID, r"^[0-9]*(\.?[0-9]*)$",
          "Raspberry Pi Device ID"]
