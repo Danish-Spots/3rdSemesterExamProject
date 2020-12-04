@@ -41,11 +41,12 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] Profile value)
         {
             string insertProfileSql =
-                "insert into Profiles (companyName, city, joinDate, phone, address, country) values (@companyName, @city, @joinDate, @phone, @address, @country)";
+                "insert into Profiles (companyName, city, joinDate, phone, address, country) output inserted.id values (@companyName, @city, @joinDate, @phone, @address, @country)";
             var postResult = StaticMethods.PostToDB(insertProfileSql, ("@companyName", value.CompanyName), ("@city", value.City), ("@joinDate", value.JoinDate), 
                 ("@phone", value.Phone), ("@address", value.Address), ("@country", value.Country));
-            if (postResult == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResult.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            value.ID = postResult.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 

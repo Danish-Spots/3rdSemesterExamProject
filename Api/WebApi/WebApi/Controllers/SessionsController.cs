@@ -76,10 +76,11 @@ namespace WebApi.Controllers
             if (getSession.GetType() == typeof(OkObjectResult))
                 Delete(((getSession as OkObjectResult).Value as Session).ID);
             string insertSessionsSql =
-                "insert into Sessions ([key], userID) values (@key, @userID)";
+                "insert into Sessions ([key], userID) output inserted.id values (@key, @userID)";
             var postResults= StaticMethods.PostToDB(insertSessionsSql, ("@key", value.Key), ("@userID", value.UserID));
-            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            value.ID = postResults.Item2;
             return CreatedAtAction("GET", new {id=value.ID}, value);
         }
 

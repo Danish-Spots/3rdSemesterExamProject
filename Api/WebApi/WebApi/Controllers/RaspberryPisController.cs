@@ -55,10 +55,11 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] RaspberryPi value)
         {
             string insertRPISql =
-                "insert into RaspberryPis (location, isActive, profileID, latitude, longitude) values (@location, @isActive, @profileID, @latitude, @longitude)";
+                "insert into RaspberryPis (location, isActive, profileID, latitude, longitude) output inserted.id values (@location, @isActive, @profileID, @latitude, @longitude)";
             var postResults = StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude));
-            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 

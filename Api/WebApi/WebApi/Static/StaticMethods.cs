@@ -25,7 +25,7 @@ namespace WebApi.Static
             }
         }
 
-        public static staticData.ERRORS PostToDB(string insertSql, params (string, object)[] paramList)
+        public static (staticData.ERRORS, int) PostToDB(string insertSql, params (string, object)[] paramList)
         {
             using (SqlConnection databaseConnection = new SqlConnection(staticData.connString))
             {
@@ -40,11 +40,12 @@ namespace WebApi.Static
                     try
                     {
                         insertCommand.ExecuteNonQuery();
-                        return staticData.ERRORS.FINISHED_POST;
+                        int id = (int) insertCommand.ExecuteScalar();
+                        return (staticData.ERRORS.FINISHED_POST, id);
                     }
                     catch (Exception e)
                     {
-                        return staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE;
+                        return (staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE, -1);
                     }
                     
                 }

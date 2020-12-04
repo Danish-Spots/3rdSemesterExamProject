@@ -150,11 +150,12 @@ namespace WebApi.Controllers
         public IActionResult PostWDateTime([FromBody] Test value)
         {
             string insertTestSql =
-                "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever, temperaturef) values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever, @temperaturef)";
+                "insert into Tests (temperature, timeOfDataRecording, RPI_ID, hasFever, temperaturef) output inserted.id values (@temperature, @timeOfDataRecording, @RPI_ID, @hasFever, @temperaturef)";
             var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@timeOfDataRecording", value.TimeOfDataRecording), 
                 ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@temperaturef", value.TemperatureF));
-            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
@@ -163,11 +164,12 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] Test value)
         {
             string insertTestSql =
-                "insert into Tests (temperature, RPI_ID, hasFever, temperaturef) values (@temperature, @RPI_ID, @hasFever, @temperaturef)";
+                "insert into Tests (temperature, RPI_ID, hasFever, temperaturef) output inserted.id values (@temperature, @RPI_ID, @hasFever, @temperaturef)";
             var postResults = StaticMethods.PostToDB(insertTestSql, ("@temperature", value.Temperature), ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever),
                 ("@temperaturef", value.TemperatureF));
-            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 

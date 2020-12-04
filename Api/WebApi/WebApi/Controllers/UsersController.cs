@@ -88,11 +88,12 @@ namespace WebApi.Controllers
             if (getUser.GetType() == typeof(OkObjectResult))
                 return Conflict();
             string insertUserSql =
-                "insert into Users (userName, password, email, profileID) values (@userName, @password, @email, @profileID)";
+                "insert into Users (userName, password, email, profileID) output inserted.id values (@userName, @password, @email, @profileID)";
             var postResults = StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
-            if (postResults == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
+            if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
-            return Ok();
+            value.ID = postResults.Item2;
+            return CreatedAtAction("Get", new { id = value.ID }, value);
         }
 
         // PUT api/<UsersController>/5
