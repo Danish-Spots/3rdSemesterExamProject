@@ -1,5 +1,6 @@
 import re
 import requests
+import json
 
 measuringSettings = [
     ["cooldown_timer", "3f", r"^[0-9]*(\.?[0-9]*)$",
@@ -77,14 +78,23 @@ def Setup():
     lat = jsonResponse[0]["lat"]
     lon = jsonResponse[0]["lon"]
 
-    post = requests.post("https://fevr.azurewebsites.net/api/RaspberryPis", json={
+    dataObject = {
         "id": 0,
         "location": name,
         "isActive": True,
         "profileID": profileID,
         "longitude": lon,
         "latitude": lat
-    })
+    }
+
+    dataObject = json.dumps(dataObject)
+
+    print(dataObject)
+
+    post = requests.post(
+        "https://fevr.azurewebsites.net/api/RaspberryPis", json=dataObject)
+
+    print(post.json())
 
     #rpiID = post.text["id"]
     rpiID = 0
