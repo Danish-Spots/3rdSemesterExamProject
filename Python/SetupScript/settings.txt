@@ -1,5 +1,5 @@
 # Raspberry Pi Device ID
-rpi_id: 0
+rpi_id: 39
 
 # Cooldown between measurements
 cooldown_timer: 3f
