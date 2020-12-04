@@ -74,6 +74,9 @@ def Setup():
 
     response = requests.get("https://nominatim.openstreetmap.org/search?q=" +
                             location.replace(" ", "%20")+"&format=jsonv2")
+    if (not response.ok):
+        print("Something went wrong while gathering Latitude and Longitude from api. Please try again later.")
+        return
     jsonResponse = response.json()
     lat = jsonResponse[0]["lat"]
     lon = jsonResponse[0]["lon"]
@@ -87,8 +90,6 @@ def Setup():
         "latitude": lat
     }
 
-    dataObject = json.dumps(dataObject)
-
     print(dataObject)
 
     post = requests.post(
@@ -96,8 +97,7 @@ def Setup():
 
     print(post.json())
 
-    #rpiID = post.text["id"]
-    rpiID = 0
+    rpiID = post.json()["id"]
     settings = [
         ["rpi_id", rpiID, r"^[0-9]*(\.?[0-9]*)$",
          "Raspberry Pi Device ID"]
