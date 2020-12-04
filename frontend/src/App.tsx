@@ -1,5 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import { HomeMain } from "./Components/Home/HomeMain";
 import { Header } from "./Components/Home/Header";
@@ -9,7 +14,8 @@ import LoginMain from "./Components/Login/LoginMain";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
 import { HomeSecureMain } from "./Components/HomeSecure/HomeSecureMain";
 import { SecureHeader } from "./Components/HomeSecure/SecureHeader";
-import { DevicesMain } from "./Components/Devices/DevicesMain"
+import { DevicesMain } from "./Components/Devices/DevicesMain";
+import { MapViewMain } from "./Components/MapView/MapViewMain";
 
 const App: React.FC = () => {
   const headerLinks = [
@@ -44,32 +50,22 @@ const App: React.FC = () => {
       Text: "Map View",
     },
   ];
-  const hasSessionKey = useRef(false);
+  const [hasSessionKey, setHasSessionKey] = useState<boolean>(false);
 
   useEffect(() => {
-    hasSessionKey.current = sessionStorage.getItem("SessionKey") !== null;
-    console.log(hasSessionKey.current);
-  });
+    setHasSessionKey(sessionStorage.getItem("SessionKey") !== null);
+    console.log("Session Key:", hasSessionKey);
+  }, []);
 
   return (
     <Router>
       <div>
-
-        {hasSessionKey.current ? (
-          <SecureHeader
-            Logo={Logo}
-            LogoName="fevR"
-            LogoDesc="The professional fever detecting system"
-            MenuOptions={secureHeaderLinks}
-          />
-        ) : (
-          <Header
-            Logo={Logo}
-            LogoName="fevR"
-            LogoDesc="The professional fever detecting system"
-            MenuOptions={headerLinks}
-          />
-        )}
+        <Header
+          Logo={Logo}
+          LogoName="fevR"
+          LogoDesc="The professional fever detecting system"
+          MenuOptions={headerLinks}
+        />
         <Switch>
           <Route exact path="/">
             <HomeMain />
@@ -85,23 +81,23 @@ const App: React.FC = () => {
           </Route>
           <ProtectedRoute
             path="/home_secure"
-            isAuthenticated={hasSessionKey.current}
+            isAuthenticated={hasSessionKey}
             component={HomeSecureMain}
           />
           <Route
             path="/devices"
-            isAuthenticated={hasSessionKey.current}
+            isAuthenticated={hasSessionKey}
             component={DevicesMain}
           />
-          <ProtectedRoute
+          <Route
             path="/datarecords"
-            isAuthenticated={hasSessionKey.current}
+            isAuthenticated={hasSessionKey}
             component={HomeSecureMain}
           />
-          <ProtectedRoute
+          <Route
             path="/mapview"
-            isAuthenticated={hasSessionKey.current}
-            component={HomeSecureMain}
+            isAuthenticated={hasSessionKey}
+            component={MapViewMain}
           />
         </Switch>
       </div>

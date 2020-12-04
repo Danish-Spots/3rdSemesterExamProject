@@ -32,14 +32,8 @@ export const HomeMain: React.FC<{}> = () => {
   ]);
 
   const [markerData, setMarkerData] = useState<
-    { Text: string; Lat: number; Lon: number }[]
-  >([
-    {
-      Text: "Loading Data",
-      Lat: 0,
-      Lon: 0,
-    },
-  ]);
+    { ID: number; Text: string; Lat: number; Lon: number }[]
+  >([]);
 
   useEffect(() => {
     const loadCardData = async () => {
@@ -112,7 +106,12 @@ export const HomeMain: React.FC<{}> = () => {
         });
       let newMarkerData = pis.map((o) => {
         console.log(o);
-        return { Text: o.Location, Lat: +o.Latitude, Lon: +o.Longitude };
+        return {
+          ID: o.Id,
+          Text: o.Location,
+          Lat: +o.Latitude,
+          Lon: +o.Longitude,
+        };
       });
       setMarkerData([...newMarkerData]);
     };
