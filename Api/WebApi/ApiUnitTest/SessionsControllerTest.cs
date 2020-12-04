@@ -59,24 +59,24 @@ namespace ApiUnitTest
         }
 
         //Passed
-        //[TestMethod]
-        //public void TestPostOne()
-        //{
-        //    //Arrange
-        //    Session s = new Session()
-        //    {
-        //        ID = 1,
-        //        Key = "asljdhliajhbdkjh209837",
-        //        UserID = 12
-        //    };
-        //    SessionsController controller = new SessionsController();
+        [TestMethod]
+        public void TestPostOne()
+        {
+            //Arrange
+            Session s = new Session()
+            {
+                ID = 1,
+                Key = "0PYP4EZLC2Y6YGRSP01S7TOKVQUVMW4D",
+                UserID = 27
+            };
+            SessionsController controller = new SessionsController();
 
-        //    //Act
-        //    IActionResult response = controller.Post(s);
-        //    CreatedAtActionResult result = response as CreatedAtActionResult;
-        //    //Assert
-        //    Assert.AreEqual(result.StatusCode, 201);
-        //}
+            //Act
+            IActionResult response = controller.Post(s);
+            CreatedAtActionResult result = response as CreatedAtActionResult;
+            //Assert
+            Assert.AreEqual(result.StatusCode, 201);
+        }
 
         [TestMethod]
         public void TestPostOneIDInUse()
@@ -177,18 +177,18 @@ namespace ApiUnitTest
         }
 
         //Passed
-        //[TestMethod]
-        //public void TestDeleteOne()
-        //{
-        //    //Arrange
-        //    SessionsController controller = new SessionsController();
+        [TestMethod]
+        public void TestDeleteOne()
+        {
+            //Arrange
+            SessionsController controller = new SessionsController();
 
-        //    //Act
-        //    StatusCodeResult response = (StatusCodeResult)controller.Delete(3);
+            //Act
+            StatusCodeResult response = (StatusCodeResult)controller.Delete(46);
 
-        //    //Assert
-        //    Assert.AreEqual(response.StatusCode, 200);
-        //}
+            //Assert
+            Assert.AreEqual(response.StatusCode, 200);
+        }
 
         [TestMethod]
         public void TestDeleteOneIDOutOfRange()

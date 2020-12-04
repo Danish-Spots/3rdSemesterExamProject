@@ -39,7 +39,6 @@ namespace WebApi.Static
 
                     try
                     {
-                        insertCommand.ExecuteNonQuery();
                         int id = (int) insertCommand.ExecuteScalar();
                         return (staticData.ERRORS.FINISHED_POST, id);
                     }
