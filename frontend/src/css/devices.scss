@@ -26,7 +26,7 @@
 /* ******************* Device Comp. ************* */
 
 .device-container {
-  margin-top: 50px;
+  margin-top: 15px;
   width: 100%;
   min-width: 530px;
 }
@@ -91,6 +91,30 @@ button img {
   background-color: #e02222;
 }
 
-.deviceListItem button:focus {
+.deviceListItem button:focus,
+.AddDeviceButton:focus {
   outline: none;
+}
+
+/* *****************  Add device   ******************* */
+.head-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.AddDeviceButton {
+  margin: 25px;
+  width: 120px;
+  height: 40px;
+  border-style: solid;
+  border: 0;
+  border-radius: 15px;
+  background-color: #546f98;
+  color: white;
+}
+.AddDeviceButton:hover {
+  background-color: #3f5d8a;
+}
+.AddDeviceButton:active {
+  background-color: #2c4d80;
 }

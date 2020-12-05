@@ -32,7 +32,10 @@ export const DevicesMain: React.FC<DevicesMainProps> = ({}) => {
     return (
 
             <div className="main-container">
+                <div className="head-container">  
                 <h1>My Devices</h1>
+                <button className="AddDeviceButton">Add device</button>
+                </div>
                 <div className="device-container">
                     <DeviceListItem id={1} senName="Entrance" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
                     <DeviceListItem id={2} senName="Back door" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
