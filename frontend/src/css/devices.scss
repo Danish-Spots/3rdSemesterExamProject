@@ -4,6 +4,27 @@
 #e35959 - red
 #57c09d - green
 */
+
+/* ******************* MAIN CONTENT ************* */
+
+.main-container {
+  display: block;
+  position: relative;
+  z-index: 1;
+  top: 80px;
+  margin-top: 80px;
+  width: 70%;
+  left: 15%;
+}
+
+.main-container h1 {
+  margin: 25px 30px;
+  color: #546f98;
+  text-shadow: none;
+}
+
+/* ******************* Device Comp. ************* */
+
 .device-container {
   margin-top: 50px;
   width: 100%;
@@ -17,4 +38,23 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+.text-container {
+  padding-left: 25px;
+  padding-top: 11px;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.deviceListItem button {
+  width: 32px;
+  height: 32px;
+  margin-top: -5px;
+  border-radius: 20px;
+}
+
+.deviceListItem button:focus {
+  outline: none;
 }

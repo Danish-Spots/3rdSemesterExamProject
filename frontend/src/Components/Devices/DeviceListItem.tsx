@@ -1,23 +1,33 @@
 import React from "react"
 
+interface DeviceListItemProps {
+    id:number
+    senName:string
+    postCode:number
+    city:string
+    isActive:boolean
+    isEditable:boolean
+}
 
-export const DeviceListItem: React.FC<{}> = () => 
+export const DeviceListItem: React.FC<DeviceListItemProps> = ({id,senName,postCode,city,isActive}) => 
 {
     return(
-        <div className="device-container">
+        
           <div className="deviceListItem">
-            <div>
-                <label>#1</label>
-                <label>SensEntrance</label>
-                <label>4000</label>
-                <label>Roskilde Eriksvej</label>
-                <label>Active</label>
-                <button className="editButton"></button>
-                <button className="deleteButton"></button>
+                <div className="text-container">
+                    <label>{id}</label>
+                    <label>{senName}</label>
+                    <label>{postCode}</label>
+                    <label>{city}</label>
+                    <label>{isActive ? "Active" : "Inactive"}</label>
+                    <button className="editButton"></button>
+                    <button className="deleteButton"></button>
+                </div>
             </div>
-            </div>
-        </div>
+        
  
     )
     
 }
+export default DeviceListItem
+
