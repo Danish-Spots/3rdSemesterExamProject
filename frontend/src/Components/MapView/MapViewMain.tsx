@@ -3,6 +3,8 @@ import { marker } from "leaflet";
 import React, { useEffect, useState } from "react";
 import RaspberryPi from "../../classes/RaspberryPi";
 import { Map } from "../Map";
+import "../../css/map.scss";
+
 
 // interface Props {
 //     MarkerData: {
@@ -86,5 +88,13 @@ export const MapViewMain: React.FC<{}> = ({}) => {
     loadPinData(sessionStorage.getItem("SessionKey") as string);
   }, []);
 
-  return <Map MarkerData={markerData} />;
+  return( 
+  
+        <div className="main-container">
+          <h1>Map view</h1>
+          <div className="map-container">
+          <Map MarkerData={markerData} />
+          </div>
+        </div>
+      )
 };

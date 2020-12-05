@@ -28,6 +28,11 @@
 .device-container {
   margin-top: 50px;
   width: 100%;
+  min-width: 530px;
+}
+
+.text-container label {
+  min-width: 80px;
 }
 
 .deviceListItem {
@@ -39,20 +44,51 @@
   display: flex;
   justify-content: space-between;
 }
+
 .text-container {
   padding-left: 25px;
   padding-top: 11px;
-  width: 95%;
+  width: 70%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+.buttons-container {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 25%;
+}
+
 .deviceListItem button {
-  width: 32px;
-  height: 32px;
+  width: 33px;
+  height: 33px;
   margin-top: -5px;
   border-radius: 20px;
+  margin-left: 20px;
+  border-style: solid;
+  border: 0;
+}
+
+button img {
+  padding: 1px;
+  height: 70%;
+  padding-top: 2px;
+}
+
+#EditButton {
+  background-color: #ffb24a;
+}
+#EditButton:hover {
+  background-color: #e9972c;
+}
+
+#DeleteButton {
+  background-color: #ff4a4a;
+}
+#DeleteButton:hover {
+  background-color: #e02222;
 }
 
 .deviceListItem button:focus {

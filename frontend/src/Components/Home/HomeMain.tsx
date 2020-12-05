@@ -123,6 +123,7 @@ export const HomeMain: React.FC<{}> = () => {
     <div className="main-container">
       <h1>Home</h1>
       <InfoBox InfoData={infoData} />
+      <h1>Devices</h1>
       <Map MarkerData={markerData} />
     </div>
   );

@@ -1,0 +1,31 @@
+/* ******************* MAIN CONTENT ************* */
+
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+
+.main-container {
+  display: block;
+  position: relative;
+  z-index: 1;
+  top: 80px;
+  margin-top: 80px;
+  width: 70%;
+  left: 15%;
+  padding-bottom: 120px;
+}
+
+.main-container h1 {
+  margin: 25px 30px;
+  color: #546f98;
+  text-shadow: none;
+}
+
+.map-container {
+  padding: 25px;
+  background-color: #7aa4e3;
+  border-radius: 25px;
+}
