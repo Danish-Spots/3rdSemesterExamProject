@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { HomeMain } from "./Components/Home/HomeMain";
-import { Header } from "./Components/Home/Header";
-
-import { UserStoreContext } from "./stores/UserStore";
+import { Header } from "./Components/Header/Header";
 
 import Logo from "./imgs/logo.png";
 import LoginMain from "./Components/Login/LoginMain";
@@ -14,6 +12,8 @@ import { DevicesMain } from "./Components/Devices/DevicesMain";
 import { MapViewMain } from "./Components/MapView/MapViewMain";
 import WhatIsFevR from "./Components/WhatIsFevR/WhatIsFevR";
 import { ProfileMain } from "./Components/Profile/ProfileMain";
+import LogoutMain from "./Components/Logout/LogoutMain";
+import { UserStoreContext } from "./stores/UserStore";
 import { observer } from "mobx-react-lite";
 
 const App: React.FC = observer(() => {
@@ -33,12 +33,29 @@ const App: React.FC = observer(() => {
       Text: "Become a customer",
     },
   ];
-  const [hasSessionKey, setHasSessionKey] = useState<boolean>(false);
 
-  useEffect(() => {
-    setHasSessionKey(sessionStorage.getItem("SessionKey") !== null);
-    console.log("Session Key:", hasSessionKey);
-  }, []);
+  const secureHeaderLinks = [
+    {
+      Name: "home_secure",
+      Text: "Dashboard",
+    },
+    {
+      Name: "devices",
+      Text: "Devices",
+    },
+    {
+      Name: "datarecords",
+      Text: "Data Records",
+    },
+    {
+      Name: "mapview",
+      Text: "Map View",
+    },
+    {
+      Name: "logout",
+      Text: "Logout",
+    },
+  ];
 
   return (
     <Router>
@@ -47,7 +64,7 @@ const App: React.FC = observer(() => {
           Logo={Logo}
           LogoName="fevR"
           LogoDesc="The professional fever detecting system"
-          MenuOptions={headerLinks}
+          MenuOptions={userStore.isLoggedIn ? secureHeaderLinks : headerLinks}
         />
         <Switch>
           <Route exact path="/">
@@ -70,20 +87,25 @@ const App: React.FC = observer(() => {
             isAuthenticated={userStore.isLoggedIn}
             component={HomeSecureMain}
           />
-          <Route
+          <ProtectedRoute
             path="/devices"
             isAuthenticated={userStore.isLoggedIn}
             component={DevicesMain}
           />
-          <Route
+          <ProtectedRoute
             path="/datarecords"
             isAuthenticated={userStore.isLoggedIn}
             component={HomeSecureMain}
           />
-          <Route
+          <ProtectedRoute
             path="/mapview"
             isAuthenticated={userStore.isLoggedIn}
             component={MapViewMain}
+          />
+          <ProtectedRoute
+            path="/logout"
+            isAuthenticated={userStore.isLoggedIn}
+            component={LogoutMain}
           />
         </Switch>
       </div>

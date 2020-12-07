@@ -6,7 +6,6 @@ export const ProtectedRoute = ({
   isAuthenticated,
   ...rest
 }: any) => {
-  console.log("isAuth", isAuthenticated);
   const routeComponent = (props: any) =>
     isAuthenticated ? (
       React.createElement(component, props)

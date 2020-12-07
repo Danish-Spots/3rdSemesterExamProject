@@ -1,14 +1,13 @@
 import Axios, { AxiosError, AxiosResponse } from "axios";
-import { observable } from "mobx";
+import { observer } from "mobx-react-lite";
 import React, { FormEvent, useContext, useState } from "react";
-import { RouteComponentProps, Router, withRouter } from "react-router-dom";
-import { isPropertySignature } from "typescript";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../css/login.scss";
 import { UserStoreContext } from "../../stores/UserStore";
 
 interface Props extends RouteComponentProps {}
 
-const LoginMain: React.FC<Props> = observable((props) => {
+const LoginMain: React.FC<Props> = observer((props) => {
   const userStore = useContext(UserStoreContext);
 
   const [username, setUsername] = useState<string>("");
@@ -22,11 +21,18 @@ const LoginMain: React.FC<Props> = observable((props) => {
         userStore.isLoading = false;
         if (response.status === 200) {
           console.log("response data", response.data);
-          sessionStorage.setItem("SessionKey", response.data);
-          props.history.push("/home_secure");
+          sessionStorage.setItem("SessionKey", response.data.sessionKey);
+          sessionStorage.setItem("Username", username);
+          sessionStorage.setItem("ProfileID", response.data.profileID);
 
-          userStore.isLoggedIn = true;
-          userStore.sessionKey = sessionStorage.getItem("SessionKey") as string;
+          userStore.change_login(
+            false,
+            true,
+            username,
+            response.data.sessionKey,
+            response.data.profileID
+          );
+          props.history.push("/home_secure");
         }
       })
       .catch((error: AxiosError) => {
