@@ -76,13 +76,13 @@ def Setup():
                             location.replace(" ", "%20")+"&format=jsonv2")
     if (not response.ok):
         print("\nSomething went wrong while gathering Latitude and Longitude from api. Please try again later.")
-        return
+        exit()
     jsonResponse = response.json()
     if jsonResponse == []:
         print("\nThe provided location was not found")
         print("The application will now exit")
         print("Please run setup again")
-        return
+        exit()
     lat = jsonResponse[0]["lat"]
     lon = jsonResponse[0]["lon"]
 
@@ -128,10 +128,12 @@ def Setup():
     elif post.status_code == 400:
         print("\nThe provided profile ID does not exist")
         print("The program will now exit")
-        print("Please run setup again")    
+        print("Please run setup again")
+        exit()    
     else:
         print("\nUnhandled error occured")
         print("Please run setup again")
+        exit()
 
 if __name__ == "__main__":
     Setup()

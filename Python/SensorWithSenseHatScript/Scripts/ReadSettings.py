@@ -14,11 +14,11 @@ def ReadSettingsFile():
     except:
         print("No Settings File Found!")
         print("-----------------------")
-        print("(To be developed)")
+        print("Setup will now be run\n-----------------------\n")
         return -1
 
 def ReturnValue(file_readline):
-    text = file_readline.split("=")[1].strip()
+    text = file_readline.split(":")[1].strip()
     if text[len(text)-1] == 'f':
         text = text[0:len(text)-1]
         return float(text)

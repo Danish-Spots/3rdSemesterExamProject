@@ -25,6 +25,7 @@ class BroadCaster():
         server.settimeout(0.2)
         #sens = Sensor()
         #---------REENABLE FOR WHEN SENSOR IS AVAILABLE
+        print("Broadcast service starting")
         while True:
             temps = []
             temp = 36

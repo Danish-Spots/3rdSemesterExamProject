@@ -2,8 +2,7 @@
 def ReadSettingsFile():
     try:
         return_list = []
-        f = open("../Settings/settings.txt", "r")
-        print("test")
+        f = open("Settings/settings.txt", "r")
         entire_text = f.read()
         split_text = entire_text.split("\n")
         #split_text = [i for i in split_text if i]
@@ -16,7 +15,7 @@ def ReadSettingsFile():
     except:
         print("No Settings File Found!")
         print("-----------------------")
-        print("(To be developed)")
+        print("Setup will now be run\n-----------------------\n")
         return -1
 
 def ReturnValue(file_readline):
@@ -25,6 +24,4 @@ def ReturnValue(file_readline):
         text = text[0:len(text)-1]
         return float(text)
     return int(text)
-
-ReadSettingsFile()
 

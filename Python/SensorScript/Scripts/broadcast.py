@@ -22,7 +22,7 @@ class BroadCaster():
         server.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         server.settimeout(0.2)
         sens = Sensor()
-        
+        print("Broadcast service starting")
         while True:
             temps = []
             temp = sens.get_temp()
