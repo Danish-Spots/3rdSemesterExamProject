@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using WebApi.Models;
 using WebApi.Static;
 
@@ -39,7 +41,13 @@ namespace WebApi.Controllers
                     SessionsController s = new SessionsController();
                     string sessionKey = StaticMethods.GenerateSessionKey();
                     s.Post(new Session() {Key = sessionKey, UserID = user.ID});
-                    return Ok(sessionKey);
+                    Dictionary<string, string> re = new Dictionary<string, string>
+                    {
+                        {"sessionKey", sessionKey},
+                        {"profileID", user.ProfileID.ToString()}
+                    };
+                    string returnString = JsonConvert.SerializeObject(re);
+                    return Ok(returnString);
                 }
                 return BadRequest();
             }
