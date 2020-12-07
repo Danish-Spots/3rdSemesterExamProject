@@ -3,7 +3,7 @@ def ReadSettingsFile():
     try:
         return_list = []
         f = open("../Settings/settings.txt", "r")
-        print(test)
+        print("test")
         entire_text = f.read()
         split_text = entire_text.split("\n")
         #split_text = [i for i in split_text if i]
