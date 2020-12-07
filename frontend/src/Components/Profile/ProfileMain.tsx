@@ -3,6 +3,7 @@ import React from 'react'
 import Profile from '../../classes/Profile';
 import ProfileCard from './ProfileCard';
 import "../../css/profile.scss";
+import { JsxEmit } from 'typescript';
 
 
 interface ProfileMainProps {
@@ -16,38 +17,30 @@ export const ProfileMain: React.FC<ProfileMainProps> = ({}) => {
 
     const loadData = async () =>
     {
+      
+
         let profile:Profile = new Profile(0,"Not excisting profile", "null",new Date(2018, 11, 24, 10, 33, 30, 0), "null", "null","null")
             console.log(profile)
         await Axios.get("https://fevr.azurewebsites.net/api/profiles/2").then((response: AxiosResponse) => {
-        response.data.forEach(
-                (o: {
-                    id: number,
-                    companyName:string,
-                    city:string,
-                    joinDate: Date,
-                    phone:string,
-                    address:string,
-                    country:string
-                }) => {
-                  let newProfile: Profile = new Profile(
-                    o.id,
-                    o.companyName,
-                    o.city,
-                    o.joinDate,
-                    o.phone,
-                    o.address,
-                    o.country 
-                  );    
-                  console.log(profileData)
-                }
-                ); 
 
+            //profile = JSON.parse(response.data)
+             profile.Id = response.data.id
+             profile.CompanyName = response.data.companyName
+             profile.City = response.data.city
+             profile.JoinDate = response.data.joinDate
+             profile.Phone = response.data.phone
+             profile.Address = response.data.address
+             profile.Country = response.data.country
+            console.log(profile)        
+
+            setProfileData(profile)     
 
         })
         .catch((error: AxiosError) => {
             console.log(error);
           });
           
+  
 
 
     }
@@ -62,7 +55,7 @@ export const ProfileMain: React.FC<ProfileMainProps> = ({}) => {
 
         <div className="main-container">
             <h1> Profiles </h1>
-            <ProfileCard ></ProfileCard>
+            <ProfileCard data={profileData}></ProfileCard>
         </div>
 
     );
