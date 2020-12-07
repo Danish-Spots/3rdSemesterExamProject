@@ -1,0 +1,57 @@
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+
+/* ********************** Profile card design *********************** */
+.profile-container {
+  display: flex;
+  width: 70%;
+  justify-content: flex-start;
+  background-color: #7aa4e3;
+  padding: 30px;
+  border-radius: 20px;
+}
+.profile-container img {
+  height: 200px;
+  width: 200px;
+}
+
+.profileData-container {
+  margin-left: 8%;
+}
+
+.profileData-container h3 {
+  text-align: center;
+  margin-bottom: 20%;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.profileData-container label {
+  display: block;
+  padding: 5px 0;
+}
+
+.profile-container button {
+  margin-left: 25px;
+  height: auto;
+  margin-top: 23%;
+  padding: 8px 25px;
+  border-radius: 20px;
+  border-style: solid;
+  border: none;
+  background-color: #ffb24a;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #000000;
+}
+.profile-container button:focus {
+  outline: none;
+}
+
+.profile-container button:hover {
+  background-color: #f1a23b;
+}

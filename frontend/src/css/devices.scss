@@ -7,16 +7,6 @@
 
 /* ******************* MAIN CONTENT ************* */
 
-.main-container {
-  display: block;
-  position: relative;
-  z-index: 1;
-  top: 80px;
-  margin-top: 80px;
-  width: 70%;
-  left: 15%;
-}
-
 .main-container h1 {
   margin: 25px 30px;
   color: #546f98;
@@ -33,6 +23,7 @@
 
 .text-container label {
   min-width: 80px;
+  text-align: left;
 }
 
 .deviceListItem {

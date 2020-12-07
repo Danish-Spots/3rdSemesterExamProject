@@ -17,6 +17,7 @@ import { SecureHeader } from "./Components/HomeSecure/SecureHeader";
 import { DevicesMain } from "./Components/Devices/DevicesMain";
 import { MapViewMain } from "./Components/MapView/MapViewMain";
 import WhatIsFevR from "./Components/WhatIsFevR/WhatIsFevR";
+import { ProfileMain } from "./Components/Profile/ProfileMain";
 
 const App: React.FC = () => {
   const headerLinks = [
@@ -76,6 +77,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/whatisfevr">
               <WhatIsFevR/>
+          </Route>
+          <Route path="/profile">
+              <ProfileMain/>
           </Route>
           <Route path="/becomeacustomer">
             <h1 style={{ marginTop: "100px" }}>Become a customer</h1>
