@@ -53,7 +53,7 @@ namespace WebApi.Static
                             }
                         }
 
-                        throw e;
+                        return (staticData.ERRORS.GENERIC_ERROR, 0);
                     }
                     
                 }

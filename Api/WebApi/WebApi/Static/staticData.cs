@@ -13,7 +13,8 @@ namespace WebApi
         public enum ERRORS
         {
             FINISHED_POST,
-            FOREIGN_KEY_OUT_OF_RANGE
+            FOREIGN_KEY_OUT_OF_RANGE,
+            GENERIC_ERROR
         }
     }
 }

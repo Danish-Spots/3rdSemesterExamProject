@@ -13,5 +13,6 @@ namespace WebApi.Models
         public int ProfileID { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public bool IsAccountConfirmed { get; set; }
     }
 }

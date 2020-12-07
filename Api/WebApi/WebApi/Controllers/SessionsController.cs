@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -80,6 +81,8 @@ namespace WebApi.Controllers
             var postResults= StaticMethods.PostToDB(insertSessionsSql, ("@key", value.Key), ("@userID", value.UserID));
             if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            if (postResults.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResults.Item2;
             return CreatedAtAction("GET", new {id=value.ID}, value);
         }

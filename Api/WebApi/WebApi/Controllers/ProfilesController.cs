@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -46,6 +47,8 @@ namespace WebApi.Controllers
                 ("@phone", value.Phone), ("@address", value.Address), ("@country", value.Country));
             if (postResult.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            if (postResult.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResult.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }

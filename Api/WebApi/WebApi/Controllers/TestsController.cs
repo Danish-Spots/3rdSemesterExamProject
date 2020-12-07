@@ -155,6 +155,8 @@ namespace WebApi.Controllers
                 ("@RPI_ID", value.RaspberryPiID), ("@hasFever", value.HasFever), ("@temperaturef", value.TemperatureF));
             if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            if (postResults.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
@@ -169,6 +171,8 @@ namespace WebApi.Controllers
                 ("@temperaturef", value.TemperatureF));
             if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            if (postResults.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }

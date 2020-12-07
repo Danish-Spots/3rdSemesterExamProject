@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Static;
@@ -55,10 +56,12 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] RaspberryPi value)
         {
             string insertRPISql =
-                "insert into RaspberryPis (location, isActive, profileID, latitude, longitude) output inserted.id values (@location, @isActive, @profileID, @latitude, @longitude)";
-            var postResults = StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude));
+                "insert into RaspberryPis (location, isActive, profileID, latitude, longitude, isAccountConfirmed) output inserted.id values (@location, @isActive, @profileID, @latitude, @longitude, @isAccountConfirmed)";
+            var postResults = StaticMethods.PostToDB(insertRPISql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude), ("@isAccountConfirmed", value.IsAccountConfirmed));
             if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
-                return BadRequest(postResults.Item1);
+                return BadRequest();
+            if (postResults.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
@@ -73,8 +76,8 @@ namespace WebApi.Controllers
             if (getRPI.GetType() == typeof(NotFoundResult))
                 return NotFound();
             string updatePiSql =
-                "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID, latitude=@latitude, longitude=@longitude where id=@id";
-            StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude), ("@id", value.ID));
+                "update RaspberryPis set location=@location, isActive=@isActive, profileID=@profileID, latitude=@latitude, longitude=@longitude, isAccountConfirmed=@isAccountConfirmed where id=@id";
+            StaticMethods.updateOrDeleteFromDB(updatePiSql, ("@location", value.Location), ("@isActive", value.IsActive), ("@profileID", value.ProfileID), ("@latitude", value.Latitude), ("@longitude", value.Longitude), ("@isAccountConfirmed", value.IsAccountConfirmed), ("@id", value.ID));
             return Ok();
         }
 
@@ -114,6 +117,7 @@ namespace WebApi.Controllers
                             temp.ProfileID = reader.GetInt32(3);
                             temp.Longitude = reader.GetString(4);
                             temp.Latitude = reader.GetString(5);
+                            temp.IsAccountConfirmed = reader.GetBoolean(6);
 
                             pis.Add(temp);
                         }

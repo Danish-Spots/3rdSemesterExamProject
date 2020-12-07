@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Isopoh.Cryptography.Argon2;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApi.Models;
@@ -92,6 +93,8 @@ namespace WebApi.Controllers
             var postResults = StaticMethods.PostToDB(insertUserSql, ("@userName", value.UserName), ("@password", value.Password), ("@email", value.Email), ("@profileID", value.ProfileID));
             if (postResults.Item1 == staticData.ERRORS.FOREIGN_KEY_OUT_OF_RANGE)
                 return BadRequest();
+            if (postResults.Item1 == staticData.ERRORS.GENERIC_ERROR)
+                return StatusCode(StatusCodes.Status500InternalServerError);
             value.ID = postResults.Item2;
             return CreatedAtAction("Get", new { id = value.ID }, value);
         }
