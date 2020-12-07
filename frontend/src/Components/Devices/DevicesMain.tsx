@@ -3,6 +3,7 @@ import DeviceListItem from './DeviceListItem'
 import "../../css/devices.scss"
 import Axios, { AxiosResponse, AxiosError } from "axios";
 import AddDeviceModal from "./AddDeviceModal"
+import RaspberryPi from '../../classes/RaspberryPi';
 
 interface DevicesMainProps {
         
@@ -11,22 +12,56 @@ interface DevicesMainProps {
 export const DevicesMain: React.FC<DevicesMainProps> = ({}) => {
 
     const [modalIsShown, setModalIsShown] = React.useState<boolean>()
-    const [deviceData, setDeviceData] = React.useState<{ senName: number; postCode: number; city: string; isActive:boolean }[]>()
+    const [deviceData, setDeviceData] = React.useState<RaspberryPi[]>()
     const triggerText = 'Add device';
 
-    React.useEffect(() => {
-        const loadDevicesData = async () => 
-        {
-            Axios.get("https://fevr.azurewebsites.net/api/RaspberryPis")
-            .then((response: AxiosResponse) => {
-                setDeviceData(response.data);
-              })
-              .catch((error: AxiosError) => {
-                console.log(error);
-              });
-        }
 
-        console.log({deviceData})
+//We save it in a constant so we can run it as Async
+const loadPiData = async () => {
+    let pis: RaspberryPi[] = [];
+    await Axios.get("https://fevr.azurewebsites.net/api/RaspberryPis")
+      .then((response: AxiosResponse) => {
+        response.data.forEach(
+          (o: {
+            id: number;
+            location: string;
+            isActive: boolean;
+            profileID: number;
+            longitude: number;
+            latitude: number;
+          }) => {
+            let newPi: RaspberryPi = new RaspberryPi(
+              o.id,
+              o.location,
+              o.isActive,
+              o.profileID,
+              +o.longitude,
+              +o.latitude
+            );
+            pis.push(newPi);
+          }
+        );
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+      });
+
+    let userPiList:RaspberryPi[] = []
+    pis.forEach( (o) => 
+    {
+       if (o.ProfileID === 2) 
+       {
+           userPiList.push(o)
+       } 
+    } )
+
+    setDeviceData([...userPiList])
+  };
+
+
+    React.useEffect(() => {
+
+        loadPiData()
     })
 
 
@@ -46,10 +81,11 @@ export const DevicesMain: React.FC<DevicesMainProps> = ({}) => {
 
 
                 <div className="device-container">
-                    <DeviceListItem id={1} senName="Entrance" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
-                    <DeviceListItem id={2} senName="Back door" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
-                    <DeviceListItem id={3} senName="Front door" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
-                    <DeviceListItem id={4} senName="Libary" postCode={4000} city="Roskilde" isActive={true} isEditable={false}></DeviceListItem>
+                    {
+                        deviceData?.map( (o:RaspberryPi) => <DeviceListItem device={o} ></DeviceListItem> )
+                    }
+
+
                 </div>
 
             </div>
