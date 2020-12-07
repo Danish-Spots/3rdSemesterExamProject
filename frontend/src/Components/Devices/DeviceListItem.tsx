@@ -1,26 +1,25 @@
 import React from "react"
+import RaspberryPi from "../../classes/RaspberryPi"
 
 interface DeviceListItemProps {
-    id:number
-    senName:string
-    postCode:number
-    city:string
-    isActive:boolean
-    isEditable:boolean
+    device:RaspberryPi 
 }
 
 export const DeviceListItem: React.FC<DeviceListItemProps> = (
-    {id,senName,postCode,city,isActive}) => 
+    {device}) => 
 {
     return(
         
           <div className="deviceListItem">
                 <div className="text-container">
-                    <label>#{id}</label>
-                    <label>{senName}</label>
-                    <label>{postCode}</label>
-                    <label>{city}</label>
-                    <label>{isActive ? "Active" : "Inactive"}</label>
+                    <label>#{device.Id}</label>
+
+                    {/** Commenting Ctr+K+C, uncomment Ctr+U+C */}
+                    <label>{device.Location}</label>
+                    {/* <label>{senName}</label> */}
+                   {/* <label>{postCode}</label>*/}
+                    {/*<label>{city}</label>*/ }
+                    <label>{device.IsActive ? "Active" : "Inactive"}</label>
                 </div>
 
                 <div className="buttons-container">
