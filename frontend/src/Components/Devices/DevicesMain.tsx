@@ -29,6 +29,7 @@ const loadPiData = async () => {
             profileID: number;
             longitude: number;
             latitude: number;
+            isAccountConfirmed: boolean;
           }) => {
             let newPi: RaspberryPi = new RaspberryPi(
               o.id,
@@ -36,7 +37,8 @@ const loadPiData = async () => {
               o.isActive,
               o.profileID,
               +o.longitude,
-              +o.latitude
+              +o.latitude,
+              o.isAccountConfirmed
             );
             pis.push(newPi);
           }
@@ -73,7 +75,7 @@ const loadPiData = async () => {
                 <h1>My Devices</h1>
 
                     <div className="modalContainer">
-                             <button onClick={() => setModalIsShown(true)} className="AddDeviceButton">Add device</button>
+                             <button onClick={() => setModalIsShown(!modalIsShown)} className="AddDeviceButton">Add device</button>
                        { modalIsShown ? <AddDeviceModal/> : null}
                     </div>
 

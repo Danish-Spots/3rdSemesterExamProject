@@ -55,6 +55,7 @@ export const MapViewMain: React.FC<{}> = ({}) => {
               profileID: number;
               longitude: number;
               latitude: number;
+              isAccountConfirmed: boolean;
             }) => {
               if (+o.profileID === profileID) {
                 let newPi: RaspberryPi = new RaspberryPi(
@@ -63,7 +64,8 @@ export const MapViewMain: React.FC<{}> = ({}) => {
                   o.isActive,
                   o.profileID,
                   +o.longitude,
-                  +o.latitude
+                  +o.latitude,
+                  o.isAccountConfirmed
                 );
                 pis.push(newPi);
               }

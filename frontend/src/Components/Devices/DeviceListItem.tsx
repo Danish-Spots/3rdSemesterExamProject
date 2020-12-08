@@ -1,13 +1,23 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import ReactDOM from "react-dom"
 import RaspberryPi from "../../classes/RaspberryPi"
+import DeleteDeviceModal from "./DeleteDeviceModal"
+import DeleteDevice from "./DeleteDeviceModal"
 
 interface DeviceListItemProps {
     device:RaspberryPi 
 }
 
 export const DeviceListItem: React.FC<DeviceListItemProps> = (
-    {device}) => 
-{
+    {device}) => {
+    let [modalIsShown, setModalIsShown] = useState<boolean>(false)
+    
+
+    function closeModal(){
+        setModalIsShown(false)
+        console.log("closed")
+    }
+
     return(
         
           <div className="deviceListItem">
@@ -26,9 +36,12 @@ export const DeviceListItem: React.FC<DeviceListItemProps> = (
                     <button id="EditButton" className="editButton">
                         <img alt="Edit icon" src="/edit-pencil.png"></img>
                     </button>
-                    <button id="DeleteButton" className="deleteButton">
+                    <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}> 
+                                           
                     <img alt="Delete icon" src="/trashbin.png"></img>
                     </button>
+                    <DeleteDeviceModal device={device} showModal={modalIsShown} closeModal={closeModal}/>   
+                    
                 </div>
             </div>
         
