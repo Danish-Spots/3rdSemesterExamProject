@@ -1,10 +1,10 @@
 import Axios, { AxiosResponse, AxiosError } from "axios";
-import { marker } from "leaflet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import RaspberryPi from "../../classes/RaspberryPi";
 import { Map } from "../Map";
 import "../../css/map.scss";
-
+import { MapMarkerStoreContext } from "../../stores/MapMarkerStore";
+import { UserStoreContext } from "../../stores/UserStore";
 
 // interface Props {
 //     MarkerData: {
@@ -14,37 +14,13 @@ import "../../css/map.scss";
 //     }[];
 //   }
 
-export const MapViewMain: React.FC<{}> = ({}) => {
-  const [markerData, setMarkerData] = useState<
-    { ID: number; Text: string; Lat: number; Lon: number }[]
-  >([]);
+export const MapViewMain: React.FC<{}> = () => {
+  const mapMarkerStore = useContext(MapMarkerStoreContext);
+  const userStore = useContext(UserStoreContext);
 
   useEffect(() => {
     const loadPinData = async (sessionKey: string) => {
-      let userID: number = 0;
-      let profileID: number = 0;
       let pis: RaspberryPi[] = [];
-      console.log(sessionKey);
-      await Axios.get(
-        "https://fevr.azurewebsites.net/api/Sessions/getSessionKey=" +
-          sessionKey
-      ).then((response: AxiosResponse) => {
-        const data: { id: number; key: string; userID: number } = response.data;
-        userID = data.userID;
-      });
-      await Axios.get(
-        "https://fevr.azurewebsites.net/api/Users/" + userID
-      ).then((response: AxiosResponse) => {
-        const data: {
-          id: number;
-          userName: string;
-          password: string;
-          email: string;
-          profileID: number;
-        } = response.data;
-        profileID = data.profileID;
-      });
-      console.log(userID);
       await Axios.get("https://fevr.azurewebsites.net/api/RaspberryPis")
         .then((response: AxiosResponse) => {
           response.data.forEach(
@@ -56,7 +32,8 @@ export const MapViewMain: React.FC<{}> = ({}) => {
               longitude: number;
               latitude: number;
             }) => {
-              if (+o.profileID === profileID) {
+              console.log(o.profileID, userStore.profileID as number);
+              if (+o.profileID === (userStore.profileID as number)) {
                 let newPi: RaspberryPi = new RaspberryPi(
                   o.id,
                   o.location,
@@ -65,6 +42,7 @@ export const MapViewMain: React.FC<{}> = ({}) => {
                   +o.longitude,
                   +o.latitude
                 );
+                console.log("Correct ProfileID");
                 pis.push(newPi);
               }
             }
@@ -74,7 +52,6 @@ export const MapViewMain: React.FC<{}> = ({}) => {
           console.log(error);
         });
       let newMarkerData = pis.map((o) => {
-        console.log(o);
         return {
           ID: o.Id,
           Text: o.Location,
@@ -82,19 +59,18 @@ export const MapViewMain: React.FC<{}> = ({}) => {
           Lon: +o.Longitude,
         };
       });
-      setMarkerData([...newMarkerData]);
+      mapMarkerStore.change_Markers(newMarkerData);
     };
 
     loadPinData(sessionStorage.getItem("SessionKey") as string);
   }, []);
 
-  return( 
-  
-        <div className="main-container">
-          <h1>Map view</h1>
-          <div className="map-container">
-          <Map MarkerData={markerData} />
-          </div>
-        </div>
-      )
+  return (
+    <div className="main-container">
+      <h1>Map view</h1>
+      <div className="map-container">
+        <Map />
+      </div>
+    </div>
+  );
 };

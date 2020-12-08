@@ -6,7 +6,7 @@ class UserStore {
     @observable isLoggedIn = sessionStorage.getItem("SessionKey") !== null;
     @observable username = sessionStorage.getItem("Username") !== null ? sessionStorage.getItem("Username") : "";
     @observable sessionKey = sessionStorage.getItem("SessionKey") !== null ? sessionStorage.getItem("SessionKey") : "";
-    @observable profileID = sessionStorage.getItem("ProfileID") !== null ? sessionStorage.getItem("ProfileID") : 0;
+    @observable profileID = sessionStorage.getItem("ProfileID") !== null ? +sessionStorage.getItem("ProfileID")! : 0;
 
     @action
     change_setDefault() {

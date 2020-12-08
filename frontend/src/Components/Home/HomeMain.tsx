@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Map } from "../Map";
 import { InfoBox } from "./InfoBox";
 import "../../css/home.scss";
 import Axios, { AxiosResponse, AxiosError } from "axios";
 import RaspberryPi from "../../classes/RaspberryPi";
+import { MapMarkerStoreContext } from "../../stores/MapMarkerStore";
 
 export const HomeMain: React.FC<{}> = () => {
   const [infoData, setInfoData] = useState<
@@ -31,7 +32,7 @@ export const HomeMain: React.FC<{}> = () => {
     },
   ]);
 
-  const [markerData, setMarkerData] = useState<{ ID: number; Text: string; Lat: number; Lon: number }[]>([]);
+  const mapMarkerStore = useContext(MapMarkerStoreContext);
 
   useEffect(() => {
     const loadCardData = async () => {
@@ -103,9 +104,7 @@ export const HomeMain: React.FC<{}> = () => {
           console.log(error);
         });
 
-        
       let newMarkerData = pis.map((o) => {
-        console.log(o);
         return {
           ID: o.Id,
           Text: o.Location,
@@ -113,7 +112,7 @@ export const HomeMain: React.FC<{}> = () => {
           Lon: +o.Longitude,
         };
       });
-      setMarkerData([...newMarkerData]);
+      mapMarkerStore.change_Markers(newMarkerData);
     };
     loadCardData();
     loadPinData();
@@ -124,7 +123,7 @@ export const HomeMain: React.FC<{}> = () => {
       <h1>Home</h1>
       <InfoBox InfoData={infoData} />
       <h1>Devices</h1>
-      <Map MarkerData={markerData} />
+      <Map />
     </div>
   );
 };
