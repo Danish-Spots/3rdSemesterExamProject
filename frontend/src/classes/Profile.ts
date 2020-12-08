@@ -9,9 +9,6 @@ export default class Profile
     Country:string;
 
 
-    /**
-     *
-     */
     constructor(   
         id: number,
         companyName:string,

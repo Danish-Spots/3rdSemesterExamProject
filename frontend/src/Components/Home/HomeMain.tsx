@@ -31,9 +31,7 @@ export const HomeMain: React.FC<{}> = () => {
     },
   ]);
 
-  const [markerData, setMarkerData] = useState<
-    { ID: number; Text: string; Lat: number; Lon: number }[]
-  >([]);
+  const [markerData, setMarkerData] = useState<{ ID: number; Text: string; Lat: number; Lon: number }[]>([]);
 
   useEffect(() => {
     const loadCardData = async () => {
@@ -104,6 +102,8 @@ export const HomeMain: React.FC<{}> = () => {
         .catch((error: AxiosError) => {
           console.log(error);
         });
+
+        
       let newMarkerData = pis.map((o) => {
         console.log(o);
         return {

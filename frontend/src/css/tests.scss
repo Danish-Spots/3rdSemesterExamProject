@@ -1,0 +1,44 @@
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+
+.test-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 10px 45px;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px #00000094;
+}
+
+.noFever {
+  background-color: #57c09d;
+}
+
+.fever {
+  background-color: #e35959;
+}
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+  margin: auto;
+}
+
+.test-header h3 {
+  display: inline;
+  color: white;
+}
+
+.testList-container {
+  background-color: #7aa4e3;
+  padding: 25px;
+  border-radius: 25px;
+}
+
+.testList-container h1 {
+  margin-top: 10px;
+}

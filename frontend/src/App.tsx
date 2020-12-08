@@ -15,6 +15,7 @@ import { ProfileMain } from "./Components/Profile/ProfileMain";
 import LogoutMain from "./Components/Logout/LogoutMain";
 import { UserStoreContext } from "./stores/UserStore";
 import { observer } from "mobx-react-lite";
+import { ListViewMain } from "./Components/ListView/ListViewMain";
 
 const App: React.FC = observer(() => {
   const userStore = useContext(UserStoreContext);
@@ -78,6 +79,9 @@ const App: React.FC = observer(() => {
           </Route>
           <Route path="/profile">
             <ProfileMain />
+          </Route>
+          <Route path="/listview">
+            <ListViewMain />
           </Route>
           <Route path="/becomeacustomer">
             <h1 style={{ marginTop: "100px" }}>Become a customer</h1>
