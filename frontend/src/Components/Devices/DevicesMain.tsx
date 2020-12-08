@@ -75,7 +75,7 @@ const loadPiData = async () => {
                 <h1>My Devices</h1>
 
                     <div className="modalContainer">
-                             <button onClick={() => setModalIsShown(!modalIsShown)} className="AddDeviceButton">Add device</button>
+                             <button onClick={() => setModalIsShown(true)} className="AddDeviceButton">Add device</button>
                        { modalIsShown ? <AddDeviceModal/> : null}
                     </div>
 

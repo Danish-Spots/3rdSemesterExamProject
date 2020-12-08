@@ -13,11 +13,6 @@ export const DeviceListItem: React.FC<DeviceListItemProps> = (
     let [modalIsShown, setModalIsShown] = useState<boolean>(false)
     
 
-    function closeModal(){
-        setModalIsShown(false)
-        console.log("closed")
-    }
-
     return(
         
           <div className="deviceListItem">
@@ -30,17 +25,17 @@ export const DeviceListItem: React.FC<DeviceListItemProps> = (
                    {/* <label>{postCode}</label>*/}
                     {/*<label>{city}</label>*/ }
                     <label>{device.IsActive ? "Active" : "Inactive"}</label>
+                    <label>{device.IsAccountConfirmed ? "Not Confirmed" : "Confirmed"}</label>
                 </div>
 
                 <div className="buttons-container">
                     <button id="EditButton" className="editButton">
                         <img alt="Edit icon" src="/edit-pencil.png"></img>
                     </button>
-                    <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}> 
-                                           
+                    <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}>                                           
                     <img alt="Delete icon" src="/trashbin.png"></img>
                     </button>
-                    <DeleteDeviceModal device={device} showModal={modalIsShown} closeModal={closeModal}/>   
+                    <DeleteDeviceModal device={device} showModal={modalIsShown} closeModal={() => setModalIsShown(false)}/>   
                     
                 </div>
             </div>

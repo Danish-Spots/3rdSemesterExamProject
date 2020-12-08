@@ -1,0 +1,139 @@
+[1mdiff --git a/frontend/.eslintcache b/frontend/.eslintcache[m
+[1mindex 23173b9..1947d14 100644[m
+[1m--- a/frontend/.eslintcache[m
+[1m+++ b/frontend/.eslintcache[m
+[36m@@ -1 +1 @@[m
+[31m-[{"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\stores\\UserStore.ts":"1","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\MapView\\MapViewMain.tsx":"2","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\InfoCard.tsx":"3","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\AddDeviceModal.tsx":"4","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\classes\\RaspberryPi.ts":"5","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DevicesMain.tsx":"6","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\HomeMain.tsx":"7","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeviceListItem.tsx":"8","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeleteDeviceModal.tsx":"9","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\WhatIsFevR\\WhatIsFevR.tsx":"10"},{"size":1699,"mtime":1607435314337,"results":"11","hashOfConfig":"12"},{"size":3003,"mtime":1607438542748,"results":"13","hashOfConfig":"12"},{"size":324,"mtime":1607435314318,"results":"14","hashOfConfig":"12"},{"size":1000,"mtime":1607438277481,"results":"15","hashOfConfig":"12"},{"size":625,"mtime":1607438182550,"results":"16","hashOfConfig":"12"},{"size":2562,"mtime":1607452058522,"results":"17","hashOfConfig":"12"},{"size":4034,"mtime":1607438493899,"results":"18","hashOfConfig":"12"},{"size":1842,"mtime":1607455246527,"results":"19","hashOfConfig":"12"},{"size":2249,"mtime":1607455274830,"results":"20","hashOfConfig":"12"},{"size":3078,"mtime":1607435314326,"results":"21","hashOfConfig":"12"},{"filePath":"22","messages":"23","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"rsrizj",{"filePath":"24","messages":"25","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"26","messages":"27","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"28","messages":"29","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"30","messages":"31","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"32","messages":"33","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"34","messages":"35","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"36","messages":"37","errorCount":0,"warningCount":3,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"38","messages":"39","errorCount":0,"warningCount":4,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"40","messages":"41","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\stores\\UserStore.ts",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\MapView\\MapViewMain.tsx",["42","43"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\InfoCard.tsx",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\AddDeviceModal.tsx",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\classes\\RaspberryPi.ts",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DevicesMain.tsx",["44","45"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\HomeMain.tsx",["46"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeviceListItem.tsx",["47","48","49"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeleteDeviceModal.tsx",["50","51","52","53"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\WhatIsFevR\\WhatIsFevR.tsx",["54"],{"ruleId":"55","severity":1,"message":"56","line":2,"column":10,"nodeType":"57","messageId":"58","endLine":2,"endColumn":16},{"ruleId":"59","severity":1,"message":"60","line":17,"column":43,"nodeType":"61","messageId":"62","endLine":17,"endColumn":45},{"ruleId":"59","severity":1,"message":"60","line":12,"column":57,"nodeType":"61","messageId":"62","endLine":12,"endColumn":59},{"ruleId":"55","severity":1,"message":"63","line":16,"column":11,"nodeType":"57","messageId":"58","endLine":16,"endColumn":22},{"ruleId":"64","severity":1,"message":"65","line":122,"column":6,"nodeType":"66","endLine":122,"endColumn":8,"suggestions":"67"},{"ruleId":"55","severity":1,"message":"68","line":1,"column":17,"nodeType":"57","messageId":"58","endLine":1,"endColumn":26},{"ruleId":"55","severity":1,"message":"69","line":2,"column":8,"nodeType":"57","messageId":"58","endLine":2,"endColumn":16},{"ruleId":"55","severity":1,"message":"70","line":5,"column":8,"nodeType":"57","messageId":"58","endLine":5,"endColumn":20},{"ruleId":"55","severity":1,"message":"71","line":1,"column":17,"nodeType":"57","messageId":"58","endLine":1,"endColumn":34},{"ruleId":"55","severity":1,"message":"72","line":1,"column":36,"nodeType":"57","messageId":"58","endLine":1,"endColumn":47},{"ruleId":"55","severity":1,"message":"68","line":1,"column":49,"nodeType":"57","messageId":"58","endLine":1,"endColumn":58},{"ruleId":"55","severity":1,"message":"73","line":1,"column":60,"nodeType":"57","messageId":"58","endLine":1,"endColumn":68},{"ruleId":"59","severity":1,"message":"60","line":8,"column":55,"nodeType":"61","messageId":"62","endLine":8,"endColumn":57},"@typescript-eslint/no-unused-vars","'marker' is defined but never used.","Identifier","unusedVar","no-empty-pattern","Unexpected empty object pattern.","ObjectPattern","unexpected","'triggerText' is assigned a value but never used.","react-hooks/exhaustive-deps","React Hook useEffect has a missing dependency: 'infoData'. Either include it or remove the dependency array. You can also do a functional update 'setInfoData(i => ...)' if you only need 'infoData' in the 'setInfoData' call.","ArrayExpression",["74"],"'useEffect' is defined but never used.","'ReactDOM' is defined but never used.","'DeleteDevice' is defined but never used.","'MouseEventHandler' is defined but never used.","'ReactPortal' is defined but never used.","'useState' is defined but never used.",{"desc":"75","fix":"76"},"Update the dependencies array to be: [infoData]",{"range":"77","text":"78"},[3831,3833],"[infoData]"][m
+\ No newline at end of file[m
+[32m+[m[32m[{"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\stores\\UserStore.ts":"1","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\MapView\\MapViewMain.tsx":"2","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\InfoCard.tsx":"3","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\AddDeviceModal.tsx":"4","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\classes\\RaspberryPi.ts":"5","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DevicesMain.tsx":"6","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\HomeMain.tsx":"7","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeviceListItem.tsx":"8","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeleteDeviceModal.tsx":"9","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\WhatIsFevR\\WhatIsFevR.tsx":"10","C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Login\\LoginMain.tsx":"11"},{"size":1699,"mtime":1607435314337,"results":"12","hashOfConfig":"13"},{"size":3003,"mtime":1607456701359,"results":"14","hashOfConfig":"13"},{"size":324,"mtime":1607435314318,"results":"15","hashOfConfig":"13"},{"size":1000,"mtime":1607438277481,"results":"16","hashOfConfig":"13"},{"size":625,"mtime":1607438182550,"results":"17","hashOfConfig":"13"},{"size":2553,"mtime":1607456704127,"results":"18","hashOfConfig":"13"},{"size":4034,"mtime":1607438493899,"results":"19","hashOfConfig":"13"},{"size":1853,"mtime":1607456697914,"results":"20","hashOfConfig":"13"},{"size":1416,"mtime":1607456579605,"results":"21","hashOfConfig":"13"},{"size":3078,"mtime":1607435314326,"results":"22","hashOfConfig":"13"},{"size":2329,"mtime":1607456705105,"results":"23","hashOfConfig":"13"},{"filePath":"24","messages":"25","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"rsrizj",{"filePath":"26","messages":"27","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"28","messages":"29","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"30","messages":"31","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"32","messages":"33","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"34","messages":"35","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"36","messages":"37","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"38","messages":"39","errorCount":0,"warningCount":3,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"40","messages":"41","errorCount":0,"warningCount":4,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"42","messages":"43","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"44","messages":"45","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\stores\\UserStore.ts",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\MapView\\MapViewMain.tsx",["46","47"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\InfoCard.tsx",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\AddDeviceModal.tsx",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\classes\\RaspberryPi.ts",[],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DevicesMain.tsx",["48","49"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Home\\HomeMain.tsx",["50"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeviceListItem.tsx",["51","52","53"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Devices\\DeleteDeviceModal.tsx",["54","55","56","57"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\WhatIsFevR\\WhatIsFevR.tsx",["58"],"C:\\Users\\jhmai\\source\\repos\\3rdSemesterExamProject\\frontend\\src\\Components\\Login\\LoginMain.tsx",[],{"ruleId":"59","severity":1,"message":"60","line":2,"column":10,"nodeType":"61","messageId":"62","endLine":2,"endColumn":16},{"ruleId":"63","severity":1,"message":"64","line":17,"column":43,"nodeType":"65","messageId":"66","endLine":17,"endColumn":45},{"ruleId":"63","severity":1,"message":"64","line":12,"column":57,"nodeType":"65","messageId":"66","endLine":12,"endColumn":59},{"ruleId":"59","severity":1,"message":"67","line":16,"column":11,"nodeType":"61","messageId":"62","endLine":16,"endColumn":22},{"ruleId":"68","severity":1,"message":"69","line":122,"column":6,"nodeType":"70","endLine":122,"endColumn":8,"suggestions":"71"},{"ruleId":"59","severity":1,"message":"72","line":1,"column":17,"nodeType":"61","messageId":"62","endLine":1,"endColumn":26},{"ruleId":"59","severity":1,"message":"73","line":2,"column":8,"nodeType":"61","messageId":"62","endLine":2,"endColumn":16},{"ruleId":"59","severity":1,"message":"74","line":5,"column":8,"nodeType":"61","messageId":"62","endLine":5,"endColumn":20},{"ruleId":"59","severity":1,"message":"75","line":2,"column":17,"nodeType":"61","messageId":"62","endLine":2,"endColumn":34},{"ruleId":"59","severity":1,"message":"76","line":2,"column":36,"nodeType":"61","messageId":"62","endLine":2,"endColumn":47},{"ruleId":"59","severity":1,"message":"72","line":2,"column":49,"nodeType":"61","messageId":"62","endLine":2,"endColumn":58},{"ruleId":"59","severity":1,"message":"77","line":2,"column":60,"nodeType":"61","messageId":"62","endLine":2,"endColumn":68},{"ruleId":"63","severity":1,"message":"64","line":8,"column":55,"nodeType":"65","messageId":"66","endLine":8,"endColumn":57},"@typescript-eslint/no-unused-vars","'marker' is defined but never used.","Identifier","unusedVar","no-empty-pattern","Unexpected empty object pattern.","ObjectPattern","unexpected","'triggerText' is assigned a value but never used.","react-hooks/exhaustive-deps","React Hook useEffect has a missing dependency: 'infoData'. Either include it or remove the dependency array. You can also do a functional update 'setInfoData(i => ...)' if you only need 'infoData' in the 'setInfoData' call.","ArrayExpression",["78"],"'useEffect' is defined but never used.","'ReactDOM' is defined but never used.","'DeleteDevice' is defined but never used.","'MouseEventHandler' is defined but never used.","'ReactPortal' is defined but never used.","'useState' is defined but never used.",{"desc":"79","fix":"80"},"Update the dependencies array to be: [infoData]",{"range":"81","text":"82"},[3831,3833],"[infoData]"][m
+\ No newline at end of file[m
+[1mdiff --git a/frontend/src/Components/Devices/DeleteDeviceModal.tsx b/frontend/src/Components/Devices/DeleteDeviceModal.tsx[m
+[1mindex a9e0cf1..0d7d0c2 100644[m
+[1m--- a/frontend/src/Components/Devices/DeleteDeviceModal.tsx[m
+[1m+++ b/frontend/src/Components/Devices/DeleteDeviceModal.tsx[m
+[36m@@ -1,3 +1,4 @@[m
+[32m+[m[32mimport Axios, { AxiosError, AxiosResponse } from 'axios';[m
+ import React, { MouseEventHandler, ReactPortal, useEffect, useState } from 'react'[m
+ import ReactDOM from 'react-dom';[m
+ import RaspberryPi from '../../classes/RaspberryPi'[m
+[36m@@ -8,62 +9,32 @@[m [minterface DeleteDeviceProps {[m
+     device: RaspberryPi[m
+ }[m
+ [m
+[31m-[m
+[31m-[m
+ export const DeleteDeviceModal: React.FC<DeleteDeviceProps> = ({showModal, closeModal, device}) => {[m
+[32m+[m[41m    [m
+[32m+[m[32m    const DeleteDevice = async () => {[m
+[32m+[m[32m        Axios.delete(`https://fevr.azurewebsites.net/api/RaspberryPis/${device.Id}`[m
+[32m+[m[32m        )[m
+[32m+[m[32m        .then((response: AxiosResponse) => {[m
+[32m+[m[32m            //Waiting on styles[m
+[32m+[m[32m            console.log("Deleted Succesfully")[m
+[32m+[m[32m        })[m
+[32m+[m[32m        .catch((error: AxiosError) => {[m
+[32m+[m[32m            //Waiting on Styles[m
+[32m+[m[32m            console.log(error)[m
+[32m+[m[32m        })[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+     if (!showModal) return null[m
+     return ReactDOM.createPortal([m
+         <div className="OverlayContainer">[m
+             <div className="ModalContainer">[m
+                 <h3>Are you sure that you want to delete this device from the system?</h3>[m
+                 <button onClick={closeModal}>X</button>[m
+[31m-                <button>No</button>[m
+[31m-                <button>Yes</button>[m
+[31m-                <textarea>{device.Id}</textarea>[m
+[32m+[m[32m                <button onClick={closeModal}>No</button>[m
+[32m+[m[32m                <button onClick={DeleteDevice}>Yes</button>[m
+             </div>[m
+         </div>, document.getElementById("portal") as HTMLElement)[m
+     [m
+ }[m
+ [m
+[31m-[m
+[31m-// const modalRoot = document.getElementById('portal');[m
+[31m-[m
+[31m-// class DeleteDeviceModal extends React.Component{[m
+[31m-//     el: HTMLDivElement;[m
+[31m-//     constructor(props: DeleteDeviceProps){[m
+[31m-//         super(props)[m
+[31m-//         this.el = document.createElement("div")[m
+[31m-//         this.el.setAttribute("id", "portal-div-root")[m
+[31m-//         this.exitClickHandler = this.exitClickHandler.bind(this)[m
+[31m-[m
+[31m-//     }[m
+[31m-[m
+[31m-//     componentDidMount(){[m
+[31m-//         modalRoot?.appendChild(this.el)[m
+[31m-//     }[m
+[31m-[m
+[31m-//     exitClickHandler(){[m
+[31m-//         modalRoot?.removeChild(this.el) [m
+[31m-[m
+[31m-//     }[m
+[31m-[m
+[31m-//     // componentWillUnmount(){[m
+[31m-//     //     modalRoot?.removeChild(this.el)[m
+[31m-//     // }[m
+[31m-[m
+[31m-//     render(){[m
+[31m-//         return ReactDOM.createPortal([m
+[31m-//                         <div className="OverlayContainer">[m
+[31m-//                         <div className="ModalContainer">[m
+[31m-//                             <h3>Are you sure that you want to delete this device from the system?</h3>[m
+[31m-//                             <button onClick={this.exitClickHandler}>X</button>[m
+[31m-//                             <button>No</button>[m
+[31m-//                             <button>Yes</button>[m
+[31m-//                         </div>[m
+[31m-//                     </div>,[m
+[31m-//                     this.el[m
+[31m-//                 )[m
+[31m-//     }[m
+[31m-// }[m
+[31m-[m
+ export default DeleteDeviceModal[m
+\ No newline at end of file[m
+[1mdiff --git a/frontend/src/Components/Devices/DeviceListItem.tsx b/frontend/src/Components/Devices/DeviceListItem.tsx[m
+[1mindex 8b3fdcd..46a4686 100644[m
+[1m--- a/frontend/src/Components/Devices/DeviceListItem.tsx[m
+[1m+++ b/frontend/src/Components/Devices/DeviceListItem.tsx[m
+[36m@@ -13,11 +13,6 @@[m [mexport const DeviceListItem: React.FC<DeviceListItemProps> = ([m
+     let [modalIsShown, setModalIsShown] = useState<boolean>(false)[m
+     [m
+ [m
+[31m-    function closeModal(){[m
+[31m-        setModalIsShown(false)[m
+[31m-        console.log("closed")[m
+[31m-    }[m
+[31m-[m
+     return([m
+         [m
+           <div className="deviceListItem">[m
+[36m@@ -30,17 +25,17 @@[m [mexport const DeviceListItem: React.FC<DeviceListItemProps> = ([m
+                    {/* <label>{postCode}</label>*/}[m
+                     {/*<label>{city}</label>*/ }[m
+                     <label>{device.IsActive ? "Active" : "Inactive"}</label>[m
+[32m+[m[32m                    <label>{device.IsAccountConfirmed ? "Not Confirmed" : "Confirmed"}</label>[m
+                 </div>[m
+ [m
+                 <div className="buttons-container">[m
+                     <button id="EditButton" className="editButton">[m
+                         <img alt="Edit icon" src="/edit-pencil.png"></img>[m
+                     </button>[m
+[31m-                    <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}> [m
+[31m-                                           [m
+[32m+[m[32m                    <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}>[m[41m                                           [m
+                     <img alt="Delete icon" src="/trashbin.png"></img>[m
+                     </button>[m
+[31m-                    <DeleteDeviceModal device={device} showModal={modalIsShown} closeModal={closeModal}/>   [m
+[32m+[m[32m                    <DeleteDeviceModal device={device} showModal={modalIsShown} closeModal={() => setModalIsShown(false)}/>[m[41m   [m
+                     [m
+                 </div>[m
+             </div>[m
+[1mdiff --git a/frontend/src/Components/Devices/DevicesMain.tsx b/frontend/src/Components/Devices/DevicesMain.tsx[m
+[1mindex 6b36e2d..9025b94 100644[m
+[1m--- a/frontend/src/Components/Devices/DevicesMain.tsx[m
+[1m+++ b/frontend/src/Components/Devic
