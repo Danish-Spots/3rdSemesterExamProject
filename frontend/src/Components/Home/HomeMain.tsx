@@ -87,6 +87,7 @@ export const HomeMain: React.FC<{}> = () => {
               profileID: number;
               longitude: number;
               latitude: number;
+              isAccountConfirmed: boolean;
             }) => {
               let newPi: RaspberryPi = new RaspberryPi(
                 o.id,
@@ -94,7 +95,8 @@ export const HomeMain: React.FC<{}> = () => {
                 o.isActive,
                 o.profileID,
                 +o.longitude,
-                +o.latitude
+                +o.latitude,
+                o.isAccountConfirmed
               );
               pis.push(newPi);
             }

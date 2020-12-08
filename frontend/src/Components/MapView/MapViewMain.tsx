@@ -31,6 +31,7 @@ export const MapViewMain: React.FC<{}> = () => {
               profileID: number;
               longitude: number;
               latitude: number;
+              isAccountConfirmed: boolean;
             }) => {
               console.log(o.profileID, userStore.profileID as number);
               if (+o.profileID === (userStore.profileID as number)) {
@@ -40,7 +41,8 @@ export const MapViewMain: React.FC<{}> = () => {
                   o.isActive,
                   o.profileID,
                   +o.longitude,
-                  +o.latitude
+                  +o.latitude,
+                  o.isAccountConfirmed
                 );
                 console.log("Correct ProfileID");
                 pis.push(newPi);
