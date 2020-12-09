@@ -92,7 +92,7 @@ def Setup():
         "isActive": True,
         "profileID": profileID,
         "longitude": len(lon) > 20 and lon[:20] or lon,
-        "latitude": len(lat) > 20 and lon[:20] or lon,
+        "latitude": len(lat) > 20 and lat[:20] or lat,
         "isAccountConfirmed": False
     }
 

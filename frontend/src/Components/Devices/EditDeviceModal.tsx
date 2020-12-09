@@ -10,29 +10,49 @@ interface EditDeviceProps {
 }
 
 export const EditDeviceModal: React.FC<EditDeviceProps> = ({showModal, closeModal, device}) => {
-    const [location, setLocation] = useState<string>("")
+    const [location, setLocation] = useState<string>(device.Location)
     const [isActive, setIsActive] = useState<boolean>(device.IsActive)
     if (!showModal) return null
     const EditDevice = async () => {
         
         // Grab Location coord
-        console.log(device, device.Id)
-        Axios.put(`https://fevr.azurewebsites.net/api/RaspberryPis/${device.Id}`, {
-            id: device.Id, 
-            location: location, 
-            isActive: device.IsActive, 
-            profileID: device.ProfileID, 
-            longitude: device.Longitude,
-            latitude: device.Latitude,
-            isAccountConfirmed: device.IsAccountConfirmed
-        }
-        )
+        Axios.get("https://nominatim.openstreetmap.org/search?q=" + location.replace(" ", "%20")+"&format=jsonv2")
         .then((response: AxiosResponse) => {
-            console.log("Updated Successfully!")
+            try {
+                let data = response.data[0]
+                if (data === undefined){
+                    throw Error
+                }
+                else{
+                    let lat = data["lat"]
+                    let lon = data["lon"]
+                    Axios.put(`https://fevr.azurewebsites.net/api/RaspberryPis/${device.Id}`, {
+                        id: device.Id, 
+                        location: location, 
+                        isActive: isActive, 
+                        profileID: device.ProfileID, 
+                        longitude: lon,
+                        latitude: lat,
+                        isAccountConfirmed: device.IsAccountConfirmed
+                    }
+                    )
+                    .then((response: AxiosResponse) => {
+                        console.log("Updated Successfully!")
+                    })
+                    .catch((error: AxiosError) => {
+                        console.log(error)
+                    })
+                }
+            } 
+            catch (error) {
+                console.log("Error thrown")
+            }
+            
         })
         .catch((error: AxiosError) => {
-            console.log(error)
+            console.log("Location not found or api not available")
         })
+       
     }    
     
 

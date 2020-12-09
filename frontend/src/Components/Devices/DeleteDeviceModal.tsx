@@ -1,5 +1,5 @@
 import Axios, { AxiosError, AxiosResponse } from 'axios';
-import React, { MouseEventHandler, ReactPortal, useEffect, useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom';
 import RaspberryPi from '../../classes/RaspberryPi'
 import "../../css/deleteDevice.scss";
