@@ -7,12 +7,15 @@
 
 /* ********************** Profile card design *********************** */
 .profile-container {
-  display: flex;
   width: 70%;
-  justify-content: flex-start;
   background-color: #7aa4e3;
   padding: 30px;
   border-radius: 20px;
+  overflow: hidden;
+}
+.profile-flex {
+  display: flex;
+  justify-content: flex-start;
 }
 .profile-container img {
   height: 200px;
@@ -36,11 +39,12 @@
 }
 
 .profile-container button {
-  margin-left: 25px;
   height: auto;
-  margin-top: 23%;
+  // margin-top: 23%;
+  // margin-left: 25px;
   padding: 8px 25px;
   border-radius: 20px;
+  margin-left: 70%;
   border-style: solid;
   border: none;
   background-color: #ffb24a;
@@ -54,4 +58,32 @@
 
 .profile-container button:hover {
   background-color: #f1a23b;
+}
+
+/* MOBILE VIEW*/
+@media screen and (max-width: 990px) {
+  .profile-container {
+    width: 90%;
+    overflow: hidden;
+    padding-bottom: 15px;
+  }
+
+  .profile-container img {
+    height: 75px;
+    width: 75px;
+  }
+
+  .profileData-container h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .profile-container button {
+    margin-left: 50%;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .profileData-container label {
+    font-size: 80%;
+  }
 }

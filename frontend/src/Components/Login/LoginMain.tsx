@@ -32,7 +32,7 @@ const LoginMain: React.FC<Props> = observer((props) => {
             response.data.sessionKey,
             response.data.profileID
           );
-          props.history.push("/home_secure");
+          props.history.push("/");
         }
       })
       .catch((error: AxiosError) => {

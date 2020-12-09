@@ -37,7 +37,7 @@ const App: React.FC = observer(() => {
 
   const secureHeaderLinks = [
     {
-      Name: "home_secure",
+      Name: "",
       Text: "Dashboard",
     },
     {
@@ -45,12 +45,16 @@ const App: React.FC = observer(() => {
       Text: "Devices",
     },
     {
-      Name: "datarecords",
+      Name: "listview",
       Text: "Data Records",
     },
     {
       Name: "mapview",
       Text: "Map View",
+    },
+    {
+      Name: "profile",
+      Text: "Profile",
     },
     {
       Name: "logout",
