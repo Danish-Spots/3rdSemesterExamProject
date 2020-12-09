@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import DeviceListItem from './DeviceListItem'
 import "../../css/devices.scss"
 import Axios, { AxiosResponse, AxiosError } from "axios";
 import AddDeviceModal from "./AddDeviceModal"
 import RaspberryPi from '../../classes/RaspberryPi';
+import { UserStoreContext } from '../../stores/UserStore';
 
 interface DevicesMainProps {
         
@@ -11,8 +12,10 @@ interface DevicesMainProps {
 
 export const DevicesMain: React.FC<DevicesMainProps> = ({}) => {
 
-    const [modalIsShown, setModalIsShown] = React.useState<boolean>()
+    const [modalIsShown, setModalIsShown] = React.useState<boolean>(false)
     const [deviceData, setDeviceData] = React.useState<RaspberryPi[]>()
+    const userStore = useContext(UserStoreContext);
+    let profileId = userStore.profileID
     const triggerText = 'Add device';
 
 
@@ -51,7 +54,7 @@ const loadPiData = async () => {
     let userPiList:RaspberryPi[] = []
     pis.forEach( (o) => 
     {
-       if (o.ProfileID === 2) 
+       if (o.ProfileID === profileId) 
        {
            userPiList.push(o)
        } 
@@ -64,7 +67,7 @@ const loadPiData = async () => {
     React.useEffect(() => {
 
         loadPiData()
-    })
+    }, [])
 
 
     
@@ -76,7 +79,7 @@ const loadPiData = async () => {
 
                     <div className="modalContainer">
                              <button onClick={() => setModalIsShown(true)} className="AddDeviceButton">Add device</button>
-                       { modalIsShown ? <AddDeviceModal/> : null}
+                             <AddDeviceModal loadData={loadPiData} closeModal={() => setModalIsShown(false)} showModal={modalIsShown}/>
                     </div>
 
                 </div>
@@ -84,7 +87,7 @@ const loadPiData = async () => {
 
                 <div className="device-container">
                     {
-                        deviceData?.map( (o:RaspberryPi) => <DeviceListItem device={o} ></DeviceListItem> )
+                        deviceData?.map( (o:RaspberryPi) => <DeviceListItem key={o.Id} device={o} ></DeviceListItem> )
                     }
 
 
