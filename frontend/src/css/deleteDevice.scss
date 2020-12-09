@@ -1,0 +1,60 @@
+/*BACKGROUND COLOR 
+#7AA4E3 - light blue
+#546f98 - dark blue
+#e35959 - red
+#57c09d - green
+*/
+.ModalContainer-delete {
+  width: 25%;
+  z-index: 1000;
+  position: fixed;
+  top: 15%;
+  left: 37%;
+  background-color: white;
+  box-shadow: 3px 3px #0000004f;
+  border-radius: 20px;
+  height: 110px;
+  color: #7aa4e3;
+  padding: 15px 20px;
+}
+
+.OverlayContainer-delete {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(83, 83, 83, 0.473);
+  z-index: 1000;
+}
+
+.ModalContainer-delete h3 {
+  color: #7aa4e3;
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
+}
+.deleteButtonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+.deleteButtonsContainer button {
+  margin-right: 5px;
+  border-radius: 15px;
+  padding: 5px 20px;
+  border-style: solid;
+  border: 0;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px black;
+  background: #7aa4e3;
+}
+.deleteButtonsContainer button:hover {
+  background-color: #5e8cd1;
+}
+
+.deleteButtonsContainer button:focus {
+  outline: none;
+}
