@@ -12,9 +12,9 @@ export const TestListItem: React.FC<TestListItemProps> = ({test}) => {
     
     return (
            <div className={`${test.HasFever ? "fever" : "noFever"} test-container`}>
-                <label>#{test.Id}</label>
-                <label>{test.Temperature.toPrecision(4)} °C</label>
-                <label>{test.HasFever ? "Fever" : "No fever"}</label>
+                <label style={{width:"60px"}} >#{test.Id}</label>
+                <label className="testInfo">{test.Temperature.toPrecision(4)} °C</label>
+                <label className="testInfo">{test.HasFever ? "Fever" : "No fever"}</label>
                 <label>{Moment(test.TimeOfDataRecording).format('d MMM YYYY')}</label>
             </div>
         );

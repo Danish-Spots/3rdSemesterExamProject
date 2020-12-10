@@ -54,7 +54,7 @@ const loadPiData = async () => {
     let userPiList:RaspberryPi[] = []
     pis.forEach( (o) => 
     {
-       if (o.ProfileID === profileId) 
+       if (o.ProfileID === profileId && o.IsAccountConfirmed === true) 
        {
            userPiList.push(o)
        } 
@@ -65,8 +65,7 @@ const loadPiData = async () => {
 
 
     React.useEffect(() => {
-
-        loadPiData()
+      loadPiData()
     }, [])
 
 
@@ -87,7 +86,7 @@ const loadPiData = async () => {
 
                 <div className="device-container">
                     {
-                        deviceData?.map( (o:RaspberryPi) => <DeviceListItem key={o.Id} device={o} ></DeviceListItem> )
+                        deviceData?.map( (o:RaspberryPi) =>  <DeviceListItem key={o.Id} device={o}/>)
                     }
 
 

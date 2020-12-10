@@ -3,18 +3,20 @@ import React, { useContext } from "react";
 import Profile from "../../classes/Profile";
 import ProfileCard from "./ProfileCard";
 import "../../css/profile.scss";
-import { ProfileStoreContext } from "../../stores/ProfileStore";
 import { observer } from "mobx-react-lite";
+import { UserStoreContext } from '../../stores/UserStore';
+
 
 interface ProfileMainProps {}
 
 export const ProfileMain: React.FC<ProfileMainProps> = observer(() => {
-  const profileStore = useContext(ProfileStoreContext);
+  const userStore = useContext(UserStoreContext);
+  let profileId = userStore.profileID
 
   return (
     <div className="main-container">
       <h1> Profiles </h1>
-      <ProfileCard profile={profileStore.profile} />
+      <ProfileCard  userID={profileId} />
     </div>
   );
 });

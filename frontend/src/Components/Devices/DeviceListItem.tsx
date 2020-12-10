@@ -20,22 +20,18 @@ export const DeviceListItem: React.FC<DeviceListItemProps> = (
           <div className="deviceListItem">
                 <div className="text-container">
                     <label>#{device.Id}</label>
-
                     {/** Commenting Ctr+K+C, uncomment Ctr+U+C */}
-                    <label>{device.Location}</label>
+                    <label id="deviceLocation">{device.Location}</label>
                     {/* <label>{senName}</label> */}
                    {/* <label>{postCode}</label>*/}
                     {/*<label>{city}</label>*/ }
                     <label>{device.IsActive ? "Active" : "Inactive"}</label>
-                    <label>{device.IsAccountConfirmed ? "Confirmed" : "Not Confirmed"}</label>
                 </div>
                 
                 <div className="buttons-container">
                     <button id="EditButton" className="editButton" onClick={() => setModalIsShownEdit(true)}>
                         <img alt="Edit icon" src="/edit-pencil.png"></img>
                     </button>
-                    
-                    
                     <button id="DeleteButton" className="deleteButton" onClick={() => setModalIsShown(true)}>                                           
                     <img alt="Delete icon" src="/trashbin.png"></img>
                     </button>

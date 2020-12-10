@@ -6,10 +6,10 @@ import Profile from "../../classes/Profile";
 import Axios, { AxiosResponse, AxiosError } from "axios";
 
 interface Props {
-  profile: Profile;
+  userID:number;
 }
 
-export const ProfileCard: React.FC<Props> = observer(({ profile }) => {
+export const ProfileCard: React.FC<Props> = observer(({  userID }) => {
   const profileStore = useContext(ProfileStoreContext);
 
   let [newProfile, setNewProfile] = useState<Profile>(profileStore.profile);
@@ -29,8 +29,7 @@ export const ProfileCard: React.FC<Props> = observer(({ profile }) => {
       "null",
       "null"
     );
-    console.log(profile);
-    await Axios.get("https://fevr.azurewebsites.net/api/profiles/2")
+    await Axios.get("https://fevr.azurewebsites.net/api/profiles/" + userID)
       .then((response: AxiosResponse) => {
         profile.Id = response.data.id;
         profile.CompanyName = response.data.companyName;

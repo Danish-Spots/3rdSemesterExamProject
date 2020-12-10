@@ -75,13 +75,12 @@ export const AddDeviceModal: React.FC<AddDeviceModalProps> = ({closeModal, showM
       return ReactDOM.createPortal(
         <div className="OverlayContainer" >
         <div className="ModalContainer" >
-          <h1>Add new device
-          <button onClick={closeModal}>Close</button>
-          </h1>
+          <div className="addDeviceTitle">   
+          <h1>Add new device</h1>       
+          <button id="closeButton" onClick={closeModal}>X</button>
+          </div>
           
           <form>
-
-
           <div className="AddDeviceHeader">
 
             <div className="inputContainer">
@@ -90,8 +89,7 @@ export const AddDeviceModal: React.FC<AddDeviceModalProps> = ({closeModal, showM
             <div className="inputContainer">
               <label>Profile ID</label>
               <label>#{profileId}</label>
-            </div>
-            
+            </div>            
           </div>
 
           <div className="pendingDeviceContainer">

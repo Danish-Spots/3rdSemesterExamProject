@@ -50,11 +50,10 @@ export const AddDeviceListItem: React.FC<AddDeviceListItemProps> = (
                     <label>#{device.Id}</label>
 
                     {/** Commenting Ctr+K+C, uncomment Ctr+U+C */}
-                    <label>{device.Location}</label>
+                    <label id="deviceLocation">{device.Location}</label>
                     {/* <label>{senName}</label> */}
                    {/* <label>{postCode}</label>*/}
                     {/*<label>{city}</label>*/ }
-                    <label>{device.IsActive ? "Active" : "Inactive"}</label>
                     <label>{device.IsAccountConfirmed ? "Confirmed" : "Not Confirmed"}</label>
                 </div>
                 
