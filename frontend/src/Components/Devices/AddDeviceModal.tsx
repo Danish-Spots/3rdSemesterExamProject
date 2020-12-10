@@ -31,8 +31,8 @@ export const AddDeviceModal: React.FC<AddDeviceModalProps> = ({closeModal, showM
               location: string;
               isActive: boolean;
               profileID: number;
-              longitude: number;
-              latitude: number;
+              longitude: string;
+              latitude: string;
               isAccountConfirmed: boolean;
             }) => {
               let newPi: RaspberryPi = new RaspberryPi(
