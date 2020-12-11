@@ -1,6 +1,7 @@
 import Axios, { AxiosError, AxiosResponse } from 'axios';
 import React, { MouseEventHandler, ReactPortal, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
+import "../../css/editDevice.scss"
 import RaspberryPi from '../../classes/RaspberryPi'
 
 interface EditDeviceProps {
@@ -38,6 +39,7 @@ export const EditDeviceModal: React.FC<EditDeviceProps> = ({showModal, closeModa
                     )
                     .then((response: AxiosResponse) => {
                         console.log("Updated Successfully!")
+                        closeModal();
                     })
                     .catch((error: AxiosError) => {
                         console.log(error)
@@ -58,19 +60,24 @@ export const EditDeviceModal: React.FC<EditDeviceProps> = ({showModal, closeModa
 
     return ReactDOM.createPortal(
         <div className="OverlayContainer">
-            <div className="ModalContainer">
+            <div className="ModalContainer-edit">
                 <h3>Enter the information you wish to change</h3>
                 <form>
                     <label>Location: 
-                        <input type="text" value={location} onChange={e => setLocation(e.target.value)}/>
+                        <input id="devicename-input" type="text" value={location} onChange={e => setLocation(e.target.value)}/>
                     </label>
                     <br/>
                     <label>Is Active: 
-                        <input type="checkbox" checked={isActive} onChange={e => setIsActive(e.target.checked)}/>
+                        <input id="isActive-input" type="checkbox" checked={isActive} onChange={e => setIsActive(e.target.checked)}/>
                     </label>
-                    <button type="button" onClick={closeModal}>X</button>
+                    
+                    <p>*After editing a device the page may be reloaded.</p>
+
+                    
+                    <div className="editButtonsContainer">
                     <button type="button" onClick={closeModal}>Cancel</button>
                     <button type="button" onClick={EditDevice}>Confirm</button>
+                    </div>
                 </form>
                 
             </div>

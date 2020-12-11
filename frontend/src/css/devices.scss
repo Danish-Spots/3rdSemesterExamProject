@@ -91,6 +91,19 @@ button img {
   text-align: left;
 }
 
+.devices-header {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+  margin: auto;
+}
+
+.devices-header h3 {
+  display: inline;
+  color: #546f98;
+  text-shadow: none;
+}
+
 /* *****************  Add device   ******************* */
 .head-container {
   display: flex;

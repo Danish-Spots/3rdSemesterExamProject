@@ -1,0 +1,76 @@
+.ModalContainer-edit {
+  width: 35%;
+  z-index: 1000;
+  padding: 30px;
+  position: fixed;
+  left: 31%;
+  top: 20%;
+  background-color: white;
+  box-shadow: 3px 3px #0000004f;
+  border-radius: 20px;
+  color: #7aa4e3;
+}
+.ModalContainer-edit h3 {
+  color: #546f98;
+  text-shadow: none;
+  margin-bottom: 25px;
+}
+
+.ModalContainer-edit label {
+  font-size: 19px;
+  padding-left: 0px;
+}
+.ModalContainer-edit p {
+  font-size: 12px;
+  padding-left: 0px;
+  margin: 8px 0;
+  text-shadow: none;
+}
+
+#devicename-input {
+  margin: 10px 0;
+  font-size: 20px;
+  border-radius: 25px;
+  width: 95%;
+  padding: 5px;
+  align-items: center;
+  padding-left: 15px;
+  border-color: white;
+  background-color: #7aa4e3;
+  color: white;
+  border: 0;
+  height: 28px;
+  border-style: solid;
+}
+#devicename-input:focus {
+  outline: none;
+}
+
+#isActive-input {
+  padding: 10px;
+  margin-left: 15px;
+}
+
+.editButtonsContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editButtonsContainer button {
+  margin-right: 5px;
+  border-radius: 15px;
+  padding: 5px 20px;
+  border-style: solid;
+  border: 0;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px black;
+  background: #7aa4e3;
+}
+.editButtonsContainer button:hover {
+  background-color: #5e8cd1;
+}
+
+.editButtonsContainer button:focus {
+  outline: none;
+}

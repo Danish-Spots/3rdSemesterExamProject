@@ -82,9 +82,15 @@ const loadPiData = async () => {
                     </div>
 
                 </div>
-
+                <div className="devices-header">
+                    <h3>ID</h3>
+                    <h3>Location</h3>
+                    <h3>Status</h3>
+                    <h2></h2>
+                </div>
 
                 <div className="device-container">
+                    
                     {
                         deviceData?.map( (o:RaspberryPi) =>  <DeviceListItem key={o.Id} device={o}/>)
                     }

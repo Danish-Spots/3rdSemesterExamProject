@@ -70,6 +70,7 @@ export const ListViewMain: React.FC<ListViewMainProps> = ({}) => {
                     <h3>ID</h3>
                     <h3>Temperature</h3>
                     <h3>Has fever</h3>
+                    <h3>Sensor ID</h3>
                     <h3>Recorded</h3>
                 </div>
                      {TestsData.map((o) =>  {return <TestListItem key={o.Id} test= {o} />;})}

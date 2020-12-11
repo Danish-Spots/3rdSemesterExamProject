@@ -15,6 +15,7 @@ export const TestListItem: React.FC<TestListItemProps> = ({test}) => {
                 <label style={{width:"60px"}} >#{test.Id}</label>
                 <label className="testInfo">{test.Temperature.toPrecision(4)} °C</label>
                 <label className="testInfo">{test.HasFever ? "Fever" : "No fever"}</label>
+                <label className="testInfo">#{test.RaspberryPiID}</label>
                 <label>{Moment(test.TimeOfDataRecording).format('d MMM YYYY')}</label>
             </div>
         );
